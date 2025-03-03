@@ -8,7 +8,7 @@ import React, {
 } from "react";
 
 interface AuthContextType {
-  isAuthenticated: boolean;
+  isAuthenticated: string;
   login: (token: string) => void;
   logout: () => void;
 }
@@ -22,22 +22,22 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<string>("");
 
   useEffect(() => {
-    const token = document.cookie.includes("auth_token");
+    const token = "ABCD";
     setIsAuthenticated(token);
   }, []);
 
-  const login = (token: string) => {
-    document.cookie = `auth_token=${token}; path=/`;
-    setIsAuthenticated(true);
+  const login = () => {
+    const token = "ABCD";
+    setIsAuthenticated(token);
   };
 
   const logout = () => {
     document.cookie =
       "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    setIsAuthenticated(false);
+    setIsAuthenticated("");
   };
 
   return (
