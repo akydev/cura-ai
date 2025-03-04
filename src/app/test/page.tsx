@@ -2,12 +2,14 @@
 import React from "react";
 import DoctorList from "../Components/DoctorList";
 import SpecialtyList from "../Components/SpecialtyList";
+import ViewAppointment from "../Components/ViewAppointment";
 
 function page() {
   return (
     <>
-      <DoctorList />
-      <SpecialtyList />
+      <ViewAppointment />
+      {/* <DoctorList />
+      <SpecialtyList /> */}
     </>
   );
 }
