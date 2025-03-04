@@ -2,21 +2,31 @@ import React from "react";
 import { AccessTime, LocationOn } from "@mui/icons-material";
 import {
   Avatar,
+  Box,
   Button,
   Card,
   CardContent,
+  Container,
   Grid2,
   Typography,
 } from "@mui/material";
+import { useFetch } from "../customhook/useFetch";
+import { IAppointmentList } from "../type/IAppointmentList";
 
 function ViewAppointment() {
+  const [loading, data, error] = useFetch<IAppointmentList>("/appointments");
+  console.log(data);
   return (
-    <div style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>
+    <Container>
+    <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>
       <Typography variant="h4" gutterBottom align="center">
         Your Appointment Details
       </Typography>
-
-      <Card
+      </Box>
+ <Grid2 container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+   {}
+   <Grid2 size={4} key={value._id}>
+   <Card
         sx={{
           maxWidth: 400,
           margin: "1.5rem auto",
@@ -92,7 +102,10 @@ function ViewAppointment() {
           </Grid2>
         </CardContent>
       </Card>
-    </div>
+   </Grid2>
+ </Grid2>
+     
+    </Container>
   );
 }
 
