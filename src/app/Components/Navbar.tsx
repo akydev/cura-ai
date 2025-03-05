@@ -37,15 +37,21 @@ function Navbar() {
 
           {/* Right Side: Navigation Links */}
           <Box sx={{ display: "flex", gap: 3 }}>
-            <Button color="inherit">About</Button>
-            <Button color="inherit">Contact</Button>
-            <Button color="inherit">Service</Button>
-            <Link href="/profile">
-              <Button color="inherit">DocProfile</Button>
+            <Link href="/about">
+              <Button color="inherit">About</Button>
             </Link>
-            <Button color="inherit">PaitProfile</Button>
-            <Button color="inherit">Sign up</Button>
-            <Button color="inherit">Log in</Button>
+            <Link href="/contact">
+              <Button color="inherit">Contact</Button>
+            </Link>
+            <Link href="/service">
+              <Button color="inherit">Service</Button>
+            </Link>
+            <Link href="/signup">
+              <Button color="inherit">Sign up</Button>
+            </Link>
+            <Link href="/login">
+              <Button color="inherit">Log in</Button>
+            </Link>
           </Box>
         </Toolbar>
       </AppBar>
