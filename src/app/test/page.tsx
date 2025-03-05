@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import DoctorList from "../Components/DoctorList";
-import SpecialtyList from "../Components/SpecialtyList";
-import ViewAppointment from "../Components/ViewAppointment";
-import SpecialtySkeleton from "../skeleton/SpecialtySkeleton";
-import ViewAppointmentSkeleton from "../skeleton/ViewAppointmentSkeleton";
-import DoctorLIstSkeleton from "../skeleton/DoctorLIstSkeleton";
+import DoctorList from "../components/DoctorList";
+import SpecialtyList from "../components/SpecialtyList";
+import ViewAppointment from "../components/ViewAppointment";
+import SpecialtySkeleton from "../common/skeleton/SpecialtySkeleton";
+import ViewAppointmentSkeleton from "../common/skeleton/ViewAppointmentSkeleton";
+import DoctorLIstSkeleton from "../common/skeleton/DoctorLIstSkeleton";
 
 function page() {
   return (
@@ -13,7 +13,7 @@ function page() {
       {/* <ViewAppointment /> */}
       {/* <ViewAppointmentSkeleton /> */}
       {/* <DoctorList /> */}
-      <DoctorLIstSkeleton />
+      {/* <DoctorLIstSkeleton /> */}
       {/* <SpecialtySkeleton /> */}
       {/* <SpecialtyList /> */}
     </>

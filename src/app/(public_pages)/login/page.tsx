@@ -173,7 +173,7 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useCallback, useState } from "react";
-import authFetch from "../axiosBase/custom";
+import authFetch from "../../axiosBase/custom";
 
 function page() {
   console.log("✅ Form Component Rendered");
@@ -252,14 +252,12 @@ function page() {
           }}
         >
           <Box
-            sx={
-              {
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                textAlign: "center",
-              }
-            }
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+            }}
           >
             <img
               src="/logo/cura-ai.png"

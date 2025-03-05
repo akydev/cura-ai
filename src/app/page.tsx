@@ -1,11 +1,11 @@
 "use client";
-import DoctorList from "./Components/DoctorList";
-import DoctorProfile from "./Components/DoctorProfile";
-import FooterBar from "./Components/Footerbar";
-import HeroSection from "./Components/HeroSection";
-import Navbar from "./Components/Navbar";
-import SpecialtyList from "./Components/SpecialtyList";
-import ViewAppointment from "./Components/ViewAppointment";
+import DoctorList from "./components/DoctorList";
+import DoctorProfile from "./components/DoctorProfile";
+import FooterBar from "./components/Footerbar";
+import HeroSection from "./components/HeroSection";
+import Navbar from "./components/Navbar";
+import SpecialtyList from "./components/SpecialtyList";
+import ViewAppointment from "./components/ViewAppointment";
 
 export default function Home() {
   return (

@@ -10,8 +10,8 @@ import {
   CardMedia,
   Avatar,
 } from "@mui/material";
-import Navbar from "../Components/Navbar";
-import FooterBar from "../Components/Footerbar";
+import Navbar from "../../components/Navbar";
+import FooterBar from "../../components/Footerbar";
 
 // Define styles and components for the homepage
 const HomePage = () => {

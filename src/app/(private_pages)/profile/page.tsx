@@ -1,8 +1,8 @@
 "use client";
 
 import { Typography } from "@mui/material";
-import DoctorProfile from "../Components/DoctorProfile";
-import UserProfile from "../Components/UserProfile";
+import DoctorProfile from "../../components/DoctorProfile";
+import UserProfile from "../../components/UserProfile";
 import { useEffect, useState } from "react";
 
 function page() {

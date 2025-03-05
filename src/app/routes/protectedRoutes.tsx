@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 
-const PUBLIC_ROUTES = ["/", "/login", "/signup", "/profile", "/test"]; // Public pages
+const PUBLIC_ROUTES = ["/", "/login", "/signup", "/profile", "/test","/project"]; // Public pages
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { login, logout } = useAuth();
