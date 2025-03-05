@@ -209,17 +209,17 @@ function page() {
           email,
           password,
         });
-       
+
         console.log(res.data); // Successful response
 
-    // Store the token and userId in localStorage or sessionStorage
-    const { token, userId, role } = res.data;
-    localStorage.setItem("token", token); // Store token
-    localStorage.setItem("userId", userId); // Store user ID
-    localStorage.setItem("role", role); // Store role
+        // Store the token and userId in localStorage or sessionStorage
+        const { token, userId, role } = res.data;
+        localStorage.setItem("token", token); // Store token
+        localStorage.setItem("userId", userId); // Store user ID
+        localStorage.setItem("role", role); // Store role
 
-    // Optionally store in state if needed for immediate access within the app
-    setFormData({ email: "", password: "" }); // Reset the form
+        // Optionally store in state if needed for immediate access within the app
+        setFormData({ email: "", password: "" }); // Reset the form
       } catch (error: any) {
         console.log(error.response?.data?.msg || "An error occurred");
       } finally {
@@ -252,9 +252,14 @@ function page() {
             }}
           >
             <img
-              src="/images/hero-background.png"
+              src="/logo/cura-ai.png"
               alt="Logo"
-              style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+              style={{
+                width: "50%",
+                maxWidth: "200px",
+                height: "auto",
+                borderRadius: "10px",
+              }}
             />
             <Typography variant="h4" sx={{ mt: 3 }}>
               Welcome to Our Platform
