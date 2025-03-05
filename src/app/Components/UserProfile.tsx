@@ -17,11 +17,11 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { CalendarToday, Email, Phone } from "@mui/icons-material";
 import { useFetch } from "../customhook/useFetch";
-import { IDoctor } from "../type/IDoctor";
+import { Iuser } from "../type/IUser";
 
-const DoctorProfile = () => {
-  const { loading, data, error } = useFetch<IDoctor>("/accounts/profile");
-  console.log(data);
+const UserProfile = () => {
+  const { loading, data, error } = useFetch<Iuser>("/accounts/profile");
+  // console.log(data);
 
   return (
     <Container
@@ -64,6 +64,7 @@ const DoctorProfile = () => {
                 }}
               />
             </Grid> */}
+
             <Typography
               variant="h5"
               textAlign="center"
@@ -71,13 +72,14 @@ const DoctorProfile = () => {
             >
               {data.firstName} {data.lastName}
             </Typography>
-            <Typography
-              variant="subtitle1"
-              textAlign="center"
-              sx={{ color: "#757575", marginBottom: 3 }}
-            >
-              {data.specializationId.title}
-            </Typography>
+            {/* <Typography
+            variant="subtitle1"
+            textAlign="center"
+            sx={{ color: "#757575", marginBottom: 3 }}
+          >
+            Cardiology Specialist
+          </Typography> */}
+
             {/* Accordion for Personal Information */}
             <Accordion sx={{ marginBottom: 2 }}>
               <AccordionSummary
@@ -127,37 +129,7 @@ const DoctorProfile = () => {
                 </Typography>
               </AccordionDetails>
             </Accordion>
-            {/* Accordion for Professional Information */}
-            <Accordion sx={{ marginBottom: 2 }}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                id="professional-info-header"
-              >
-                <Typography sx={{ fontWeight: "bold", color: "#3f51b5" }}>
-                  Professional Details
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails sx={{ paddingTop: 0 }}>
-                <Typography
-                  variant="body2"
-                  sx={{ color: "#757575", marginBottom: 1 }}
-                >
-                  <strong>Specialization:</strong> {data.specializationId.title}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ color: "#757575", marginBottom: 1 }}
-                >
-                  <strong>License Number:</strong> {data.licenseNumber}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ color: "#757575", marginBottom: 3 }}
-                >
-                  <strong>Experience:</strong> {data.experience}
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
+
             {/* Address Information */}
             <Typography variant="h6" sx={{ color: "#3f51b5", marginBottom: 2 }}>
               Address Information
@@ -224,4 +196,4 @@ const DoctorProfile = () => {
   );
 };
 
-export default DoctorProfile;
+export default UserProfile;
