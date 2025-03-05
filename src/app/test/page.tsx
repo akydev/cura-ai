@@ -5,13 +5,15 @@ import SpecialtyList from "../Components/SpecialtyList";
 import ViewAppointment from "../Components/ViewAppointment";
 import SpecialtySkeleton from "../skeleton/SpecialtySkeleton";
 import ViewAppointmentSkeleton from "../skeleton/ViewAppointmentSkeleton";
+import DoctorLIstSkeleton from "../skeleton/DoctorLIstSkeleton";
 
 function page() {
   return (
     <>
       {/* <ViewAppointment /> */}
-      <ViewAppointmentSkeleton />
+      {/* <ViewAppointmentSkeleton /> */}
       {/* <DoctorList /> */}
+      <DoctorLIstSkeleton />
       {/* <SpecialtySkeleton /> */}
       {/* <SpecialtyList /> */}
     </>
