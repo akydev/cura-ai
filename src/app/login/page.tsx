@@ -242,14 +242,24 @@ function page() {
     >
       <Grid2 container spacing={2} columns={12}>
         {/* Left Section (Logo and Welcome Message) */}
-        <Grid2 size={6}>
+        <Grid2
+          size={6}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              textAlign: "center",
-            }}
+            sx={
+              {
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+              }
+            }
           >
             <img
               src="/logo/cura-ai.png"

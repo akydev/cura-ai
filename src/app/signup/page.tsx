@@ -56,7 +56,14 @@ function page() {
     >
       <Grid2 container spacing={2} columns={{ xs: 4, sm: 4, md: 12 }}>
         {/* Left Section (Logo and Welcome Message) */}
-        <Grid2 size={{ xs: 4, sm: 4, md: 6 }}>
+        <Grid2 size={{ xs: 4, sm: 4, md: 6 }}
+         sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        >
           <Box
             sx={{
               display: "flex",
