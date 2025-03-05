@@ -25,13 +25,15 @@ function Navbar() {
         >
           {/* Left Side: Logo and Title */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <img
-              src="/logo/cura-ai.png" // Ensure the logo is placed in the 'public' folder
-              alt="Website Logo"
-              style={{ height: "40px", marginRight: "10px" }}
-            />
+            <Link href="/">
+              <img
+                src="/logo/cura-ai.png" // Ensure the logo is placed in the 'public' folder
+                alt="Website Logo"
+                style={{ height: "40px", marginRight: "10px" }}
+              />
+            </Link>
             <Typography variant="h6" color="inherit">
-              E Medical Hub
+              Cura Ai
             </Typography>
           </Box>
 
