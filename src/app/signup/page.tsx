@@ -66,9 +66,14 @@ function page() {
             }}
           >
             <img
-              src="/images/hero-background.png"
+              src="/logo/cura-ai.png"
               alt="Logo"
-              style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+              style={{
+                width: "50%",
+                maxWidth: "200px",
+                height: "auto",
+                borderRadius: "10px",
+              }}
             />
             <Typography variant="h4" sx={{ mt: 3 }}>
               Welcome to Our Platform

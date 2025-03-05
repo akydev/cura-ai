@@ -26,7 +26,7 @@ function Navbar() {
           {/* Left Side: Logo and Title */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <img
-              src="/public/logo/cura-ai.png" // Ensure the logo is placed in the 'public' folder
+              src="/logo/cura-ai.png" // Ensure the logo is placed in the 'public' folder
               alt="Website Logo"
               style={{ height: "40px", marginRight: "10px" }}
             />
