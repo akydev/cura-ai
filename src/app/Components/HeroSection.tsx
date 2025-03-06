@@ -51,7 +51,8 @@ const HeroSection = () => (
       >
         {/* Your Health, Our Priority. */}
         {/* Digital Experiences */}
-        Medical Hub
+        {/* Cura Ai */}
+        CURA AI
       </Typography>
 
       <Button variant="contained" color="primary" href="#gallery">

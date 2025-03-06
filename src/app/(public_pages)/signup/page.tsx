@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Box,
   Button,
@@ -16,18 +16,17 @@ import {
   Typography,
 } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
-const initialValues = {
-  // step-1
+import authFetch from "@/app/axiosBase/custom";
+import { IUserSignup } from "@/app/type/IUserSignup";
+const initialValues: IUserSignup = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
   confirmPassword: "",
-  // step-2
   dob: "",
   gender: "",
   phone: "",
-  // step3
   addressLine: "",
   city: "",
   state: "",
@@ -36,6 +35,56 @@ const initialValues = {
 };
 
 function page() {
+  const [formData, setFormData] = useState(initialValues);
+  const [loading, setLoading] = useState(false);
+
+  //Handle input changes
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
+    },
+    []
+  );
+
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      if (!formData) {
+        console.log("All fields are required");
+        return;
+      }
+      const data = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+        dob: formData.dob,
+        gender: formData.gender,
+        phone: formData.phone,
+        fullAddress: {
+          addressLine: formData.addressLine,
+          city: formData.city,
+          state: formData.state,
+          country: formData.country,
+          pincode: formData.pincode,
+        },
+      };
+      try {
+        setLoading(true);
+        const res = await authFetch.post("/patients", data);
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.response?.data?.msg || "An error occurred");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [formData]
+  );
+
   const [step, setStep] = useState(0);
   const prevStep = () => {
     setStep(step - 1);
@@ -56,13 +105,14 @@ function page() {
     >
       <Grid2 container spacing={2} columns={{ xs: 4, sm: 4, md: 12 }}>
         {/* Left Section (Logo and Welcome Message) */}
-        <Grid2 size={{ xs: 4, sm: 4, md: 6 }}
-         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        <Grid2
+          size={{ xs: 4, sm: 4, md: 6 }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
           <Box
             sx={{
@@ -98,7 +148,7 @@ function page() {
               <Typography variant="h4" align="center" gutterBottom>
                 Create Account
               </Typography>
-              <form>
+              <form onSubmit={handleSubmit}>
                 {/* step1 */}
 
                 {step === 0 && (
@@ -113,6 +163,14 @@ function page() {
                       margin="normal"
                       name="firstname"
                       type="text"
+                      value={formData.firstName} // Binding state to the input
+                      error={formData.firstName === ""}
+                      helperText={
+                        formData.firstName === ""
+                          ? "First Name is required"
+                          : ""
+                      }
+                      onChange={handleInputChange}
                     />
                     <TextField
                       label="Last Name"
@@ -121,6 +179,12 @@ function page() {
                       margin="normal"
                       name="lastname"
                       type="text"
+                      value={formData.lastName} // Binding state to the input
+                      error={formData.lastName === ""}
+                      helperText={
+                        formData.lastName === "" ? "Last Name is required" : ""
+                      }
+                      onChange={handleInputChange}
                     />
                     <TextField
                       label="Email Address"
@@ -129,6 +193,12 @@ function page() {
                       margin="normal"
                       name="email"
                       type="email"
+                      value={formData.email} // Binding state to the input
+                      error={formData.email === ""}
+                      helperText={
+                        formData.email === "" ? "Email is required" : ""
+                      }
+                      onChange={handleInputChange}
                     />
                     <TextField
                       label="Password"
@@ -137,6 +207,12 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="password"
+                      value={formData.password} // Binding state to the input
+                      error={formData.password === ""}
+                      helperText={
+                        formData.password === "" ? "Password is required" : ""
+                      }
+                      onChange={handleInputChange}
                     />
                     <TextField
                       label="Confirm Password"
@@ -145,7 +221,14 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="confirmpass"
-                      error
+                      value={formData.confirmPassword} // Binding state to the input
+                      error={formData.confirmPassword === ""}
+                      helperText={
+                        formData.confirmPassword === ""
+                          ? "Confirm Password is required"
+                          : ""
+                      }
+                      onChange={handleInputChange}
                     />
                   </>
                 )}
@@ -163,6 +246,12 @@ function page() {
                       margin="normal"
                       name="dob"
                       type="date"
+                      value={formData.dob} // Binding state to the input
+                      error={formData.dob === ""}
+                      helperText={
+                        formData.dob === "" ? "Date of birth is required" : ""
+                      }
+                      onChange={handleInputChange}
                     />
                     <FormControl>
                       <FormLabel id="demo-radio-buttons-group-label">
@@ -170,19 +259,22 @@ function page() {
                       </FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="female"
                         name="radio-buttons-group"
                         row // Add this prop to make the radio buttons horizontal
                       >
                         <FormControlLabel
-                          value="female"
-                          control={<Radio />}
-                          label="Female"
-                        />
-                        <FormControlLabel
                           value="male"
                           control={<Radio />}
                           label="Male"
+                          onChange={(e) => handleInputChange}
+                          checked={formData.gender === "male"}
+                        />
+                        <FormControlLabel
+                          value="female"
+                          control={<Radio />}
+                          label="Female"
+                          onChange={(e) => handleInputChange}
+                          checked={formData.gender === "female"}
                         />
                       </RadioGroup>
                     </FormControl>
@@ -192,6 +284,12 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="phone"
+                      value={formData.phone} // Binding state to the input
+                      error={formData.phone === ""}
+                      helperText={
+                        formData.phone === "" ? "Phone number is required" : ""
+                      }
+                      onChange={handleInputChange}
                     />
                   </>
                 )}
@@ -209,6 +307,12 @@ function page() {
                       margin="normal"
                       name="city"
                       type="text"
+                      value={formData.city} // Binding state to the input
+                      error={formData.city === ""}
+                      helperText={
+                        formData.city === "" ? "City is required" : ""
+                      }
+                      onChange={handleInputChange}
                     />
                     <TextField
                       label="State"
@@ -217,6 +321,12 @@ function page() {
                       margin="normal"
                       name="state"
                       type="text"
+                      value={formData.state} // Binding state to the input
+                      error={formData.state === ""}
+                      helperText={
+                        formData.state === "" ? "State is required" : ""
+                      }
+                      onChange={handleInputChange}
                     />
                     <TextField
                       label="Country"
@@ -225,6 +335,12 @@ function page() {
                       margin="normal"
                       name="country"
                       type="text"
+                      value={formData.country} // Binding state to the input
+                      error={formData.country === ""}
+                      helperText={
+                        formData.country === "" ? "County is required" : ""
+                      }
+                      onChange={handleInputChange}
                     />
                     <TextField
                       label="Pincode"
@@ -233,6 +349,12 @@ function page() {
                       margin="normal"
                       name="pincode"
                       type="number"
+                      value={formData.pincode} // Binding state to the input
+                      error={formData.pincode === ""}
+                      helperText={
+                        formData.pincode === "" ? "Pin code is required" : ""
+                      }
+                      onChange={handleInputChange}
                     />
                   </>
                 )}
