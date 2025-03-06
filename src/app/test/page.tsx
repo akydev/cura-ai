@@ -12,10 +12,10 @@ function page() {
   return (
     <>
       {/* <ViewAppointment /> */}
-      <ViewAppointmentSkeleton />
+      {/* <ViewAppointmentSkeleton /> */}
       {/* <DoctorList /> */}
-      <DoctorLIstSkeleton />
-      <SpecialtySkeleton />
+      {/* <DoctorLIstSkeleton /> */}
+      {/* <SpecialtySkeleton /> */}
       {/* <SpecialtyList /> */}
       <PositionedSnackbar />
     </>
