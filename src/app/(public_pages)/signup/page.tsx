@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -35,63 +35,60 @@ const initialValues: IUserSignup = {
 };
 
 function page() {
-  const [formData, setFormData] = useState(initialValues);
+  const [step, setStep] = useState<number>(0);
+  const [formData, setFormData] = useState<IUserSignup>(initialValues);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
 
-  //Handle input changes
-  const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target;
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
-    },
-    []
-  );
+  const prevStep = () => setStep(step - 1);
+  const nextStep = () => setStep(step + 1);
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
-      if (!formData) {
-        console.log("All fields are required");
-        return;
-      }
-      const data = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword,
-        dob: formData.dob,
-        gender: formData.gender,
-        phone: formData.phone,
-        fullAddress: {
-          addressLine: formData.addressLine,
-          city: formData.city,
-          state: formData.state,
-          country: formData.country,
-          pincode: formData.pincode,
-        },
-      };
-      try {
-        setLoading(true);
-        const res = await authFetch.post("/patients", data);
-        console.log(res.data);
-      } catch (error: any) {
-        console.log(error.response?.data?.msg || "An error occurred");
-      } finally {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!formData) {
+      console.log("All fields are required");
+      return;
+    }
+
+    const data = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      dob: formData.dob,
+      gender: formData.gender,
+      phone: formData.phone,
+      fullAddress: {
+        addressLine: formData.addressLine,
+        city: formData.city,
+        state: formData.state,
+        country: formData.country,
+        pincode: formData.pincode,
+      },
+    };
+    try {
+      setLoading(true);
+      const res = await authFetch.post("/patients", data);
+      if (res.data) {
         setLoading(false);
+        setFormData(initialValues);
+        setStep(0);
       }
-    },
-    [formData]
-  );
+      console.log(res.data);
+    } catch (error: any) {
+      setLoading(false);
+      console.log(error.response?.data?.msg || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const [step, setStep] = useState(0);
-  const prevStep = () => {
-    setStep(step - 1);
-  };
-  const nextStep = () => {
-    setStep(step + 1);
-  };
   return (
     <Container
       component="main"
@@ -161,7 +158,7 @@ function page() {
                       variant="outlined"
                       fullWidth
                       margin="normal"
-                      name="firstname"
+                      name="firstName"
                       type="text"
                       value={formData.firstName} // Binding state to the input
                       error={formData.firstName === ""}
@@ -177,7 +174,7 @@ function page() {
                       variant="outlined"
                       fullWidth
                       margin="normal"
-                      name="lastname"
+                      name="lastName"
                       type="text"
                       value={formData.lastName} // Binding state to the input
                       error={formData.lastName === ""}
@@ -220,7 +217,7 @@ function page() {
                       variant="outlined"
                       fullWidth
                       margin="normal"
-                      name="confirmpass"
+                      name="confirmPassword"
                       value={formData.confirmPassword} // Binding state to the input
                       error={formData.confirmPassword === ""}
                       helperText={
@@ -259,22 +256,20 @@ function page() {
                       </FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        name="radio-buttons-group"
+                        name="gender"
                         row // Add this prop to make the radio buttons horizontal
+                        value={formData.gender} // Set the value to the selected gender in formData
+                        onChange={handleInputChange} // Call handleInputChange on change
                       >
                         <FormControlLabel
                           value="male"
                           control={<Radio />}
                           label="Male"
-                          onChange={(e) => handleInputChange}
-                          checked={formData.gender === "male"}
                         />
                         <FormControlLabel
                           value="female"
                           control={<Radio />}
                           label="Female"
-                          onChange={(e) => handleInputChange}
-                          checked={formData.gender === "female"}
                         />
                       </RadioGroup>
                     </FormControl>
@@ -300,6 +295,20 @@ function page() {
                     <Typography variant="h6" component="h6">
                       Step3
                     </Typography>
+                    <TextField
+                      label="Address"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                      name="addressLine"
+                      type="text"
+                      value={formData.addressLine} // Binding state to the input
+                      error={formData.addressLine === ""}
+                      helperText={
+                        formData.addressLine === "" ? "address is required" : ""
+                      }
+                      onChange={handleInputChange}
+                    />
                     <TextField
                       label="City"
                       variant="outlined"
@@ -393,7 +402,7 @@ function page() {
                   type="submit"
                   sx={{ marginTop: 2 }}
                 >
-                  Sign up
+                  {loading ? "Signing..." : "Sign up"}
                 </Button>
               </form>
               <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
