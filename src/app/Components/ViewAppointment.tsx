@@ -29,7 +29,6 @@ function ViewAppointment() {
   const { loading, data, error } = useFetch<IAppointmentList>(
     `/appointments?${query}`
   );
-  console.log(data);
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>

@@ -14,13 +14,12 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useFetch } from "../customhook/useFetch";
-import { IDoctor, IDoctorList } from "../type/IDoctor";
+import { IDoctorList } from "../type/IDoctor";
 import DoctorLIstSkeleton from "../common/skeleton/DoctorLIstSkeleton";
 
 function DoctorList() {
   const { loading, data, error } = useFetch<IDoctorList>("/doctors");
 
-  console.log(data);
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>

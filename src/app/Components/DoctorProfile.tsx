@@ -21,7 +21,6 @@ import { IDoctor } from "../type/IDoctor";
 
 const DoctorProfile = () => {
   const { loading, data, error } = useFetch<IDoctor>("/accounts/profile");
-  console.log(data);
 
   return (
     <Container

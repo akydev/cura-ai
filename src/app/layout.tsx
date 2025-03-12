@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./routes/protectedRoutes";
+import { ToastProvider } from "./context/ToastProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,9 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AuthProvider>
+        <ToastProvider>
           <ProtectedRoute>{children}</ProtectedRoute>
-        </AuthProvider>
+        </ToastProvider>
       </body>
     </html>
   );

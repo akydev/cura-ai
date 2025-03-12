@@ -17,11 +17,10 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { CalendarToday, Email, Phone } from "@mui/icons-material";
 import { useFetch } from "../customhook/useFetch";
-import { Iuser } from "../type/IUser";
+import { IUser } from "../type/IUser";
 
 const UserProfile = () => {
-  const { loading, data, error } = useFetch<Iuser>("/accounts/profile");
-  // console.log(data);
+  const { loading, data, error } = useFetch<IUser>("/accounts/profile");
 
   return (
     <Container

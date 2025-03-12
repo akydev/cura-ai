@@ -16,8 +16,8 @@ function page() {
       {/* <DoctorList /> */}
       {/* <DoctorLIstSkeleton /> */}
       {/* <SpecialtySkeleton /> */}
-      {/* <SpecialtyList /> */}
-      <PositionedSnackbar />
+      <SpecialtyList />
+      {/* <PositionedSnackbar /> */}
     </>
 
     // login form

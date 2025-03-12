@@ -1,4 +1,4 @@
-export interface Iuser {
+export interface IUser {
   _id: string;
   patientID: number;
   firstName: string;

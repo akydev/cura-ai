@@ -16,8 +16,6 @@ function page() {
     }
   }, []); // Empty dependency array ensures this runs only once after the component mounts
 
-  console.log(role); // Will log the role once it's retrieved from localStorage
-
   return (
     <>
       {role === "patient" ? (

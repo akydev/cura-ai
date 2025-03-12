@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 const PUBLIC_ROUTES = ["/", "/login", "/signup", "/test", "/doctorsignup","/profile"]; // Public pages
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { login, logout } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 

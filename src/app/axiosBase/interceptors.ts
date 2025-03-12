@@ -9,7 +9,6 @@ const adminFetch = axios.create({
 adminFetch.interceptors.request.use(
   (request: InternalAxiosRequestConfig<any>) => {
     const token = localStorage.getItem("token");
-    console.log(token);
     if (token) {
       request.headers.Authorization = `Bearer ${token}`;
     }
@@ -26,9 +25,9 @@ adminFetch.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      // localStorage.clear();
+      localStorage.clear();
       setTimeout(() => {
-        // window.location.href = "/login";
+        window.location.href = "/login";
       }, 1000);
     }
     return Promise.reject(error);

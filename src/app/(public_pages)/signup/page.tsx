@@ -80,10 +80,8 @@ function page() {
         setFormData(initialValues);
         setStep(0);
       }
-      console.log(res.data);
     } catch (error: any) {
       setLoading(false);
-      console.log(error.response?.data?.msg || "An error occurred");
     } finally {
       setLoading(false);
     }

@@ -14,14 +14,13 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useFetch } from "../customhook/useFetch";
 import { ISpecialty } from "../type/IDoctor";
 import SpecialtySkeleton from "../common/skeleton/SpecialtySkeleton";
+import { useGlobalFetch } from "../customhook/useGloalFetch";
 
 function SpecialtyList() {
-  const { loading, data, error } = useFetch<ISpecialty>("/speciality");
+  const { loading, data, error } = useGlobalFetch<ISpecialty>("/speciality");
 
-  console.log(data);
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>

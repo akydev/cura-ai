@@ -12,6 +12,7 @@ import {
 import React, { useState } from "react";
 import authFetch from "../../axiosBase/custom";
 import { ILogin } from "@/app/type/ILogin";
+import { useToast } from "@/app/context/ToastProvider";
 
 const initialValues: ILogin = {
   email: "",
@@ -19,8 +20,7 @@ const initialValues: ILogin = {
 };
 
 function Page() {
-  console.log("✅ Form Component Rendered");
-
+  const toast = useToast();
   // Use state to store form data (email and password)
   const [formData, setFormData] = useState<ILogin>(initialValues);
   const [loading, setLoading] = useState(false);
@@ -39,20 +39,22 @@ function Page() {
     try {
       setLoading(true);
       const res = await authFetch.post("/accounts/login", formData);
-      console.log(res.data); // Successful response
       // successful response of data
       if (res.data) {
+        const { token, userId, role, msg } = res.data;
         setLoading(false);
+        toast.success(msg);
         setFormData(initialValues);
         // Store the token and userId in localStorage or sessionStorage
-        const { token, userId, role } = res.data;
         localStorage.setItem("token", token); // Store token
         localStorage.setItem("userId", userId); // Store user ID
         localStorage.setItem("role", role); // Store role
       }
     } catch (error: any) {
-      console.error(error.response?.data?.msg || "An error occurred");
-      setError(error.response?.data?.msg || "An error occurred");
+      if (error) {
+        setLoading(false);
+        toast.error(error.response.data.msg);
+      }
     } finally {
       setLoading(false);
     }
