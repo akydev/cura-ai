@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ProtectedRoute from "./routes/protectedRoutes";
 import { ToastProvider } from "./context/ToastProvider";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
