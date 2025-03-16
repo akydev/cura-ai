@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "./context/ToastProvider";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Navbar from "./components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ToastProvider>
-          <ProtectedRoute>{children}</ProtectedRoute>
+          <ProtectedRoute>
+            <Navbar />
+            {children}
+          </ProtectedRoute>
         </ToastProvider>
       </body>
     </html>
