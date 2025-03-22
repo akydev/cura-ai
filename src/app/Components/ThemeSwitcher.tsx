@@ -10,3 +10,4 @@ const ThemeSwitcher = () => {
     </Button>
   );
 };
+export default ThemeSwitcher;

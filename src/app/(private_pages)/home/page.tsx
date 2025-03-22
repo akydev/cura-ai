@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <Box sx={{ backgroundColor: "#f4f6f8", minHeight: "100vh" }}>
       {/* Navigation Bar */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* Hero Section */}
       <Box

@@ -13,15 +13,29 @@ import Link from "next/link";
 // Import the image as a module
 import logo from "/public/logo/cura-ai.png";
 import { useThemeContext } from "../context/ThemeContext";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import { useEffect, useState } from "react";
 
 function Navbar() {
   const { toggleTheme, currentTheme } = useThemeContext();
+  // State to track if component is mounted on the client side
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set the isMounted state to true after the component is mounted on the client side
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Prevent rendering on the server to avoid hydration mismatch
+  if (!isMounted) {
+    return null;
+  }
   return (
     <AppBar
       position="sticky"
+      color="primary"
       sx={{
-        // backgroundColor: "rgba(0, 0, 0, 0)", // Semi-transparent background for contrast
-        backgroundColor: "#000000",
         backdropFilter: "blur(10px)", // Apply blur effect
         boxShadow:
           "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)", // Custom shadow
@@ -52,24 +66,6 @@ function Navbar() {
           </Typography>
         </Box>
 
-        {/* Left Side: Theme Toggle */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          {/* Theme toggle button */}
-          <IconButton color="inherit" onClick={toggleTheme}>
-            <Typography variant="button" sx={{ color: "inherit" }}>
-              Switch to {currentTheme === "light" ? "Dark" : "Light"} Mode
-            </Typography>
-          </IconButton>
-
-          {/* Or use a Switch component for a more interactive UI */}
-          <Switch
-            checked={currentTheme === "dark"}
-            onChange={toggleTheme}
-            name="themeSwitch"
-            color="default"
-          />
-        </Box>
-
         {/* Right Side: Navigation Links */}
         <Box sx={{ display: "flex", gap: 3 }}>
           <Link href="/about">
@@ -87,6 +83,14 @@ function Navbar() {
           <Link href="/login">
             <Button color="inherit">Log in</Button>
           </Link>
+        </Box>
+        {/* right Side: Theme Toggle */}
+        <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          {/* Toggle Switch */}
+          <IconButton onClick={toggleTheme} color="inherit">
+            {currentTheme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+          </IconButton>
+          <Switch checked={currentTheme === "dark"} onChange={toggleTheme} />
         </Box>
       </Toolbar>
     </AppBar>

@@ -10,7 +10,7 @@ import ViewAppointment from "./components/ViewAppointment";
 export default function Home() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <HeroSection />
       {/* <DoctorProfile/> */}
       {/* <SpecialtyList/> */}
