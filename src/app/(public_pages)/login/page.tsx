@@ -8,6 +8,7 @@ import {
   Grid2,
   Typography,
   TextField,
+  CircularProgress,
 } from "@mui/material";
 import React, { useState } from "react";
 import authFetch from "../../axiosBase/custom";
@@ -154,10 +155,22 @@ function Page() {
                   color="primary"
                   fullWidth
                   type="submit"
-                  sx={{ mt: 3 }}
+                  sx={{ mt: 3, position: "relative" }}
                   disabled={loading}
+                  loadingPosition="end"
                 >
-                  {loading ? "Logging in..." : "Log in"}
+                  {loading ? (
+                    <>
+                      <CircularProgress
+                        size={24}
+                        color="primary"
+                        sx={{ position: "absolute" }}
+                      />
+                      Logging in...
+                    </>
+                  ) : (
+                    "Log in"
+                  )}
                 </Button>
               </form>
 
