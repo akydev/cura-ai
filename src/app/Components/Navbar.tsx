@@ -83,14 +83,15 @@ function Navbar() {
           <Link href="/login">
             <Button color="inherit">Log in</Button>
           </Link>
-        </Box>
-        {/* right Side: Theme Toggle */}
-        <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-          {/* Toggle Switch */}
-          <IconButton onClick={toggleTheme} color="inherit">
-            {currentTheme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-          </IconButton>
-          <Switch checked={currentTheme === "dark"} onChange={toggleTheme} />
+
+          {/* right Side: Theme Toggle */}
+          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+            {/* Toggle Switch */}
+            <IconButton onClick={toggleTheme} color="inherit">
+              {currentTheme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+            </IconButton>
+            <Switch checked={currentTheme === "dark"} onChange={toggleTheme} />
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>

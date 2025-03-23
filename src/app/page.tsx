@@ -1,23 +1,7 @@
-"use client";
-import DoctorList from "./components/DoctorList";
-import DoctorProfile from "./components/DoctorProfile";
-import FooterBar from "./components/Footerbar";
+"use client"; // This is the client-side component
+import RootLayout from "./layout"; // ✅ Import the Server side components
 import HeroSection from "./components/HeroSection";
-import Navbar from "./components/Navbar";
-import SpecialtyList from "./components/SpecialtyList";
-import ViewAppointment from "./components/ViewAppointment";
 
 export default function Home() {
-  return (
-    <>
-      {/* <Navbar /> */}
-      <HeroSection />
-      {/* <DoctorProfile/> */}
-      {/* <SpecialtyList/> */}
-
-      {/* <DoctorList /> */}
-      {/* <ViewAppointment /> */}
-      <FooterBar />
-    </>
-  );
+  return <HeroSection />;
 }

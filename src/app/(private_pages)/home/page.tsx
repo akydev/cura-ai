@@ -10,16 +10,11 @@ import {
   CardMedia,
   Avatar,
 } from "@mui/material";
-import Navbar from "../../components/Navbar";
-import FooterBar from "../../components/Footerbar";
 
 // Define styles and components for the homepage
 const HomePage = () => {
   return (
     <Box sx={{ backgroundColor: "#f4f6f8", minHeight: "100vh" }}>
-      {/* Navigation Bar */}
-      {/* <Navbar /> */}
-
       {/* Hero Section */}
       <Box
         sx={{ backgroundColor: "#000000", color: "#fff", padding: "50px 0" }}
@@ -193,9 +188,6 @@ const HomePage = () => {
           </Grid>
         </Container>
       </Box>
-
-      {/* Footer */}
-      <FooterBar />
     </Box>
   );
 };
