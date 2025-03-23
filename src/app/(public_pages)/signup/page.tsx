@@ -405,9 +405,17 @@ function page() {
               </form>
               <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
                 Already have an account?{" "}
-                <Button href="/login" sx={{ textTransform: "none" }}>
+                <a
+                  href="/login"
+                  style={{
+                    textTransform: "none",
+                    fontWeight: "bold",
+                    textDecoration: "none",
+                    color: "#1976d2",
+                  }}
+                >
                   Login here
-                </Button>
+                </a>
               </Typography>
             </Card>
           </Card>
