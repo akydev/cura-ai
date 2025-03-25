@@ -15,6 +15,32 @@ import logo from "/public/logo/cura-ai.png"; // Ensure logo is in the public fol
 import { useThemeContext } from "../context/ThemeContext";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import { SxProps, Theme } from "@mui/material/styles";
+
+const commonButtonStyles = (mode: "light" | "dark"): SxProps<Theme> => ({
+  transition: "color 0.3s ease, border-bottom 0.3s ease",
+  position: "relative",
+  padding: "8px 16px",
+  "&:hover": {
+    color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+  },
+  "&:after": {
+    content: '""',
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: "100%",
+    height: "2px",
+    backgroundColor: mode === "light" ? "#FFEB3B" : "#90CAF9",
+    transform: "scaleX(0)",
+    transformOrigin: "bottom right",
+    transition: "transform 0.3s ease",
+  },
+  "&:hover:after": {
+    transform: "scaleX(1)",
+    transformOrigin: "bottom left",
+  },
+});
 
 const Navbar: React.FC = () => {
   const { toggleTheme, mode } = useThemeContext();
@@ -66,98 +92,17 @@ const Navbar: React.FC = () => {
             {token ? (
               <>
                 <Link href="/home">
-                  <Button
-                    color="primary"
-                    sx={{
-                      transition: "color 0.3s ease, border-bottom 0.3s ease",
-                      position: "relative",
-                      padding: "8px 16px",
-                      "&:hover": {
-                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
-                      },
-                      "&:after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "2px",
-                        backgroundColor:
-                          mode === "light" ? "#FFEB3B" : "#90CAF9",
-                        transform: "scaleX(0)",
-                        transformOrigin: "bottom right",
-                        transition: "transform 0.3s ease",
-                      },
-                      "&:hover:after": {
-                        transform: "scaleX(1)",
-                        transformOrigin: "bottom left",
-                      },
-                    }}
-                  >
+                  <Button color="primary" sx={commonButtonStyles(mode)}>
                     Home
                   </Button>
                 </Link>
                 <Link href="/profile">
-                  <Button
-                    color="primary"
-                    sx={{
-                      transition: "color 0.3s ease, border-bottom 0.3s ease",
-                      position: "relative",
-                      padding: "8px 16px",
-                      "&:hover": {
-                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
-                      },
-                      "&:after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "2px",
-                        backgroundColor:
-                          mode === "light" ? "#FFEB3B" : "#90CAF9",
-                        transform: "scaleX(0)",
-                        transformOrigin: "bottom right",
-                        transition: "transform 0.3s ease",
-                      },
-                      "&:hover:after": {
-                        transform: "scaleX(1)",
-                        transformOrigin: "bottom left",
-                      },
-                    }}
-                  >
+                  <Button color="primary" sx={commonButtonStyles(mode)}>
                     Profile
                   </Button>
                 </Link>
                 <Link href="/bookappointment">
-                  <Button
-                    color="primary"
-                    sx={{
-                      transition: "color 0.3s ease, border-bottom 0.3s ease",
-                      position: "relative",
-                      padding: "8px 16px",
-                      "&:hover": {
-                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
-                      },
-                      "&:after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "2px",
-                        backgroundColor:
-                          mode === "light" ? "#FFEB3B" : "#90CAF9",
-                        transform: "scaleX(0)",
-                        transformOrigin: "bottom right",
-                        transition: "transform 0.3s ease",
-                      },
-                      "&:hover:after": {
-                        transform: "scaleX(1)",
-                        transformOrigin: "bottom left",
-                      },
-                    }}
-                  >
+                  <Button color="primary" sx={commonButtonStyles(mode)}>
                     Book Appointment
                   </Button>
                 </Link>
@@ -165,163 +110,28 @@ const Navbar: React.FC = () => {
             ) : (
               <>
                 <Link href="/about">
-                  <Button
-                    color="primary"
-                    sx={{
-                      transition: "color 0.3s ease, border-bottom 0.3s ease",
-                      position: "relative",
-                      padding: "8px 16px",
-                      "&:hover": {
-                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
-                      },
-                      "&:after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "2px",
-                        backgroundColor:
-                          mode === "light" ? "#FFEB3B" : "#90CAF9",
-                        transform: "scaleX(0)",
-                        transformOrigin: "bottom right",
-                        transition: "transform 0.3s ease",
-                      },
-                      "&:hover:after": {
-                        transform: "scaleX(1)",
-                        transformOrigin: "bottom left",
-                      },
-                    }}
-                  >
+                  <Button color="primary" sx={commonButtonStyles(mode)}>
                     About
                   </Button>
                 </Link>
                 <Link href="/contact">
-                  <Button
-                    color="primary"
-                    sx={{
-                      transition: "color 0.3s ease, border-bottom 0.3s ease",
-                      position: "relative",
-                      padding: "8px 16px",
-                      "&:hover": {
-                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
-                      },
-                      "&:after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "2px",
-                        backgroundColor:
-                          mode === "light" ? "#FFEB3B" : "#90CAF9",
-                        transform: "scaleX(0)",
-                        transformOrigin: "bottom right",
-                        transition: "transform 0.3s ease",
-                      },
-                      "&:hover:after": {
-                        transform: "scaleX(1)",
-                        transformOrigin: "bottom left",
-                      },
-                    }}
-                  >
+                  <Button color="primary" sx={commonButtonStyles(mode)}>
                     Contact
                   </Button>
                 </Link>
                 <Link href="/service">
-                  <Button
-                    color="primary"
-                    sx={{
-                      transition: "color 0.3s ease, border-bottom 0.3s ease",
-                      position: "relative",
-                      padding: "8px 16px",
-                      "&:hover": {
-                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
-                      },
-                      "&:after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "2px",
-                        backgroundColor:
-                          mode === "light" ? "#FFEB3B" : "#90CAF9",
-                        transform: "scaleX(0)",
-                        transformOrigin: "bottom right",
-                        transition: "transform 0.3s ease",
-                      },
-                      "&:hover:after": {
-                        transform: "scaleX(1)",
-                        transformOrigin: "bottom left",
-                      },
-                    }}
-                  >
+                  <Button color="primary" sx={commonButtonStyles(mode)}>
                     Service
                   </Button>
                 </Link>
                 <Link href="/signup">
-                  <Button
-                    color="primary"
-                    sx={{
-                      transition: "color 0.3s ease, border-bottom 0.3s ease",
-                      position: "relative",
-                      padding: "8px 16px",
-                      "&:hover": {
-                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
-                      },
-                      "&:after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "2px",
-                        backgroundColor:
-                          mode === "light" ? "#FFEB3B" : "#90CAF9",
-                        transform: "scaleX(0)",
-                        transformOrigin: "bottom right",
-                        transition: "transform 0.3s ease",
-                      },
-                      "&:hover:after": {
-                        transform: "scaleX(1)",
-                        transformOrigin: "bottom left",
-                      },
-                    }}
-                  >
+                  <Button color="primary" sx={commonButtonStyles(mode)}>
                     Sign up
                   </Button>
                 </Link>
                 <Link href="/login">
-                  <Button
-                    color="primary"
-                    sx={{
-                      transition: "color 0.3s ease, border-bottom 0.3s ease",
-                      position: "relative",
-                      padding: "8px 16px",
-                      "&:hover": {
-                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
-                      },
-                      "&:after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "2px",
-                        backgroundColor:
-                          mode === "light" ? "#FFEB3B" : "#90CAF9",
-                        transform: "scaleX(0)",
-                        transformOrigin: "bottom right",
-                        transition: "transform 0.3s ease",
-                      },
-                      "&:hover:after": {
-                        transform: "scaleX(1)",
-                        transformOrigin: "bottom left",
-                      },
-                    }}
-                  >
-                    Log in
+                  <Button color="primary" sx={commonButtonStyles(mode)}>
+                    Login
                   </Button>
                 </Link>
               </>
