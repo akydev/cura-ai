@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "./context/ThemeContext";
+import { ThemeContextProvider } from "./context/ThemeContext";
 import { ToastProvider } from "./context/ToastProvider";
 import LayoutWrapper from "./LayoutWrapper";
 
@@ -29,11 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ThemeProvider>
+        <ThemeContextProvider>
           <ToastProvider>
             <LayoutWrapper>{children}</LayoutWrapper>
           </ToastProvider>
-        </ThemeProvider>
+        </ThemeContextProvider>
       </body>
     </html>
   );

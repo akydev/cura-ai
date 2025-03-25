@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import authFetch from "../../axiosBase/custom";
 import { ILogin } from "@/app/type/ILogin";
 import { useToast } from "@/app/context/ToastProvider";
+import Link from "next/link";
 
 const initialValues: ILogin = {
   email: "",
@@ -177,16 +178,16 @@ function Page() {
               <Box sx={{ textAlign: "center", mt: 2 }}>
                 <Typography variant="body2">
                   Don't have an account?{" "}
-                  <a
+                  <Link
+                    color="primary"
                     href="/signup"
                     style={{
                       fontWeight: "bold",
                       textDecoration: "none",
-                      color: "#1976d2",
                     }}
                   >
                     Sign up here
-                  </a>
+                  </Link>
                 </Typography>
               </Box>
             </CardContent>

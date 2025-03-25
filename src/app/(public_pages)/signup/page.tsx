@@ -18,6 +18,7 @@ import {
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import authFetch from "@/app/axiosBase/custom";
 import { IUserSignup } from "@/app/type/IUserSignup";
+import Link from "next/link";
 const initialValues: IUserSignup = {
   firstName: "",
   lastName: "",
@@ -405,17 +406,17 @@ function page() {
               </form>
               <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
                 Already have an account?{" "}
-                <a
+                <Link
                   href="/login"
+                  color="primary"
                   style={{
                     textTransform: "none",
                     fontWeight: "bold",
                     textDecoration: "none",
-                    color: "#1976d2",
                   }}
                 >
                   Login here
-                </a>
+                </Link>
               </Typography>
             </Card>
           </Card>

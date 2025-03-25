@@ -7,6 +7,7 @@ import {
   Box,
   IconButton,
   Switch,
+  Container,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,234 +18,392 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { useEffect, useState } from "react";
 
 const Navbar: React.FC = () => {
-  const { toggleTheme, currentTheme } = useThemeContext();
-
-  // State to track if component is mounted on the client side
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-
-  // Set the isMounted state to true after the component is mounted on the client side
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Prevent rendering on the server to avoid hydration mismatch
-  if (!isMounted) {
-    return null;
-  }
+  const { toggleTheme, mode } = useThemeContext();
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null; // Check token or cookies or session storage.
 
   return (
-    <AppBar
-      position="sticky"
-      color={currentTheme === "light" ? "primary" : "secondary"} // Change AppBar color based on theme
-      sx={{
-        backdropFilter: "blur(10px)", // Apply blur effect
-        boxShadow:
-          "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)", // Custom shadow
-        zIndex: 1100,
-      }}
-    >
-      <Toolbar
+    <Container>
+      <AppBar
+        position="static"
+        color="primary" // Change AppBar color based on theme
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-          padding: "0 16px", // Add horizontal padding for consistency
+          backdropFilter: "blur(10px)", // Apply blur effect
+          boxShadow:
+            "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)", // Custom shadow
+          zIndex: 101,
+          paddingLeft: "0px", // Add horizontal padding for consistency
+          paddingRight: "0px", // Add horizontal padding for consistency
         }}
       >
-        {/* Left Side: Logo and Title */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Link href="/" passHref>
-            <Image
-              src={logo}
-              alt="Website Logo"
-              width={40}
-              height={40}
-              priority
-            />
-          </Link>
-          <Typography
-            variant="h6"
-            color="inherit"
-            sx={{ padding: "8px 16px", lineHeight: 1 }}
-          >
-            Cura Ai
-          </Typography>
-        </Box>
-
-        {/* Right Side: Navigation Links and Theme Toggle */}
-        <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
-          {/* Navigation Links */}
-          <Link href="/about">
-            <Button
-              color="inherit"
-              sx={{
-                transition: "color 0.3s ease, border-bottom 0.3s ease",
-                position: "relative",
-                padding: "8px 16px",
-                "&:hover": {
-                  color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                },
-                "&:after": {
-                  content: '""',
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor:
-                    currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                  transform: "scaleX(0)",
-                  transformOrigin: "bottom right",
-                  transition: "transform 0.3s ease",
-                },
-                "&:hover:after": {
-                  transform: "scaleX(1)",
-                  transformOrigin: "bottom left",
-                },
-              }}
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+            // paddingLeft: "0px", // Add horizontal padding for consistency
+            // paddingRight: "0px", // Add horizontal padding for consistency
+          }}
+        >
+          {/* Left Side: Logo and Title */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Link href="/" passHref>
+              <Image
+                src={logo}
+                alt="Website Logo"
+                width={40}
+                height={40}
+                priority
+              />
+            </Link>
+            <Typography
+              variant="h6"
+              color="primary"
+              sx={{ padding: "8px 16px", lineHeight: 1 }}
             >
-              About
-            </Button>
-          </Link>
-          <Link href="/contact">
-            <Button
-              color="inherit"
-              sx={{
-                transition: "color 0.3s ease, border-bottom 0.3s ease",
-                position: "relative",
-                padding: "8px 16px",
-                "&:hover": {
-                  color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                },
-                "&:after": {
-                  content: '""',
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor:
-                    currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                  transform: "scaleX(0)",
-                  transformOrigin: "bottom right",
-                  transition: "transform 0.3s ease",
-                },
-                "&:hover:after": {
-                  transform: "scaleX(1)",
-                  transformOrigin: "bottom left",
-                },
-              }}
-            >
-              Contact
-            </Button>
-          </Link>
-          <Link href="/service">
-            <Button
-              color="inherit"
-              sx={{
-                transition: "color 0.3s ease, border-bottom 0.3s ease",
-                position: "relative",
-                padding: "8px 16px",
-                "&:hover": {
-                  color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                },
-                "&:after": {
-                  content: '""',
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor:
-                    currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                  transform: "scaleX(0)",
-                  transformOrigin: "bottom right",
-                  transition: "transform 0.3s ease",
-                },
-                "&:hover:after": {
-                  transform: "scaleX(1)",
-                  transformOrigin: "bottom left",
-                },
-              }}
-            >
-              Service
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button
-              color="inherit"
-              sx={{
-                transition: "color 0.3s ease, border-bottom 0.3s ease",
-                position: "relative",
-                padding: "8px 16px",
-                "&:hover": {
-                  color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                },
-                "&:after": {
-                  content: '""',
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor:
-                    currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                  transform: "scaleX(0)",
-                  transformOrigin: "bottom right",
-                  transition: "transform 0.3s ease",
-                },
-                "&:hover:after": {
-                  transform: "scaleX(1)",
-                  transformOrigin: "bottom left",
-                },
-              }}
-            >
-              Sign up
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button
-              color="inherit"
-              sx={{
-                transition: "color 0.3s ease, border-bottom 0.3s ease",
-                position: "relative",
-                padding: "8px 16px",
-                "&:hover": {
-                  color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                },
-                "&:after": {
-                  content: '""',
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor:
-                    currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
-                  transform: "scaleX(0)",
-                  transformOrigin: "bottom right",
-                  transition: "transform 0.3s ease",
-                },
-                "&:hover:after": {
-                  transform: "scaleX(1)",
-                  transformOrigin: "bottom left",
-                },
-              }}
-            >
-              Log in
-            </Button>
-          </Link>
-
-          {/* Theme Toggle */}
-          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-            <IconButton onClick={toggleTheme} color="inherit">
-              {currentTheme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-            </IconButton>
-            <Switch checked={currentTheme === "dark"} onChange={toggleTheme} />
+              Cura Ai
+            </Typography>
           </Box>
-        </Box>
-      </Toolbar>
-    </AppBar>
+
+          {/* Right Side: Navigation Links and Theme Toggle */}
+          <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+            {/* Navigation Links */}
+            {token ? (
+              <>
+                <Link href="/home">
+                  <Button
+                    color="primary"
+                    sx={{
+                      transition: "color 0.3s ease, border-bottom 0.3s ease",
+                      position: "relative",
+                      padding: "8px 16px",
+                      "&:hover": {
+                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      },
+                      "&:after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "2px",
+                        backgroundColor:
+                          mode === "light" ? "#FFEB3B" : "#90CAF9",
+                        transform: "scaleX(0)",
+                        transformOrigin: "bottom right",
+                        transition: "transform 0.3s ease",
+                      },
+                      "&:hover:after": {
+                        transform: "scaleX(1)",
+                        transformOrigin: "bottom left",
+                      },
+                    }}
+                  >
+                    Home
+                  </Button>
+                </Link>
+                <Link href="/profile">
+                  <Button
+                    color="primary"
+                    sx={{
+                      transition: "color 0.3s ease, border-bottom 0.3s ease",
+                      position: "relative",
+                      padding: "8px 16px",
+                      "&:hover": {
+                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      },
+                      "&:after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "2px",
+                        backgroundColor:
+                          mode === "light" ? "#FFEB3B" : "#90CAF9",
+                        transform: "scaleX(0)",
+                        transformOrigin: "bottom right",
+                        transition: "transform 0.3s ease",
+                      },
+                      "&:hover:after": {
+                        transform: "scaleX(1)",
+                        transformOrigin: "bottom left",
+                      },
+                    }}
+                  >
+                    Profile
+                  </Button>
+                </Link>
+                <Link href="/bookappointment">
+                  <Button
+                    color="primary"
+                    sx={{
+                      transition: "color 0.3s ease, border-bottom 0.3s ease",
+                      position: "relative",
+                      padding: "8px 16px",
+                      "&:hover": {
+                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      },
+                      "&:after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "2px",
+                        backgroundColor:
+                          mode === "light" ? "#FFEB3B" : "#90CAF9",
+                        transform: "scaleX(0)",
+                        transformOrigin: "bottom right",
+                        transition: "transform 0.3s ease",
+                      },
+                      "&:hover:after": {
+                        transform: "scaleX(1)",
+                        transformOrigin: "bottom left",
+                      },
+                    }}
+                  >
+                    Book Appointment
+                  </Button>
+                </Link>
+                {/* <Link href="/profile">
+                <Button
+                  color="primary"
+                  sx={{
+                    transition: "color 0.3s ease, border-bottom 0.3s ease",
+                    position: "relative",
+                    padding: "8px 16px",
+                    "&:hover": {
+                      color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                    },
+                    "&:after": {
+                      content: '""',
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "2px",
+                      backgroundColor: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      transform: "scaleX(0)",
+                      transformOrigin: "bottom right",
+                      transition: "transform 0.3s ease",
+                    },
+                    "&:hover:after": {
+                      transform: "scaleX(1)",
+                      transformOrigin: "bottom left",
+                    },
+                  }}
+                >
+                  Profile
+                </Button>
+              </Link>
+              <Link href="/profile">
+                <Button
+                  color="primary"
+                  sx={{
+                    transition: "color 0.3s ease, border-bottom 0.3s ease",
+                    position: "relative",
+                    padding: "8px 16px",
+                    "&:hover": {
+                      color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                    },
+                    "&:after": {
+                      content: '""',
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "2px",
+                      backgroundColor: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      transform: "scaleX(0)",
+                      transformOrigin: "bottom right",
+                      transition: "transform 0.3s ease",
+                    },
+                    "&:hover:after": {
+                      transform: "scaleX(1)",
+                      transformOrigin: "bottom left",
+                    },
+                  }}
+                >
+                  Profile
+                </Button>
+              </Link> */}
+              </>
+            ) : (
+              <>
+                <Link href="/about">
+                  <Button
+                    color="primary"
+                    sx={{
+                      transition: "color 0.3s ease, border-bottom 0.3s ease",
+                      position: "relative",
+                      padding: "8px 16px",
+                      "&:hover": {
+                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      },
+                      "&:after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "2px",
+                        backgroundColor:
+                          mode === "light" ? "#FFEB3B" : "#90CAF9",
+                        transform: "scaleX(0)",
+                        transformOrigin: "bottom right",
+                        transition: "transform 0.3s ease",
+                      },
+                      "&:hover:after": {
+                        transform: "scaleX(1)",
+                        transformOrigin: "bottom left",
+                      },
+                    }}
+                  >
+                    About
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button
+                    color="primary"
+                    sx={{
+                      transition: "color 0.3s ease, border-bottom 0.3s ease",
+                      position: "relative",
+                      padding: "8px 16px",
+                      "&:hover": {
+                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      },
+                      "&:after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "2px",
+                        backgroundColor:
+                          mode === "light" ? "#FFEB3B" : "#90CAF9",
+                        transform: "scaleX(0)",
+                        transformOrigin: "bottom right",
+                        transition: "transform 0.3s ease",
+                      },
+                      "&:hover:after": {
+                        transform: "scaleX(1)",
+                        transformOrigin: "bottom left",
+                      },
+                    }}
+                  >
+                    Contact
+                  </Button>
+                </Link>
+                <Link href="/service">
+                  <Button
+                    color="primary"
+                    sx={{
+                      transition: "color 0.3s ease, border-bottom 0.3s ease",
+                      position: "relative",
+                      padding: "8px 16px",
+                      "&:hover": {
+                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      },
+                      "&:after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "2px",
+                        backgroundColor:
+                          mode === "light" ? "#FFEB3B" : "#90CAF9",
+                        transform: "scaleX(0)",
+                        transformOrigin: "bottom right",
+                        transition: "transform 0.3s ease",
+                      },
+                      "&:hover:after": {
+                        transform: "scaleX(1)",
+                        transformOrigin: "bottom left",
+                      },
+                    }}
+                  >
+                    Service
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button
+                    color="primary"
+                    sx={{
+                      transition: "color 0.3s ease, border-bottom 0.3s ease",
+                      position: "relative",
+                      padding: "8px 16px",
+                      "&:hover": {
+                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      },
+                      "&:after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "2px",
+                        backgroundColor:
+                          mode === "light" ? "#FFEB3B" : "#90CAF9",
+                        transform: "scaleX(0)",
+                        transformOrigin: "bottom right",
+                        transition: "transform 0.3s ease",
+                      },
+                      "&:hover:after": {
+                        transform: "scaleX(1)",
+                        transformOrigin: "bottom left",
+                      },
+                    }}
+                  >
+                    Sign up
+                  </Button>
+                </Link>
+                <Link href="/login">
+                  <Button
+                    color="primary"
+                    sx={{
+                      transition: "color 0.3s ease, border-bottom 0.3s ease",
+                      position: "relative",
+                      padding: "8px 16px",
+                      "&:hover": {
+                        color: mode === "light" ? "#FFEB3B" : "#90CAF9",
+                      },
+                      "&:after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "2px",
+                        backgroundColor:
+                          mode === "light" ? "#FFEB3B" : "#90CAF9",
+                        transform: "scaleX(0)",
+                        transformOrigin: "bottom right",
+                        transition: "transform 0.3s ease",
+                      },
+                      "&:hover:after": {
+                        transform: "scaleX(1)",
+                        transformOrigin: "bottom left",
+                      },
+                    }}
+                  >
+                    Log in
+                  </Button>
+                </Link>
+              </>
+            )}
+            {/* Theme Toggle */}
+            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+              <IconButton onClick={toggleTheme} color="inherit">
+                {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+              </IconButton>
+              <Switch checked={mode === "dark"} onChange={toggleTheme} />
+            </Box>
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Container>
   );
 };
 
@@ -269,7 +428,7 @@ export default Navbar;
 // import { useEffect, useState } from "react";
 
 // const Navbar: React.FC = () => {
-//   const { toggleTheme, currentTheme } = useThemeContext();
+//   const { toggleTheme, mode } = useThemeContext();
 
 //   // State to track if component is mounted on the client side
 //   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -287,7 +446,7 @@ export default Navbar;
 //   return (
 //     <AppBar
 //       position="sticky"
-//       color={currentTheme === "light" ? "primary" : "secondary"} // Change AppBar color based on theme
+//       color={mode === "light" ? "primary" : "secondary"} // Change AppBar color based on theme
 //       sx={{
 //         backdropFilter: "blur(10px)", // Apply blur effect
 //         boxShadow:
@@ -328,7 +487,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease", // Smooth transition for color and underline
 //                 position: "relative", // Required to apply underline effect
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
 //                 },
 //                 "&:after": {
 //                   content: '""', // Creates the underline
@@ -338,7 +497,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
 //                   transform: "scaleX(0)", // Initially hidden
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease", // Smooth animation for the underline
@@ -359,7 +518,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -369,7 +528,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -390,7 +549,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -400,7 +559,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -421,7 +580,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -431,7 +590,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -452,7 +611,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -462,7 +621,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -481,9 +640,9 @@ export default Navbar;
 //           <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
 //             {/* Toggle Switch */}
 //             <IconButton onClick={toggleTheme} color="inherit">
-//               {currentTheme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+//               {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
 //             </IconButton>
-//             <Switch checked={currentTheme === "dark"} onChange={toggleTheme} />
+//             <Switch checked={mode === "dark"} onChange={toggleTheme} />
 //           </Box>
 //         </Box>
 //       </Toolbar>
@@ -512,7 +671,7 @@ export default Navbar;
 // import { useEffect, useState } from "react";
 
 // function Navbar() {
-//   const { toggleTheme, currentTheme } = useThemeContext();
+//   const { toggleTheme, mode } = useThemeContext();
 
 //   // State to track if component is mounted on the client side
 //   const [isMounted, setIsMounted] = useState(false);
@@ -530,7 +689,7 @@ export default Navbar;
 //   return (
 //     <AppBar
 //       position="sticky"
-//       color={currentTheme === "light" ? "primary" : "secondary"} // Change AppBar color based on theme
+//       color={mode === "light" ? "primary" : "secondary"} // Change AppBar color based on theme
 //       sx={{
 //         backdropFilter: "blur(10px)", // Apply blur effect
 //         boxShadow:
@@ -591,7 +750,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease", // Smooth transition for color and underline
 //                 position: "relative", // Required to apply underline effect
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
 //                 },
 //                 "&:after": {
 //                   content: '""', // Creates the underline
@@ -601,7 +760,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
 //                   transform: "scaleX(0)", // Initially hidden
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease", // Smooth animation for the underline
@@ -622,7 +781,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -632,7 +791,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -653,7 +812,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -663,7 +822,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -684,7 +843,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -694,7 +853,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -715,7 +874,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -725,7 +884,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -744,9 +903,9 @@ export default Navbar;
 //           <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
 //             {/* Toggle Switch */}
 //             <IconButton onClick={toggleTheme} color="inherit">
-//               {currentTheme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+//               {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
 //             </IconButton>
-//             <Switch checked={currentTheme === "dark"} onChange={toggleTheme} />
+//             <Switch checked={mode === "dark"} onChange={toggleTheme} />
 //           </Box>
 //         </Box>
 //       </Toolbar>
@@ -775,7 +934,7 @@ export default Navbar;
 // import { useEffect, useState } from "react";
 
 // function Navbar() {
-//   const { toggleTheme, currentTheme } = useThemeContext();
+//   const { toggleTheme, mode } = useThemeContext();
 
 //   // State to track if component is mounted on the client side
 //   const [isMounted, setIsMounted] = useState(false);
@@ -793,7 +952,7 @@ export default Navbar;
 //   return (
 //     <AppBar
 //       position="sticky"
-//       color={currentTheme === "light" ? "primary" : "secondary"} // Change AppBar color based on theme
+//       color={mode === "light" ? "primary" : "secondary"} // Change AppBar color based on theme
 //       sx={{
 //         backdropFilter: "blur(10px)", // Apply blur effect
 //         boxShadow:
@@ -834,7 +993,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease", // Smooth transition for color and underline
 //                 position: "relative", // Required to apply underline effect
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
 //                 },
 //                 "&:after": {
 //                   content: '""', // Creates the underline
@@ -844,7 +1003,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
 //                   transform: "scaleX(0)", // Initially hidden
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease", // Smooth animation for the underline
@@ -865,7 +1024,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -875,7 +1034,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -896,7 +1055,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -906,7 +1065,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -927,7 +1086,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -937,7 +1096,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -958,7 +1117,7 @@ export default Navbar;
 //                 transition: "color 0.3s ease, border-bottom 0.3s ease",
 //                 position: "relative",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //                 "&:after": {
 //                   content: '""',
@@ -968,7 +1127,7 @@ export default Navbar;
 //                   width: "100%",
 //                   height: "2px",
 //                   backgroundColor:
-//                     currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                     mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                   transform: "scaleX(0)",
 //                   transformOrigin: "bottom right",
 //                   transition: "transform 0.3s ease",
@@ -987,9 +1146,9 @@ export default Navbar;
 //           <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
 //             {/* Toggle Switch */}
 //             <IconButton onClick={toggleTheme} color="inherit">
-//               {currentTheme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+//               {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
 //             </IconButton>
-//             <Switch checked={currentTheme === "dark"} onChange={toggleTheme} />
+//             <Switch checked={mode === "dark"} onChange={toggleTheme} />
 //           </Box>
 //         </Box>
 //       </Toolbar>
@@ -1018,7 +1177,7 @@ export default Navbar;
 // import { useEffect, useState } from "react";
 
 // function Navbar() {
-//   const { toggleTheme, currentTheme } = useThemeContext();
+//   const { toggleTheme, mode } = useThemeContext();
 
 //   // State to track if component is mounted on the client side
 //   const [isMounted, setIsMounted] = useState(false);
@@ -1036,7 +1195,7 @@ export default Navbar;
 //   return (
 //     <AppBar
 //       position="sticky"
-//       color={currentTheme === "light" ? "primary" : "secondary"} // Change AppBar color based on theme
+//       color={mode === "light" ? "primary" : "secondary"} // Change AppBar color based on theme
 //       sx={{
 //         backdropFilter: "blur(10px)", // Apply blur effect
 //         boxShadow:
@@ -1076,7 +1235,7 @@ export default Navbar;
 //               sx={{
 //                 transition: "color 0.3s ease", // Smooth transition for hover effect
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9", // Gold on light mode, Blue on dark mode
 //                 },
 //               }}
 //             >
@@ -1089,7 +1248,7 @@ export default Navbar;
 //               sx={{
 //                 transition: "color 0.3s ease",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //               }}
 //             >
@@ -1102,7 +1261,7 @@ export default Navbar;
 //               sx={{
 //                 transition: "color 0.3s ease",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //               }}
 //             >
@@ -1115,7 +1274,7 @@ export default Navbar;
 //               sx={{
 //                 transition: "color 0.3s ease",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //               }}
 //             >
@@ -1128,7 +1287,7 @@ export default Navbar;
 //               sx={{
 //                 transition: "color 0.3s ease",
 //                 "&:hover": {
-//                   color: currentTheme === "light" ? "#FFEB3B" : "#90CAF9",
+//                   color: mode === "light" ? "#FFEB3B" : "#90CAF9",
 //                 },
 //               }}
 //             >
@@ -1140,9 +1299,9 @@ export default Navbar;
 //           <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
 //             {/* Toggle Switch */}
 //             <IconButton onClick={toggleTheme} color="inherit">
-//               {currentTheme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+//               {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
 //             </IconButton>
-//             <Switch checked={currentTheme === "dark"} onChange={toggleTheme} />
+//             <Switch checked={mode === "dark"} onChange={toggleTheme} />
 //           </Box>
 //         </Box>
 //       </Toolbar>
@@ -1172,7 +1331,7 @@ export default Navbar;
 // import { useEffect, useState } from "react";
 
 // function Navbar() {
-//   const { toggleTheme, currentTheme } = useThemeContext();
+//   const { toggleTheme, mode } = useThemeContext();
 //   // State to track if component is mounted on the client side
 //   const [isMounted, setIsMounted] = useState(false);
 
@@ -1242,9 +1401,9 @@ export default Navbar;
 //           <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
 //             {/* Toggle Switch */}
 //             <IconButton onClick={toggleTheme} color="inherit">
-//               {currentTheme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+//               {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
 //             </IconButton>
-//             <Switch checked={currentTheme === "dark"} onChange={toggleTheme} />
+//             <Switch checked={mode === "dark"} onChange={toggleTheme} />
 //           </Box>
 //         </Box>
 //       </Toolbar>
