@@ -24,20 +24,19 @@ const UserProfile = () => {
 
   return (
     <Container
-      component="main"
-      maxWidth="sm"
+      maxWidth="lg"
       sx={{
-        display: "flex",
-        height: "100vh",
-        alignItems: "center",
-        justifyContent: "center",
-        paddingTop: 5,
+        display: "flex", // Flexbox layout
+        alignItems: "center", // Vertically center the content
+        justifyContent: "center", // Horizontally center the content
+        padding: 9, // Optional: Adds some padding around the content
       }}
     >
       {data && (
         <Card
           sx={{
             width: "100%",
+            height: "auto",
             maxWidth: 500,
             boxShadow: 3,
             borderRadius: 3,

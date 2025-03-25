@@ -76,15 +76,14 @@ function Page() {
 
   return (
     <Container
-      component="main"
-      maxWidth="md"
-      sx={{
-        display: "flex",
-        height: "100vh",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    maxWidth="lg"
+    sx={{
+      display: "flex", // Flexbox layout
+      alignItems: "center", // Vertically center the content
+      justifyContent: "center", // Horizontally center the content
+      padding: 9, // Optional: Adds some padding around the content
+    }}
+  >
       <Grid2 container spacing={2} columns={12}>
         {/* Left Section (Logo and Welcome Message) */}
         <Grid2 size={6}>

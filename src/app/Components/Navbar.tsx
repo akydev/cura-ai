@@ -16,6 +16,7 @@ import { useThemeContext } from "../context/ThemeContext";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { SxProps, Theme } from "@mui/material/styles";
+import { useToast } from "../context/ToastProvider";
 
 const commonButtonStyles = (mode: "light" | "dark"): SxProps<Theme> => ({
   transition: "color 0.3s ease, border-bottom 0.3s ease",
@@ -43,9 +44,15 @@ const commonButtonStyles = (mode: "light" | "dark"): SxProps<Theme> => ({
 });
 
 const Navbar: React.FC = () => {
+  const toast = useToast();
   const { toggleTheme, mode } = useThemeContext();
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null; // Check token or cookies or session storage.
+  const logout = () => {
+    localStorage.clear();
+    toast.success("Logout successfully");
+    setTimeout(() => (window.location.href = "/login"), 1000);
+  };
 
   return (
     <AppBar
@@ -106,6 +113,13 @@ const Navbar: React.FC = () => {
                     Book Appointment
                   </Button>
                 </Link>
+                <Button
+                  color="primary"
+                  sx={commonButtonStyles(mode)}
+                  onClick={logout}
+                >
+                  Logout
+                </Button>
               </>
             ) : (
               <>

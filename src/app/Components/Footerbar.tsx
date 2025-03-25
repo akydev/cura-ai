@@ -5,7 +5,7 @@ import { Facebook, Twitter, Instagram } from "@mui/icons-material";
 
 const FooterBar = () => {
   return (
-    <AppBar position="static" color="primary" sx={{ bottom: 0 }}>
+    <AppBar position="sticky" color="primary" sx={{ top: "auto", bottom: 0 }}>
       <Box
         sx={{
           height: "56px",
