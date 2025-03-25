@@ -51,6 +51,7 @@ function Page() {
         localStorage.setItem("token", token); // Store token
         localStorage.setItem("userId", userId); // Store user ID
         localStorage.setItem("role", role); // Store role
+        setTimeout(() => (window.location.href = "/profile"), 1000); // Redirect to profile page
       }
     } catch (error: any) {
       if (error) {
