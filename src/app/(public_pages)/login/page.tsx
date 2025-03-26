@@ -75,16 +75,15 @@ function Page() {
   };
 
   return (
-    <Container
-    maxWidth="lg"
-    sx={{
-      display: "flex", // Flexbox layout
-      alignItems: "center", // Vertically center the content
-      justifyContent: "center", // Horizontally center the content
-      padding: 9, // Optional: Adds some padding around the content
-    }}
-  >
-      <Grid2 container spacing={2} columns={12}>
+    <Container>
+      <Grid2
+        container
+        spacing={2}
+        columns={{ xs: 4, sm: 4, md: 12 }}
+        sx={{ height: "100vh", width: "100%" }}
+        justifyContent="center"
+        alignItems="center"
+      >
         {/* Left Section (Logo and Welcome Message) */}
         <Grid2 size={6}>
           <Box
@@ -199,3 +198,126 @@ function Page() {
 }
 
 export default Page;
+
+// <Container
+//   maxWidth="lg"
+//   sx={{
+//     display: "flex", // Flexbox layout
+//     alignItems: "center", // Vertically center the content
+//     justifyContent: "center", // Horizontally center the content
+//     padding: 9, // Optional: Adds some padding around the content
+//     height: "100vh", // Ensure the container takes full height of the viewport
+//   }}
+// >
+//   <Grid2 container spacing={2} columns={12} sx={{ height: "100%" }}>
+//     {/* Left Section (Logo and Welcome Message) */}
+//     <Grid2 item xs={12} sm={6}>
+//       <Box
+//         sx={{
+//           display: "flex",
+//           flexDirection: "column",
+//           alignItems: "center",
+//           textAlign: "center",
+//           height: "100%", // Ensure this section takes full height
+//         }}
+//       >
+//         <img
+//           src="/logo/cura-ai.png"
+//           alt="Logo"
+//           style={{
+//             width: "50%",
+//             maxWidth: "200px",
+//             height: "auto",
+//             borderRadius: "10px",
+//           }}
+//         />
+//         <Typography variant="h4" sx={{ mt: 3 }}>
+//           Welcome to Our Platform
+//         </Typography>
+//         <Typography variant="body1" sx={{ mt: 2 }}>
+//           Join us and experience something amazing!
+//         </Typography>
+//       </Box>
+//     </Grid2>
+
+//     {/* Right Section (Login Card) */}
+//     <Grid2 item xs={12} sm={6}>
+//       <Card sx={{ padding: 3 }}>
+//         <CardContent>
+//           <Typography variant="h5" align="center" sx={{ mb: 2 }}>
+//             Login to Your Account
+//           </Typography>
+
+//           {error && (
+//             <Typography color="error" variant="body2" align="center">
+//               {error}
+//             </Typography>
+//           )}
+
+//           <form onSubmit={handleSubmit}>
+//             <TextField
+//               label="Email Address"
+//               variant="outlined"
+//               fullWidth
+//               margin="normal"
+//               name="email"
+//               type="email"
+//               value={formData.email}
+//               onChange={handleChange}
+//               required
+//             />
+//             <TextField
+//               label="Password"
+//               variant="outlined"
+//               fullWidth
+//               margin="normal"
+//               name="password"
+//               type="password"
+//               value={formData.password}
+//               onChange={handleChange}
+//               required
+//             />
+//             <Button
+//               variant="contained"
+//               color="primary"
+//               fullWidth
+//               type="submit"
+//               sx={{ mt: 3, position: "relative" }}
+//               disabled={loading}
+//               loadingPosition="end"
+//             >
+//               {loading ? (
+//                 <>
+//                   <CircularProgress
+//                     size={24}
+//                     color="primary"
+//                     sx={{ position: "absolute" }}
+//                   />
+//                   Logging in...
+//                 </>
+//               ) : (
+//                 "Log in"
+//               )}
+//             </Button>
+//           </form>
+
+//           <Box sx={{ textAlign: "center", mt: 2 }}>
+//             <Typography variant="body2">
+//               Don't have an account?{" "}
+//               <Link
+//                 color="primary"
+//                 href="/signup"
+//                 style={{
+//                   fontWeight: "bold",
+//                   textDecoration: "none",
+//                 }}
+//               >
+//                 Sign up here
+//               </Link>
+//             </Typography>
+//           </Box>
+//         </CardContent>
+//       </Card>
+//     </Grid2>
+//   </Grid2>
+// </Container>

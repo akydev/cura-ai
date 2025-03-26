@@ -186,7 +186,7 @@ export const ThemeContextProvider = ({
         palette: {
           mode,
           primary: {
-            main: mode === "light" ? "#1976d2" : "#90caf9",
+            main: mode === "light" ? "#000000" : "#FFD700",
           },
           secondary: {
             main: mode === "light" ? "#9c27b0" : "#ce93d8",

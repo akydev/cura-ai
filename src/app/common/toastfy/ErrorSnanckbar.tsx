@@ -19,6 +19,7 @@ const ErrorSnanckbar = (props: IToastProps) => {
         open={props.visible && props.type === "Error"}
         key={vertical + horizontal}
         onClose={props.onClose}
+        sx={{ marginTop: 6 }}
       >
         <SnackbarContent
           sx={{

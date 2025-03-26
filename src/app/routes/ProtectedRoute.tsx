@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-const PUBLIC_ROUTES = ["/", "/login", "/signup"]; // Public pages
+const PUBLIC_ROUTES = ["/", "/login", "/signup", "/doctorsignup"]; // Public pages
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
