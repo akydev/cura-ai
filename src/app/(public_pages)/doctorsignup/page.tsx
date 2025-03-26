@@ -48,18 +48,26 @@ function page() {
   };
   return (
     <Container
-      component="main"
-      maxWidth="md"
+      maxWidth="lg"
       sx={{
-        display: "flex",
-        height: "100vh",
-        alignItems: "center",
-        justifyContent: "center",
+        display: "flex", // Flexbox layout
+        alignItems: "center", // Vertically center the content
+        justifyContent: "center", // Horizontally center the content
+        padding: 9, // Optional: Adds some padding around the content
       }}
     >
+      {/* main Grid */}
       <Grid2 container spacing={2} columns={{ xs: 4, sm: 4, md: 12 }}>
         {/* Left Section (Logo and Welcome Message) */}
-        <Grid2 size={{ xs: 4, sm: 4, md: 6 }}>
+        <Grid2
+          size={{ xs: 4, sm: 4, md: 6 }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Box
             sx={{
               display: "flex",
@@ -69,9 +77,14 @@ function page() {
             }}
           >
             <img
-              src="/images/hero-background.png"
+              src="/logo/cura-ai.png"
               alt="Logo"
-              style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+              style={{
+                width: "50%",
+                maxWidth: "200px",
+                height: "auto",
+                borderRadius: "10px",
+              }}
             />
             <Typography variant="h4" sx={{ mt: 3 }}>
               Welcome to Our Platform
@@ -273,7 +286,7 @@ function page() {
                   steps={3}
                   position="static"
                   activeStep={step}
-                  sx={{ maxWidth: 400, flexGrow: 1 }}
+                  sx={{ maxWidth: "100%", flexGrow: 1 }}
                   nextButton={
                     <Button
                       size="small"

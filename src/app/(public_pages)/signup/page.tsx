@@ -19,6 +19,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import authFetch from "@/app/axiosBase/custom";
 import { IUserSignup } from "@/app/type/IUserSignup";
 import Link from "next/link";
+import validateField from "@/app/common/validation/validation";
 const initialValues: IUserSignup = {
   firstName: "",
   lastName: "",
@@ -39,21 +40,79 @@ function page() {
   const [step, setStep] = useState<number>(0);
   const [formData, setFormData] = useState<IUserSignup>(initialValues);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
+  // const [error, setError] = useState<string>("");
+  const [error, setError] = useState<Record<string, string>>({});
+
+  // Validate the form before moving to the next step
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {};
+
+    // Validate fields based on the current step
+    const stepFields: Record<number, string[]> = {
+      0: ["firstName", "lastName", "email", "password", "confirmPassword"],
+      1: ["dob", "gender", "phone"],
+      2: ["addressLine", "city", "state", "country", "pincode"],
+    };
+
+    const currentStepFields = stepFields[step] || [];
+
+    const fieldErrors = currentStepFields.reduce((acc, key) => {
+      // Validate specific fields for the current step
+      const fieldError = validateField({
+        name: key,
+        value: formData[key as keyof IUserSignup], // Get the value of the field
+        formValues: formData, // Pass the whole form data for inter-field validation (e.g. confirmPassword)
+        step: step, // Current step number
+      });
+
+      if (fieldError) {
+        acc[key] = fieldError; // Store the error message if validation fails
+      }
+      return acc;
+    }, {} as Record<string, string>);
+
+    // Merge the errors into the main errors object
+    Object.assign(errors, fieldErrors);
+
+    setError(errors); // Update the error state
+    return Object.keys(errors).length === 0; // Return true if there are no errors
+  };
 
   const prevStep = () => setStep(step - 1);
-  const nextStep = () => setStep(step + 1);
+  const nextStep = () => {
+    if (validateForm()) {
+      setStep(step + 1);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setError((prevError) => ({
+      ...prevError,
+      [name]: fieldError || "", // Update only the relevant field error
+    }));
+    // Validate the form after each change (real-time validation)
+    // validateForm();
+    // Only validate the changed field
+    const fieldError = validateField({
+      name,
+      value,
+      formValues: { ...formData, [name]: value }, // Pass the updated form values
+      step: step, // Current step number
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // First, validate all fields for the last step before submitting
+    if (!validateForm()) {
+      return; // If form validation fails, prevent form submission
+    }
+
     if (!formData) {
-      console.log("All fields are required");
+      // console.log("All fields are required");
       return;
     }
 
@@ -81,8 +140,13 @@ function page() {
         setFormData(initialValues);
         setStep(0);
       }
+      setTimeout(() => (window.location.href = "/login"), 2000);
     } catch (error: any) {
       setLoading(false);
+      setError({
+        general: "There was an issue with the submission. Please try again.",
+      });
+      // console.error("Error during sign-up", error);
     } finally {
       setLoading(false);
     }
@@ -144,12 +208,11 @@ function page() {
                 Create Account
               </Typography>
               <form onSubmit={handleSubmit}>
-                {/* step1 */}
-
+                {/* Step 1 */}
                 {step === 0 && (
                   <>
                     <Typography variant="h6" component="h6">
-                      Step1
+                      Step 1
                     </Typography>
                     <TextField
                       label="First Name"
@@ -158,13 +221,9 @@ function page() {
                       margin="normal"
                       name="firstName"
                       type="text"
-                      value={formData.firstName} // Binding state to the input
-                      error={formData.firstName === ""}
-                      helperText={
-                        formData.firstName === ""
-                          ? "First Name is required"
-                          : ""
-                      }
+                      value={formData.firstName}
+                      error={!!error.firstName}
+                      helperText={error.firstName || ""}
                       onChange={handleInputChange}
                     />
                     <TextField
@@ -174,11 +233,9 @@ function page() {
                       margin="normal"
                       name="lastName"
                       type="text"
-                      value={formData.lastName} // Binding state to the input
-                      error={formData.lastName === ""}
-                      helperText={
-                        formData.lastName === "" ? "Last Name is required" : ""
-                      }
+                      value={formData.lastName}
+                      error={!!error.lastName}
+                      helperText={error.lastName || ""}
                       onChange={handleInputChange}
                     />
                     <TextField
@@ -188,11 +245,9 @@ function page() {
                       margin="normal"
                       name="email"
                       type="email"
-                      value={formData.email} // Binding state to the input
-                      error={formData.email === ""}
-                      helperText={
-                        formData.email === "" ? "Email is required" : ""
-                      }
+                      value={formData.email}
+                      error={!!error.email}
+                      helperText={error.email || ""}
                       onChange={handleInputChange}
                     />
                     <TextField
@@ -202,11 +257,9 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="password"
-                      value={formData.password} // Binding state to the input
-                      error={formData.password === ""}
-                      helperText={
-                        formData.password === "" ? "Password is required" : ""
-                      }
+                      value={formData.password}
+                      error={!!error.password}
+                      helperText={error.password || ""}
                       onChange={handleInputChange}
                     />
                     <TextField
@@ -216,48 +269,39 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="confirmPassword"
-                      value={formData.confirmPassword} // Binding state to the input
-                      error={formData.confirmPassword === ""}
-                      helperText={
-                        formData.confirmPassword === ""
-                          ? "Confirm Password is required"
-                          : ""
-                      }
+                      value={formData.confirmPassword}
+                      error={!!error.confirmPassword}
+                      helperText={error.confirmPassword || ""}
                       onChange={handleInputChange}
                     />
                   </>
                 )}
 
-                {/* step2 */}
+                {/* Step 2 */}
                 {step === 1 && (
                   <>
                     <Typography variant="h6" component="h6">
-                      Step2
+                      Step 2
                     </Typography>
                     <TextField
-                      label="Date of birth"
+                      label="Date of Birth"
                       variant="outlined"
                       fullWidth
                       margin="normal"
                       name="dob"
                       type="date"
-                      value={formData.dob} // Binding state to the input
-                      error={formData.dob === ""}
-                      helperText={
-                        formData.dob === "" ? "Date of birth is required" : ""
-                      }
+                      value={formData.dob}
+                      error={!!error.dob}
+                      helperText={error.dob || ""}
                       onChange={handleInputChange}
                     />
                     <FormControl>
-                      <FormLabel id="demo-radio-buttons-group-label">
-                        Gender
-                      </FormLabel>
+                      <FormLabel>Gender</FormLabel>
                       <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
                         name="gender"
-                        row // Add this prop to make the radio buttons horizontal
-                        value={formData.gender} // Set the value to the selected gender in formData
-                        onChange={handleInputChange} // Call handleInputChange on change
+                        value={formData.gender}
+                        onChange={handleInputChange}
+                        row
                       >
                         <FormControlLabel
                           value="male"
@@ -277,21 +321,19 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="phone"
-                      value={formData.phone} // Binding state to the input
-                      error={formData.phone === ""}
-                      helperText={
-                        formData.phone === "" ? "Phone number is required" : ""
-                      }
+                      value={formData.phone}
+                      error={!!error.phone}
+                      helperText={error.phone || ""}
                       onChange={handleInputChange}
                     />
                   </>
                 )}
 
-                {/* step3 */}
+                {/* Step 3 */}
                 {step === 2 && (
                   <>
                     <Typography variant="h6" component="h6">
-                      Step3
+                      Step 3
                     </Typography>
                     <TextField
                       label="Address"
@@ -299,12 +341,9 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="addressLine"
-                      type="text"
-                      value={formData.addressLine} // Binding state to the input
-                      error={formData.addressLine === ""}
-                      helperText={
-                        formData.addressLine === "" ? "address is required" : ""
-                      }
+                      value={formData.addressLine}
+                      error={!!error.addressLine}
+                      helperText={error.addressLine || ""}
                       onChange={handleInputChange}
                     />
                     <TextField
@@ -313,12 +352,9 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="city"
-                      type="text"
-                      value={formData.city} // Binding state to the input
-                      error={formData.city === ""}
-                      helperText={
-                        formData.city === "" ? "City is required" : ""
-                      }
+                      value={formData.city}
+                      error={!!error.city}
+                      helperText={error.city || ""}
                       onChange={handleInputChange}
                     />
                     <TextField
@@ -327,12 +363,9 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="state"
-                      type="text"
-                      value={formData.state} // Binding state to the input
-                      error={formData.state === ""}
-                      helperText={
-                        formData.state === "" ? "State is required" : ""
-                      }
+                      value={formData.state}
+                      error={!!error.state}
+                      helperText={error.state || ""}
                       onChange={handleInputChange}
                     />
                     <TextField
@@ -341,12 +374,9 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="country"
-                      type="text"
-                      value={formData.country} // Binding state to the input
-                      error={formData.country === ""}
-                      helperText={
-                        formData.country === "" ? "County is required" : ""
-                      }
+                      value={formData.country}
+                      error={!!error.country}
+                      helperText={error.country || ""}
                       onChange={handleInputChange}
                     />
                     <TextField
@@ -355,12 +385,9 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="pincode"
-                      type="number"
-                      value={formData.pincode} // Binding state to the input
-                      error={formData.pincode === ""}
-                      helperText={
-                        formData.pincode === "" ? "Pin code is required" : ""
-                      }
+                      value={formData.pincode}
+                      error={!!error.pincode}
+                      helperText={error.pincode || ""}
                       onChange={handleInputChange}
                     />
                   </>
@@ -376,7 +403,7 @@ function page() {
                     <Button
                       size="small"
                       onClick={nextStep}
-                      disabled={step === 2}
+                      disabled={step === 2} // Disable next if there are errors
                     >
                       Next
                       <KeyboardArrowRight />
@@ -399,8 +426,9 @@ function page() {
                   fullWidth
                   type="submit"
                   sx={{ marginTop: 2 }}
+                  disabled={loading}
                 >
-                  {loading ? "Signing..." : "Sign up"}
+                  {loading ? "Signing..." : "Sign Up"}
                 </Button>
               </form>
               <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
