@@ -9,6 +9,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  Chip,
   Container,
   Grid,
   Typography,
@@ -75,7 +76,9 @@ const DoctorProfile = () => {
               textAlign="center"
               sx={{ color: "#757575", marginBottom: 3 }}
             >
-              {data.specializationId.title}
+              {data.specializationId.map(
+                (specialization) => specialization.title
+              )}
             </Typography>
             {/* Accordion for Personal Information */}
             <Accordion sx={{ marginBottom: 2 }}>
@@ -141,7 +144,14 @@ const DoctorProfile = () => {
                   variant="body2"
                   sx={{ color: "#757575", marginBottom: 1 }}
                 >
-                  <strong>Specialization:</strong> {data.specializationId.title}
+                  <strong>Specialization:</strong>{" "}
+                  <Grid container justifyContent="start" spacing={1}>
+                    {data.specializationId.map((specialization) => (
+                      <Grid item key={specialization._id}>
+                        <Chip label={specialization.title} color="primary" />
+                      </Grid>
+                    ))}
+                  </Grid>
                 </Typography>
                 <Typography
                   variant="body2"
@@ -153,7 +163,8 @@ const DoctorProfile = () => {
                   variant="body2"
                   sx={{ color: "#757575", marginBottom: 3 }}
                 >
-                  <strong>Experience:</strong> {data.experience}
+                  <strong>Experience:</strong>
+                  {` ${data.experience} years`}
                 </Typography>
               </AccordionDetails>
             </Accordion>

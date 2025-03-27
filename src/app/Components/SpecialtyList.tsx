@@ -15,13 +15,15 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { ISpecialty } from "../type/IDoctor";
+import { ISpecialtyList } from "../type/IDoctor";
 import SpecialtySkeleton from "../common/skeleton/SpecialtySkeleton";
-import { useGlobalFetch } from "../customhook/useGloalFetch";
+import { useFetch } from "../customhook/useFetch";
 
 function SpecialtyList() {
-  const { loading, data, error } = useGlobalFetch<ISpecialty>("/speciality");
+  const { loading, data, error } =
+    useFetch<ISpecialtyList>("/speciality/count");
 
+  console.log(data?.specialities);
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>
@@ -52,7 +54,7 @@ function SpecialtyList() {
                 >
                   <CardContent sx={{ padding: "2rem", textAlign: "center" }}>
                     {/* Avatar for Doctor's Profile Picture */}
-                    <Avatar
+                    {/* <Avatar
                       src={""}
                       alt={"Profile Photo"}
                       sx={{
@@ -62,6 +64,17 @@ function SpecialtyList() {
                         marginBottom: "1rem",
                         border: "3px solid #5360ea",
                       }}
+                    /> */}
+
+                    <Avatar
+                      sx={{
+                        width: 100,
+                        height: 100,
+                        margin: "0 auto",
+                        marginBottom: "1rem",
+                        backgroundColor: "#5360ea",
+                      }}
+                      src="https://randomuser.me/api/portraits/men/10.jpg"
                     />
 
                     {/* Doctor's Specialty */}
@@ -71,6 +84,15 @@ function SpecialtyList() {
                       sx={{ marginBottom: "1rem" }}
                     >
                       {value.title}
+                    </Typography>
+
+                    {/* Doctor's count */}
+                    <Typography
+                      variant="subtitle1"
+                      color="textSecondary"
+                      sx={{ marginBottom: "1rem" }}
+                    >
+                      {`${value.doctorCount} Doctors`}
                     </Typography>
 
                     {/* Book Appointment Button */}

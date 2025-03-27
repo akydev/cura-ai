@@ -26,7 +26,7 @@ function DoctorList() {
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>
         <Typography variant="h4" gutterBottom align="center">
-          Doctor List
+          Available Doctor
         </Typography>
       </Box>
       <Grid2 container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -52,7 +52,7 @@ function DoctorList() {
                 >
                   <CardContent sx={{ padding: "2rem", textAlign: "center" }}>
                     {/* Avatar for Doctor's Profile Picture */}
-                    <Avatar
+                    {/* <Avatar
                       // src={value.profilePicture || ""}
                       src=""
                       alt={"Profile Photo"}
@@ -63,6 +63,18 @@ function DoctorList() {
                         marginBottom: "1rem",
                         border: "3px solid #5360ea",
                       }}
+                    /> */}
+
+                    {/* Avatar Image (doctor or service provider image) */}
+                    <Avatar
+                      sx={{
+                        width: 100,
+                        height: 100,
+                        margin: "0 auto",
+                        marginBottom: "1rem",
+                        backgroundColor: "#5360ea",
+                      }}
+                      src="https://randomuser.me/api/portraits/men/10.jpg"
                     />
 
                     {/* Doctor's Name */}
@@ -74,26 +86,29 @@ function DoctorList() {
                     </Typography>
 
                     {/* Doctor's Specialty */}
-                    <Typography
-                      variant="subtitle1"
-                      color="textSecondary"
-                      sx={{ marginBottom: "1rem" }}
-                    >
-                      {value.specializationId.title}
-                    </Typography>
+                    <Grid container justifyContent="center" spacing={1}>
+                      {value.specializationId.map((specialization) => (
+                        <Grid item key={specialization._id}>
+                          <Chip label={specialization.title} color="primary" />
+                        </Grid>
+                      ))}
+                    </Grid>
 
                     {/* Doctor's Rating */}
                     <Rating
                       value={5}
                       readOnly
                       precision={0.5}
-                      sx={{ marginBottom: "1rem" }}
+                      sx={{ marginY: "1rem" }}
                     />
 
                     {/* Tags (Experience and Languages Spoken) */}
                     <Grid container justifyContent="center" spacing={1}>
                       <Grid item>
-                        <Chip label={`Experience: 5 years`} color="primary" />
+                        <Chip
+                          label={`${value.experience} years`}
+                          color="primary"
+                        />
                       </Grid>
                       <Grid item>
                         <Chip

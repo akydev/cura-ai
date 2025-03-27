@@ -19,7 +19,7 @@ const SuccessSnackbar = (props: IToastProps) => {
         open={props.visible && props.type === "Success"}
         key={vertical + horizontal}
         onClose={props.onClose}
-        sx={{ marginTop: 6 }}
+        sx={{ marginTop: 8 }}
       >
         <SnackbarContent
           sx={{
