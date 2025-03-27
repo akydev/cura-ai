@@ -114,41 +114,6 @@ function Page() {
   };
 
   // Handle input change and validate the input in real-time
-  // const handleChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevState) => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }));
-
-  //   // Real-time validation for email
-  //   if (name === "email") {
-  //     if (!emailRegex.test(value)) {
-  //       setError((prevState) => ({
-  //         ...prevState,
-  //         email: "Please enter a valid email address",
-  //       }));
-  //     } else {
-  //       setError((prevState) => ({
-  //         ...prevState,
-  //         email: "",
-  //       }));
-  //     }
-  //   }
-
-  //   // Real-time validation for password
-  //   if (name === "password") {
-  //     const passwordError = validatePassword(value);
-  //     setError((prevState) => ({
-  //       ...prevState,
-  //       password: passwordError || "",
-  //     }));
-  //   }
-  // };
-
-  // Handle input change and validate the input in real-time
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {

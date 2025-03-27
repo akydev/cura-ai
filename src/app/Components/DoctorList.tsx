@@ -1,3 +1,5 @@
+"use client";
+
 import { Email, LocationOn, Phone } from "@mui/icons-material";
 import {
   Avatar,

@@ -127,6 +127,16 @@ const Navbar: React.FC = () => {
                           Profile
                         </Button>
                       </Link>
+                      <Link href="/specialty">
+                        <Button color="primary" sx={commonButtonStyles(mode)}>
+                          Specialty
+                        </Button>
+                      </Link>
+                      <Link href="/doctors">
+                        <Button color="primary" sx={commonButtonStyles(mode)}>
+                          Doctors
+                        </Button>
+                      </Link>
                       <Link href="/bookappointment">
                         <Button color="primary" sx={commonButtonStyles(mode)}>
                           Book Appointment

@@ -1,40 +1,16 @@
 import {
-  uppercaseRegex,
-  lowercaseRegex,
-  specialCharRegex,
-  numberRegex,
-  noWhitespaceRegex,
-  lengthRegex,
   nameRegex,
   emailRegex,
   phoneRegex,
   pincodeRegex,
 } from "@/app/regularExpressions/regex";
+import { validatePassword } from "./passwordValidation";
 
 interface IValidation {
   name: string;
   value: string;
   formValues: { password: string };
   step: number;
-}
-
-// Password validation function
-export function validatePassword(value: string): string | null {
-  if (!value) return "Password is required";
-  if (!uppercaseRegex.test(value))
-    return "Password must contain at least one uppercase letter";
-  if (!lowercaseRegex.test(value))
-    return "Password must contain at least one lowercase letter";
-  if (!specialCharRegex.test(value))
-    return "Password must contain at least one special character";
-  if (!numberRegex.test(value))
-    return "Password must contain at least one number";
-  if (!noWhitespaceRegex.test(value))
-    return "Password must not contain any whitespace";
-  if (!lengthRegex.test(value))
-    return "Password must be at least 8 characters long";
-
-  return null;
 }
 
 // Common input validation function
@@ -111,115 +87,6 @@ const validateField = ({
 };
 
 export default validateField;
-
-// import {
-//   uppercaseRegex,
-//   lowercaseRegex,
-//   specialCharRegex,
-//   numberRegex,
-//   noWhitespaceRegex,
-//   lengthRegex,
-//   nameRegex,
-//   emailRegex,
-//   phoneRegex,
-//   pincodeRegex,
-// } from "@/app/regularExpressions/regex";
-
-// interface IValidation {
-//   name: string;
-//   value: string;
-//   formValues: { password: string };
-//   step: number;
-// }
-
-// // Validate Password function
-// export function validatePassword(value: string): string {
-//   if (!value) return "Password is required";
-//   if (!uppercaseRegex.test(value))
-//     return "Password must contain at least one uppercase letter";
-//   if (!lowercaseRegex.test(value))
-//     return "Password must contain at least one lowercase letter";
-//   if (!specialCharRegex.test(value))
-//     return "Password must contain at least one special character";
-//   if (!numberRegex.test(value))
-//     return "Password must contain at least one number";
-//   if (!noWhitespaceRegex.test(value))
-//     return "Password must not contain any whitespace";
-//   if (!lengthRegex.test(value))
-//     return "Password must be at least 8 characters long";
-
-//   return "";
-// }
-
-// // Common input validation function
-// const validateField = ({ name, value, formValues, step }: IValidation) => {
-//   const requiredFields: Record<number, Record<string, string>> = {
-//     0: {
-//       firstName: "First Name is required",
-//       lastName: "Last Name is required",
-//       email: "Email is required",
-//       password: "Password is required",
-//       confirmPassword: "Confirm Password is required",
-//     },
-//     1: {
-//       dob: "Date of Birth is required",
-//       gender: "Please select the gender",
-//       phone: "Phone number is required",
-//     },
-//     2: {
-//       addressLine: "Address is required",
-//       city: "City is required",
-//       state: "State is required",
-//       country: "Country is required",
-//       pincode: "Pincode is required",
-//     },
-//   };
-
-//   // If the field is not required for the current step, skip validation
-//   if (!requiredFields[step]?.[name]) {
-//     return "";
-//   }
-
-//   // Check if the required field is empty
-//   if (!value) {
-//     return requiredFields[step][name]; // Return the required field message
-//   }
-
-//   // Field-specific validation
-//   switch (name) {
-//     case "firstName":
-//     case "lastName":
-//       // Validate name fields
-//       return !nameRegex.test(value)
-//         ? `${
-//             name === "firstName" ? "First" : "Last"
-//           } Name should contain only letters`
-//         : "";
-//     case "email":
-//       // Validate email
-//       return !emailRegex.test(value) ? "Invalid email address" : "";
-//     case "password":
-//       // Validate password
-//       return validatePassword(value);
-//     case "confirmPassword":
-//       // Validate password confirmation
-//       return value !== formValues.password ? "Passwords do not match" : "";
-//     case "phone":
-//       // Validate phone number
-//       return step === 1 && !phoneRegex.test(value)
-//         ? "Phone number should be 10 digits long"
-//         : "";
-//     case "pincode":
-//       // Validate pincode
-//       return step === 2 && !pincodeRegex.test(value)
-//         ? "Pincode should be 6 digits long"
-//         : "";
-//     default:
-//       return "";
-//   }
-// };
-
-// export default validateField;
 
 // // In the above code, we have created a function  inputValidation  that takes the field name, value, formValues, step, and userType as arguments. The  inputValidation  function checks if the field is required for the current step and if the field is empty. If the field is required and empty, it returns the required field message.
 // // If the field is not empty, it performs field-specific validation based on the field name. For example, it validates the first name and last name fields using the  nameRegex  regular expression. Similarly, it validates the email field using the  emailRegex  regular expression.

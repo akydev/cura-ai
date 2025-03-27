@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import { AccessTime, LocationOn } from "@mui/icons-material";
 import {
   Avatar,

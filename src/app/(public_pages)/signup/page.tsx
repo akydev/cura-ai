@@ -20,6 +20,7 @@ import authFetch from "@/app/axiosBase/custom";
 import { IUserSignup } from "@/app/type/IUserSignup";
 import Link from "next/link";
 import validateField from "@/app/common/validation/validation";
+import { useToast } from "@/app/context/ToastProvider";
 const initialValues: IUserSignup = {
   firstName: "",
   lastName: "",
@@ -37,10 +38,10 @@ const initialValues: IUserSignup = {
 };
 
 function page() {
+  const toast = useToast();
   const [step, setStep] = useState<number>(0);
-  const [formData, setFormData] = useState<IUserSignup>(initialValues);
+  const [formData, setFormData] = useState(initialValues);
   const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState<string>("");
   const [error, setError] = useState<Record<string, string>>({});
 
   // Validate the form before moving to the next step
@@ -92,8 +93,7 @@ function page() {
       ...prevError,
       [name]: fieldError || "", // Update only the relevant field error
     }));
-    // Validate the form after each change (real-time validation)
-    // validateForm();
+
     // Only validate the changed field
     const fieldError = validateField({
       name,
@@ -113,7 +113,7 @@ function page() {
 
     if (!formData) {
       // console.log("All fields are required");
-      return;
+      return; // If form data is empty, prevent form submission.
     }
 
     const data = {
@@ -143,10 +143,8 @@ function page() {
       setTimeout(() => (window.location.href = "/login"), 2000);
     } catch (error: any) {
       setLoading(false);
-      setError({
-        general: "There was an issue with the submission. Please try again.",
-      });
       // console.error("Error during sign-up", error);
+      toast.error(error.response.data.msg);
     } finally {
       setLoading(false);
     }
@@ -295,8 +293,9 @@ function page() {
                       helperText={error.dob || ""}
                       onChange={handleInputChange}
                     />
-                    <FormControl>
+                    <FormControl error={!!error.gender}>
                       <FormLabel>Gender</FormLabel>
+
                       <RadioGroup
                         name="gender"
                         value={formData.gender}
@@ -341,6 +340,7 @@ function page() {
                       fullWidth
                       margin="normal"
                       name="addressLine"
+                      type="text"
                       value={formData.addressLine}
                       error={!!error.addressLine}
                       helperText={error.addressLine || ""}

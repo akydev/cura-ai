@@ -198,7 +198,7 @@ export const ThemeContextProvider = ({
           text: {
             primary: mode === "light" ? "#000000" : "#ffffff",
             secondary: mode === "light" ? "#555555" : "#bbbbbb",
-          },
+          }
         },
         typography: {
           fontFamily: "Roboto, Arial, sans-serif",
