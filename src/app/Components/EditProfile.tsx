@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
+
+import { CalendarToday, Email, Phone } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Avatar,
   Button,
   Card,
   CardActions,
@@ -13,16 +13,15 @@ import {
   Container,
   Grid,
   Grid2,
+  TextField,
   Typography,
 } from "@mui/material";
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { CalendarToday, Email, Phone } from "@mui/icons-material";
 import { useFetch } from "../customhook/useFetch";
 import { IDoctor } from "../type/IDoctor";
 
-const DoctorProfile = () => {
-  const { loading, data, error } = useFetch<IDoctor>("/accounts/profile");
+function EditProfile() {
+  const { data } = useFetch<IDoctor>("/accounts/profile");
 
   return (
     <Container
@@ -54,17 +53,17 @@ const DoctorProfile = () => {
           <CardContent sx={{ padding: 4, paddingBottom: 2 }}>
             {/* Avatar and Profile Title */}
             {/* <Grid container justifyContent="center" sx={{ marginBottom: 3 }}>
-              <Avatar
-                alt={data.firstName + " " + data.lastName}
-                src="https://randomuser.me/api/portraits/men/10.jpg"
-                sx={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: "50%",
-                  border: "4px solid #5360ea",
-                }}
-              />
-            </Grid> */}
+            <Avatar
+              alt={data.firstName + " " + data.lastName}
+              src="https://randomuser.me/api/portraits/men/10.jpg"
+              sx={{
+                width: 100,
+                height: 100,
+                borderRadius: "50%",
+                border: "4px solid #5360ea",
+              }}
+            />
+          </Grid> */}
             <Typography
               variant="h5"
               textAlign="center"
@@ -75,7 +74,24 @@ const DoctorProfile = () => {
                 textTransform: "capitalize",
               }}
             >
-              {data.firstName} {data.lastName}
+              <TextField
+                label="First Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="firstName"
+                type="text"
+                value={data.firstName}
+              />
+              <TextField
+                label="Last Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="lastName"
+                type="text"
+                value={data.lastName}
+              />
             </Typography>
 
             <Grid container justifyContent="start" spacing={1} marginBottom={2}>
@@ -270,13 +286,13 @@ const DoctorProfile = () => {
                 },
               }}
             >
-              Edit Profile
+              Update Profile
             </Button>
           </CardActions>
         </Card>
       )}
     </Container>
   );
-};
+}
 
-export default DoctorProfile;
+export default EditProfile;

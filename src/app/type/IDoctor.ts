@@ -15,6 +15,7 @@ export interface IDoctor {
   gender: string;
   licenseNumber: string;
   specializationId: SpecializationId[];
+  fees: number;
   experience: string;
   phone: string;
   fullAddress: IFullAddress;

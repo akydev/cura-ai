@@ -5,7 +5,8 @@ const HeroSection = () => (
     sx={{
       position: "relative",
       height: "100vh",
-      backgroundImage: 'url("/images/hero-background.png")',
+      // backgroundImage: 'url("/images/hero-background.png")',
+      backgroundColor: "black",
       backgroundSize: "cover",
       backgroundPosition: "center",
       display: "flex",

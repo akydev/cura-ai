@@ -145,15 +145,16 @@ function Page() {
   };
 
   return (
-    <Container>
-      <Grid2
-        container
-        spacing={2}
-        columns={{ xs: 4, sm: 4, md: 12 }}
-        sx={{ height: "100vh", width: "100%" }}
-        justifyContent="center"
-        alignItems="center"
-      >
+    <Container
+      maxWidth="lg"
+      sx={{
+        display: "flex", // Flexbox layout
+        alignItems: "center", // Vertically center the content
+        justifyContent: "center", // Horizontally center the content
+        padding: 9, // Optional: Adds some padding around the content
+      }}
+    >
+      <Grid2 container spacing={2} columns={{ xs: 4, sm: 4, md: 12 }}>
         {/* Left Section (Logo and Welcome Message) */}
         <Grid2 size={6}>
           <Box
