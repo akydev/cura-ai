@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -16,12 +14,14 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { CalendarToday, Email, Phone } from "@mui/icons-material";
-import { useFetch } from "../customhook/useFetch";
 import { IUser } from "../type/IUser";
 
-const UserProfile = () => {
-  const { loading, data, error } = useFetch<IUser>("/accounts/profile");
+interface IProps {
+  data: IUser | null;
+  handleClick: (type: string) => void;
+}
 
+const UserProfile = ({ data, handleClick }: IProps) => {
   return (
     <Container
       maxWidth="lg"
@@ -184,6 +184,7 @@ const UserProfile = () => {
                   boxShadow: 6,
                 },
               }}
+              onClick={() => handleClick("edit")}
             >
               Edit Profile
             </Button>

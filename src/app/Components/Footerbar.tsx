@@ -31,7 +31,7 @@ const FooterBar = () => {
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", color: "white" }}>
           <Typography variant="body2">
-            © {new Date().getFullYear()} E-Medical Hub Website
+            © {new Date().getFullYear()} Cura AI
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>

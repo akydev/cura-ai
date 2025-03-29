@@ -15,14 +15,14 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { IUser } from "../type/IUser";
+import { IDoctor } from "../type/IDoctor";
 
 interface IProps {
-  user: IUser | null; // Allow null
-  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+  user: IDoctor | null; // Allow null
+  setUser: React.Dispatch<React.SetStateAction<IDoctor | null>>;
 }
 
-function EditProfile({ user, setUser }: IProps) {
+function EditDoctorProfile({ user, setUser }: IProps) {
   return (
     <Container
       maxWidth="lg"
@@ -92,6 +92,19 @@ function EditProfile({ user, setUser }: IProps) {
               />
             </Typography>
 
+            <Grid container justifyContent="start" spacing={1} marginBottom={2}>
+              {user.specializationId.map((specialization) => (
+                <Grid item key={specialization._id}>
+                  <Chip
+                    sx={{ textTransform: "capitalize" }}
+                    variant="outlined"
+                    label={specialization.title}
+                    color="primary"
+                  />
+                </Grid>
+              ))}
+            </Grid>
+
             {/* Accordion for Personal Information */}
             <Accordion defaultExpanded sx={{ marginBottom: 2 }}>
               <AccordionSummary
@@ -150,7 +163,65 @@ function EditProfile({ user, setUser }: IProps) {
                 </Typography>
               </AccordionDetails>
             </Accordion>
-
+            {/* Accordion for Professional Information */}
+            <Accordion sx={{ marginBottom: 2 }}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                id="professional-info-header"
+              >
+                <Typography sx={{ fontWeight: "bold", color: "#3f51b5" }}>
+                  Professional Information
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ paddingTop: 0 }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "#757575", marginBottom: 1 }}
+                >
+                  <TextField
+                    label="Fees In INR"
+                    variant="outlined"
+                    fullWidth
+                    margin="normal"
+                    name="fees"
+                    type="text"
+                    value={user.fees}
+                  />
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#757575",
+                    marginBottom: 1,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  <TextField
+                    label="License Number"
+                    variant="outlined"
+                    fullWidth
+                    margin="normal"
+                    name="licenseNumber"
+                    type="text"
+                    value={user.licenseNumber}
+                  />
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "#757575", marginBottom: 3 }}
+                >
+                  <TextField
+                    label="Experience"
+                    variant="outlined"
+                    fullWidth
+                    margin="normal"
+                    name="experience"
+                    type="text"
+                    value={` ${user.experience} Years`}
+                  />
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
             {/* Accordion for Address Information */}
             <Accordion sx={{ marginBottom: 2 }}>
               <AccordionSummary
@@ -291,4 +362,4 @@ function EditProfile({ user, setUser }: IProps) {
   );
 }
 
-export default EditProfile;
+export default EditDoctorProfile;

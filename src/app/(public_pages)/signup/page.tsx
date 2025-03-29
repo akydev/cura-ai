@@ -140,7 +140,7 @@ function page() {
         setFormData(initialValues);
         setStep(0);
       }
-      setTimeout(() => (window.location.href = "/login"), 2000);
+      setTimeout(() => (window.location.href = "/login"), 1000);
     } catch (error: any) {
       setLoading(false);
       // console.error("Error during sign-up", error);

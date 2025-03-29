@@ -9,10 +9,13 @@ import React, {
 import { useToast } from "./ToastProvider";
 import adminFetch from "../axiosBase/interceptors";
 import { IUser } from "../type/IUser";
+import { IDoctor } from "../type/IDoctor";
+
+type UserType = IUser | IDoctor | null;
 
 interface AuthContextType {
-  user: IUser | null; // user can be either a User object or null
-  setUser: React.Dispatch<React.SetStateAction<IUser | null>>; // setUser function type
+  user: UserType; // user can be either a User object or null
+  setUser: React.Dispatch<React.SetStateAction<UserType>>; // setUser function type
   error: string | null; // error can be either a string or null
 }
 
@@ -26,14 +29,20 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const toast = useToast();
-  const [user, setUser] = useState<IUser | null>(null); // user state, initially null
-  const [error, setError] = useState<string | null>(null); // error state, initially null
+  const role = localStorage.getItem("role"); // get role from local storage, default to "user"
 
+  const [user, setUser] = useState<UserType>(null); // user state, initially null
+  const [error, setError] = useState<string | null>(null); // error state, initially null
   const fetchProfile = async () => {
     try {
       if (user) return;
       const res = await adminFetch("/accounts/profile");
-      setUser(res.data);
+      const userData = res.data;
+      if (role === "patient") {
+        setUser(userData as IUser);
+      } else if (role === "doctor") {
+        setUser(userData as IDoctor);
+      }
     } catch (error: any) {
       if (error) {
         setError(error.response.data.msg || error.message);

@@ -39,7 +39,7 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
 
   const showToast = (message: string, type: string) => {
     setToast({ message, type, visible: true });
-    setTimeout(() => setToast({ message: "", type: "", visible: false }), 3000);
+    setTimeout(() => setToast({ message: "", type: "", visible: false }), 1000);
   };
 
   const toastAction: IToastContext = {

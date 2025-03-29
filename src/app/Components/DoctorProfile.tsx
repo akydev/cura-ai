@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   Accordion,
@@ -18,22 +17,21 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { CalendarToday, Email, Phone } from "@mui/icons-material";
-import { useFetch } from "../customhook/useFetch";
 import { IDoctor } from "../type/IDoctor";
 
-const DoctorProfile = () => {
-  const { loading, data, error } = useFetch<IDoctor>("/accounts/profile");
-
+interface IProps {
+  data: IDoctor | null;
+  handleClick: (type: string) => void;
+}
+const DoctorProfile = ({ data, handleClick }: IProps) => {
   return (
     <Container
-      component="main"
-      maxWidth="sm"
+      maxWidth="lg"
       sx={{
-        display: "flex",
-        height: "100vh",
-        alignItems: "center",
-        justifyContent: "center",
-        paddingTop: 5,
+        display: "flex", // Flexbox layout
+        alignItems: "center", // Vertically center the content
+        justifyContent: "center", // Horizontally center the content
+        padding: 9, // Optional: Adds some padding around the content
       }}
     >
       {data && (
@@ -269,6 +267,7 @@ const DoctorProfile = () => {
                   boxShadow: 6,
                 },
               }}
+              onClick={() => handleClick("edit")}
             >
               Edit Profile
             </Button>
