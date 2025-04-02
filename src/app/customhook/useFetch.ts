@@ -3,7 +3,7 @@ import adminFetch from "../axiosBase/interceptors"; // your axios instance
 import { useToast } from "../context/ToastProvider";
 
 // Define the type for the data you expect from the API response
-export const useFetch = <T>(url: string) => {
+export const useFetch = <T>(url?: string | null) => {
   const toast = useToast();
   // Create a fetcher function that SWR can use
   const fetcher = async (url: string): Promise<T> => {
@@ -17,7 +17,7 @@ export const useFetch = <T>(url: string) => {
   };
 
   // Use SWR hook, passing in the URL and the fetcher
-  const { data, error, isValidating } = useSWR<T>(url, fetcher, {
+  const { data, error, isValidating } = useSWR<T>(url || null, fetcher, {
     errorRetryCount: 0, // Disable retries on error
     revalidateOnFocus: false, // Optionally disable revalidation on window focus
   });

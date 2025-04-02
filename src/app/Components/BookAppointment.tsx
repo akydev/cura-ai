@@ -1,25 +1,10 @@
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Grid,
-  Button,
-  Avatar,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Box,
-  Tabs,
-  Tab,
-} from "@mui/material";
-import { AccessTime, LocationOn, DateRange } from "@mui/icons-material";
+import { Box, Tabs, Tab } from "@mui/material";
 import SpecialtyList from "./specialty/SpecialtyList";
 import DoctorList from "./doctor/DoctorList";
 import { useFetch } from "../customhook/useFetch";
 import { IDoctorList, ISpecialtyList } from "../type/IDoctor";
+import { ISlotList } from "../type/ISlot";
 
 const BookAppointment = () => {
   const [step, setStep] = React.useState(0);
@@ -30,8 +15,12 @@ const BookAppointment = () => {
 
   const { loading: specialtyLoader, data: specialities } =
     useFetch<ISpecialtyList>("/speciality/count");
-  const { loading: doctorLoader, data: doctors } =
-    useFetch<IDoctorList>("/doctors");
+  const { loading: doctorLoader, data: doctors } = useFetch<IDoctorList>(
+    specialityId ? `/doctors?specializationId=${specialityId}` : "/doctors"
+  );
+  const { loading: slotLoader, data: slots } = useFetch<ISlotList>(
+    doctorId ? `/slots?doctorId=${doctorId}` : null
+  );
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setStep(newValue);
@@ -40,7 +29,12 @@ const BookAppointment = () => {
     <Box sx={{ width: "100%", bgcolor: "background.paper", paddingY: "2rem" }}>
       <Tabs value={step} onChange={handleChange} centered>
         <Tab label="Specialty" />
-        <Tab label="Doctors" />
+        <Tab
+          label="Doctors"
+          onClick={() => {
+            setSpecialityId("");
+          }}
+        />
         <Tab label="Coming Soon..." disabled />
       </Tabs>
       {step === 0 && (

@@ -5,7 +5,8 @@ function SpecialtySkeleton() {
   return (
     <Card
       sx={{
-        Width: 345,
+        width: 345, // This allows the card to expand to its container width
+        maxWidth: 600, // Sets a maximum width
         margin: "1rem auto",
         borderRadius: "16px",
         boxShadow: "0 6px 15px rgba(0, 0, 0, 0.1)",
@@ -26,6 +27,17 @@ function SpecialtySkeleton() {
         />
 
         {/* Doctor's Specialty Skeleton */}
+        <Skeleton
+          variant="text"
+          width="100%"
+          sx={{
+            marginBottom: "1rem",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        />
+
+        {/* Available Doctors */}
         <Skeleton
           variant="text"
           width="70%"
