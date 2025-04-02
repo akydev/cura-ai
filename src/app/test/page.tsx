@@ -1,101 +1,147 @@
-"use client";
 import React from "react";
-import DoctorList from "../components/DoctorList";
-import SpecialtyList from "../components/SpecialtyList";
-import ViewAppointment from "../components/ViewAppointment";
-import SpecialtySkeleton from "../common/skeleton/SpecialtySkeleton";
-import ViewAppointmentSkeleton from "../common/skeleton/ViewAppointmentSkeleton";
-import DoctorLIstSkeleton from "../common/skeleton/DoctorLIstSkeleton";
-import PositionedSnackbar from "../common/toastfy/PositionedSnackbar";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  Button,
+  Avatar,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import { AccessTime, LocationOn, DateRange } from "@mui/icons-material";
 
-function page() {
+const BookAppointmentCard = () => {
   return (
-    <>
-      {/* <ViewAppointment /> */}
-      {/* <ViewAppointmentSkeleton /> */}
-      {/* <DoctorList /> */}
-      {/* <DoctorLIstSkeleton /> */}
-      {/* <SpecialtySkeleton /> */}
-      <SpecialtyList />
-      {/* <PositionedSnackbar /> */}
-    </>
+    <Card
+      sx={{
+        maxWidth: 450,
+        margin: "2rem auto",
+        borderRadius: "20px",
+        boxShadow: "0 6px 20px rgba(0, 0, 0, 0.1)",
+        background: "#ffffff",
+        padding: "1.5rem",
+        transition: "all 0.3s ease-in-out",
+        "&:hover": {
+          boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)",
+        },
+      }}
+    >
+      <CardContent>
+        {/* Title */}
+        <Typography
+          variant="h5"
+          component="div"
+          align="center"
+          sx={{ fontWeight: "bold", color: "#333" }}
+        >
+          Book Your Appointment
+        </Typography>
 
-    // login form
-    //  // Use useRef to hold form values
-    //  const emailRef = useRef<HTMLInputElement | null>(null);
-    //  const passwordRef = useRef<HTMLInputElement | null>(null);
+        {/* Subheading */}
+        <Typography
+          variant="subtitle1"
+          align="center"
+          sx={{ color: "#666", marginBottom: "1rem" }}
+        >
+          Schedule your consultation with ease.
+        </Typography>
 
-    //  const [error, setError] = useState<string>("");
+        {/* Avatar Image (doctor or service provider image) */}
+        <Avatar
+          sx={{
+            width: 100,
+            height: 100,
+            margin: "0 auto",
+            marginBottom: "1rem",
+            backgroundColor: "#5360ea",
+          }}
+          src="https://randomuser.me/api/portraits/men/10.jpg"
+        />
 
-    //  // Use useCallback to memoize the submit handler to avoid unnecessary re-renders
-    //  const handleSubmit = useCallback((e: React.FormEvent) => {
-    //    e.preventDefault();
-    //    setError(""); // Reset error
+        {/* Appointment Date */}
+        <TextField
+          label="Select Date"
+          type="date"
+          variant="outlined"
+          fullWidth
+          sx={{ marginBottom: "1rem" }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
 
-    //    // Accessing form values using refs
-    //    const email = emailRef.current?.value;
-    //    const password = passwordRef.current?.value;
+        {/* Appointment Time */}
+        <TextField
+          label="Select Time"
+          type="time"
+          variant="outlined"
+          fullWidth
+          sx={{ marginBottom: "1rem" }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
 
-    //    // Basic validation
-    //    if (!email || !password) {
-    //      setError("Please fill in both fields.");
-    //      return;
-    //    }
+        {/* Location Selection */}
+        <FormControl fullWidth sx={{ marginBottom: "1rem" }}>
+          <InputLabel>Location</InputLabel>
+          <Select defaultValue="" label="Location">
+            <MenuItem value="clinic">Clinic - 123 Health St</MenuItem>
+            <MenuItem value="home">Home Visit</MenuItem>
+            <MenuItem value="virtual">Virtual Consultation</MenuItem>
+          </Select>
+        </FormControl>
 
-    //    // You can replace this with actual API call logic for login
-    //    console.log("Login data submitted:", { email, password });
-    //  }, []);
+        {/* Appointment Notes */}
+        <TextField
+          label="Additional Notes"
+          multiline
+          rows={4}
+          variant="outlined"
+          fullWidth
+          sx={{ marginBottom: "1.5rem" }}
+        />
 
-    // <form onSubmit={handleSubmit}>
-    //       <Grid container spacing={2}>
-    //         <Grid item xs={12}>
-    //           <TextField
-    //             fullWidth
-    //             label="Email"
-    //             variant="outlined"
-    //             type="email"
-    //             inputRef={emailRef} // Attach ref here
-    //             error={!!error}
-    //             helperText={error && "Email is required."}
-    //             required
-    //           />
-    //         </Grid>
-    //         <Grid item xs={12}>
-    //           <TextField
-    //             fullWidth
-    //             label="Password"
-    //             variant="outlined"
-    //             type="password"
-    //             inputRef={passwordRef} // Attach ref here
-    //             error={!!error}
-    //             helperText={error && "Password is required."}
-    //             required
-    //           />
-    //         </Grid>
-    //         {error && (
-    //           <Grid item xs={12}>
-    //             <Typography color="error" variant="body2" align="center">
-    //               {error}
-    //             </Typography>
-    //           </Grid>
-    //         )}
-    //         <Grid item xs={12}>
-    //           <Button
-    //             type="submit"
-    //             variant="contained"
-    //             fullWidth
-    //             sx={styles.submitButton}
-    //           >
-    //             Login
-    //           </Button>
-    //         </Grid>
-    //       </Grid>
-    //     </form>
-    //   </Paper>
-    // </Box>
+        {/* Book Appointment Button */}
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{
+            borderRadius: "8px",
+            padding: "1rem",
+            fontWeight: "bold",
+          }}
+        >
+          Confirm Appointment
+        </Button>
 
-    // export default React.memo(LoginForm); // Use React.memo to prevent unnecessary re-renders
+        {/* Divider */}
+        <Grid container spacing={2} sx={{ marginTop: "1.5rem" }}>
+          <Grid item xs={6} display="flex" alignItems="center">
+            <AccessTime sx={{ color: "#5360ea", marginRight: "8px" }} />
+            <Typography variant="body2">Flexible Hours</Typography>
+          </Grid>
+          <Grid item xs={6} display="flex" alignItems="center">
+            <LocationOn sx={{ color: "#5360ea", marginRight: "8px" }} />
+            <Typography variant="body2">Multiple Locations</Typography>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   );
-}
+};
 
-export default page;
+const AppointmentPage = () => {
+  return (
+    <div style={{ padding: "2rem", backgroundColor: "#f9f9f9" }}>
+      <BookAppointmentCard />
+    </div>
+  );
+};
+
+export default AppointmentPage;

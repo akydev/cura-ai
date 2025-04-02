@@ -13,14 +13,14 @@ import {
 import Image from "next/image";
 import logo from "/public/logo/cura-ai.png"; // Ensure logo is in the public folder
 import { useThemeContext } from "../context/ThemeContext";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+
 import { SxProps, Theme } from "@mui/material/styles";
 import { useToast } from "../context/ToastProvider";
 import React, { useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const commonButtonStyles = (mode: "light" | "dark"): SxProps<Theme> => ({
   transition: "color 0.3s ease, border-bottom 0.3s ease",
@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm")); // Detect mobile screens
   const [openDrawer, setOpenDrawer] = useState(false); // State for mobile drawer
   const toast = useToast();
-  const { toggleTheme, mode } = useThemeContext();
+  const { mode } = useThemeContext();
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null; // Check token or cookies or session storage.
   const logout = () => {
@@ -180,12 +180,7 @@ const Navbar: React.FC = () => {
                     </>
                   )}
                   {/* Theme Toggle */}
-                  <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-                    <IconButton onClick={toggleTheme} color="inherit">
-                      {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-                    </IconButton>
-                    <Switch checked={mode === "dark"} onChange={toggleTheme} />
-                  </Box>
+                  <ThemeSwitcher />
                 </>
               )}
             </Box>
@@ -261,14 +256,7 @@ const Navbar: React.FC = () => {
             </>
           )}
           {/* Theme Toggle in Drawer */}
-          <Box
-            sx={{ display: "flex", gap: 1, alignItems: "center", marginTop: 2 }}
-          >
-            <IconButton onClick={toggleTheme} color="inherit">
-              {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-            </IconButton>
-            <Switch checked={mode === "dark"} onChange={toggleTheme} />
-          </Box>
+          <ThemeSwitcher />
         </Box>
       </Drawer>
     </>
