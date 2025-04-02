@@ -1,5 +1,3 @@
-"use client";
-import { Email, LocationOn, Phone } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -10,20 +8,18 @@ import {
   Container,
   Grid,
   Grid2,
-  Rating,
-  Skeleton,
   Typography,
 } from "@mui/material";
 import React from "react";
-import { ISpecialtyList } from "../type/IDoctor";
-import SpecialtySkeleton from "../common/skeleton/SpecialtySkeleton";
-import { useFetch } from "../customhook/useFetch";
+import { ISpecialtyList } from "../../type/IDoctor";
+import SpecialtySkeleton from "../../common/skeleton/SpecialtySkeleton";
 
-function SpecialtyList() {
-  const { loading, data, error } =
-    useFetch<ISpecialtyList>("/speciality/count");
+interface IProps {
+  loading: boolean;
+  data: ISpecialtyList;
+}
 
-  console.log(data?.specialities);
+function SpecialtyList({ loading, data }: IProps) {
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>

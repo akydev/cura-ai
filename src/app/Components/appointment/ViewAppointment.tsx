@@ -11,9 +11,9 @@ import {
   Grid2,
   Typography,
 } from "@mui/material";
-import { useFetch } from "../customhook/useFetch";
-import { IAppointmentList } from "../type/IAppointmentList";
-import ViewAppointmentSkeleton from "../common/skeleton/ViewAppointmentSkeleton";
+import { useFetch } from "../../customhook/useFetch";
+import { IAppointmentList } from "../../type/IAppointmentList";
+import ViewAppointmentSkeleton from "../../common/skeleton/ViewAppointmentSkeleton";
 
 function ViewAppointment() {
   const role = localStorage.getItem("role");

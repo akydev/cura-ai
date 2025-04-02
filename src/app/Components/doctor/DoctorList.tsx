@@ -1,5 +1,3 @@
-"use client";
-
 import { Email, LocationOn, Phone } from "@mui/icons-material";
 import {
   Avatar,
@@ -15,13 +13,15 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useFetch } from "../customhook/useFetch";
-import { IDoctorList } from "../type/IDoctor";
-import DoctorLIstSkeleton from "../common/skeleton/DoctorLIstSkeleton";
+import { IDoctorList } from "../../type/IDoctor";
+import DoctorLIstSkeleton from "../../common/skeleton/DoctorLIstSkeleton";
 
-function DoctorList() {
-  const { loading, data, error } = useFetch<IDoctorList>("/doctors");
+interface IProps {
+  loading: boolean;
+  data: IDoctorList;
+}
 
+function DoctorList({ loading, data }: IProps) {
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>

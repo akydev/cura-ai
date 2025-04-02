@@ -1,4 +1,4 @@
-import ViewAppointment from "@/app/components/ViewAppointment";
+import ViewAppointment from "@/app/components/appointment/ViewAppointment";
 import React from "react";
 
 const page = () => {

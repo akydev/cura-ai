@@ -75,6 +75,8 @@ const Navbar: React.FC = () => {
   const { mode } = useThemeContext();
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const role =
+    typeof window !== "undefined" ? localStorage.getItem("role") : null;
 
   const logout = () => {
     localStorage.clear();
@@ -94,6 +96,14 @@ const Navbar: React.FC = () => {
           text="Book Appointment"
           mode={mode}
         />
+        <NavbarLink
+          href="/viewappointment"
+          text="View Appointment"
+          mode={mode}
+        />
+        {role === "doctor" && (
+          <NavbarLink href="/patientlist" text="Patient List" mode={mode} />
+        )}
         <Button color="primary" sx={commonButtonStyles(mode)} onClick={logout}>
           Logout
         </Button>
