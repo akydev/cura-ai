@@ -13,20 +13,52 @@ import EditDoctorProfile from "@/app/components/EditDoctorProfile";
 function page() {
   const { user, setUser } = useAuth();
   const [role, setRole] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true); // Loading state
   const [showProfile, setShowProfile] = useState("details");
-  console.log(user);
+  // console.log(user);
   useEffect(() => {
     // Ensure this code only runs on the client
     const storedRole = localStorage.getItem("role");
     if (storedRole) {
       setRole(storedRole);
+    } // Simulating loading delay for user data
+    if (user === null) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
     }
-  }, []); // Empty dependency array ensures this runs only once after the component mounts
+  }, [user]); // Watch user to trigger loading state updates
+  //  // Empty dependency array ensures this runs only once after the component mounts
 
   // Type Guards
   const isPatient = role === "patient" && user !== null;
   const isDoctor = role === "doctor" && user !== null;
   const handleClick = (type: string) => setShowProfile(type);
+
+  // Show a loading message until the user data is fetched
+  if (isLoading) {
+    return (
+      <Container
+        maxWidth="lg"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 9,
+        }}
+      >
+        <Card
+          sx={{ width: "100%", height: "auto", maxWidth: 500, boxShadow: 3 }}
+        >
+          <CardContent sx={{ padding: 4 }}>
+            <Typography variant="h4" textAlign="center">
+              Loading profile...
+            </Typography>
+          </CardContent>
+        </Card>
+      </Container>
+    );
+  }
 
   return (
     <React.Fragment>

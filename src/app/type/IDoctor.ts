@@ -32,3 +32,7 @@ interface ISpecialty {
   title: string;
   doctorCount: number;
 }
+
+export interface ISpecialties {
+  specialities: SpecializationId[];
+}

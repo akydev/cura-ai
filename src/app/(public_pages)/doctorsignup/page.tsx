@@ -24,7 +24,7 @@ import doctorValidation from "@/app/common/validation/doctorValidation";
 import authFetch from "@/app/axiosBase/custom";
 import { useToast } from "@/app/context/ToastProvider";
 import { useGlobalFetch } from "@/app/customhook/useGloalFetch";
-import { ISpecialtyList } from "@/app/type/IDoctor";
+import { ISpecialties } from "@/app/type/IDoctor";
 const initialValues: IDoctorSignUp = {
   firstName: "",
   lastName: "",
@@ -46,7 +46,7 @@ const initialValues: IDoctorSignUp = {
 
 function page() {
   const toast = useToast();
-  const { data: speciality } = useGlobalFetch<ISpecialtyList>("/speciality");
+  const { data: speciality } = useGlobalFetch<ISpecialties>("/speciality");
   const [step, setStep] = useState<number>(0);
   const [formData, setFormData] = useState(initialValues);
   const [loading, setLoading] = useState(false);
