@@ -14,7 +14,7 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { CalendarToday, Email, Phone } from "@mui/icons-material";
-import { IUser } from "../type/IUser";
+import { IUser } from "../../type/IUser";
 
 interface IProps {
   data: IUser | null;

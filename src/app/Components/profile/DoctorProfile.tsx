@@ -17,7 +17,7 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { CalendarToday, Email, Phone } from "@mui/icons-material";
-import { IDoctor } from "../type/IDoctor";
+import { IDoctor } from "../../type/IDoctor";
 
 interface IProps {
   data: IDoctor | null;

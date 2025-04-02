@@ -19,11 +19,11 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { IDoctor, ISpecialties } from "../type/IDoctor";
-import { useToast } from "../context/ToastProvider";
+import { IDoctor, ISpecialties } from "../../type/IDoctor";
+import { useToast } from "../../context/ToastProvider";
 import { useState } from "react";
-import adminFetch from "../axiosBase/interceptors";
-import { useGlobalFetch } from "../customhook/useGloalFetch";
+import adminFetch from "../../axiosBase/interceptors";
+import { useGlobalFetch } from "../../customhook/useGloalFetch";
 
 interface IProps {
   user: IDoctor | null; // Allow null

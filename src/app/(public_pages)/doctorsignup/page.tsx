@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { IDoctorSignUp } from "@/app/type/IDoctorSignUp";
-import doctorValidation from "@/app/common/validation/doctorValidation";
+import doctorValidation from "@/app/utility/validation/doctorValidation";
 import authFetch from "@/app/axiosBase/custom";
 import { useToast } from "@/app/context/ToastProvider";
 import { useGlobalFetch } from "@/app/customhook/useGloalFetch";

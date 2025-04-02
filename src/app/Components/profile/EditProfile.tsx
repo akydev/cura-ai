@@ -15,10 +15,10 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { IUser } from "../type/IUser";
+import { IUser } from "../../type/IUser";
 import { useState } from "react";
-import adminFetch from "../axiosBase/interceptors";
-import { useToast } from "../context/ToastProvider";
+import adminFetch from "../../axiosBase/interceptors";
+import { useToast } from "../../context/ToastProvider";
 
 interface IProps {
   user: IUser | null; // Allow null

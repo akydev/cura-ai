@@ -2,8 +2,8 @@
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { usePathname } from "next/navigation";
-import Navbar from "./components/Navbar";
-import FooterBar from "./components/Footerbar";
+import Navbar from "./common/Navbar";
+import FooterBar from "./common/Footerbar";
 import { useThemeContext } from "./context/ThemeContext";
 import { Grid2, Stack, Box } from "@mui/material";
 

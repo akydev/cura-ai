@@ -19,7 +19,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import authFetch from "@/app/axiosBase/custom";
 import { IUserSignup } from "@/app/type/IUserSignup";
 import Link from "next/link";
-import validateField from "@/app/common/validation/validation";
+import validateField from "@/app/utility/validation/validation";
 import { useToast } from "@/app/context/ToastProvider";
 const initialValues: IUserSignup = {
   firstName: "",

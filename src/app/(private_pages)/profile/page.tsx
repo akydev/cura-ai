@@ -1,14 +1,14 @@
 "use client";
 
 import { Card, CardContent, Container, Typography } from "@mui/material";
-import DoctorProfile from "../../components/DoctorProfile";
-import UserProfile from "../../components/UserProfile";
+import DoctorProfile from "../../components/profile/DoctorProfile";
+import UserProfile from "../../components/profile/UserProfile";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/app/context/AuthContext";
 import { IUser } from "@/app/type/IUser";
 import { IDoctor } from "@/app/type/IDoctor";
-import EditProfile from "@/app/components/EditProfile";
-import EditDoctorProfile from "@/app/components/EditDoctorProfile";
+import EditProfile from "@/app/components/profile/EditProfile";
+import EditDoctorProfile from "@/app/components/profile/EditDoctorProfile";
 
 function page() {
   const { user, setUser } = useAuth();
