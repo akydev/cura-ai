@@ -16,7 +16,7 @@ import SpecialtySkeleton from "../../common/skeleton/SpecialtySkeleton";
 
 interface IProps {
   loading: boolean;
-  data: ISpecialtyList;
+  data: ISpecialtyList | undefined;
 }
 
 function SpecialtyList({ loading, data }: IProps) {

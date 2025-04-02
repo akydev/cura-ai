@@ -18,7 +18,7 @@ import DoctorLIstSkeleton from "../../common/skeleton/DoctorLIstSkeleton";
 
 interface IProps {
   loading: boolean;
-  data: IDoctorList;
+  data: IDoctorList | undefined;
 }
 
 function DoctorList({ loading, data }: IProps) {
