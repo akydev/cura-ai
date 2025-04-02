@@ -17,9 +17,10 @@ import SpecialtySkeleton from "../../common/skeleton/SpecialtySkeleton";
 interface IProps {
   loading: boolean;
   data: ISpecialtyList | undefined;
+  setSpecialityId: (id: string) => void;
 }
 
-function SpecialtyList({ loading, data }: IProps) {
+function SpecialtyList({ loading, data, setSpecialityId }: IProps) {
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>
@@ -102,6 +103,7 @@ function SpecialtyList({ loading, data }: IProps) {
                           variant="contained"
                           color="primary"
                           sx={{ borderRadius: "20px" }}
+                          onClick={() => setSpecialityId(value._id)}
                         >
                           View
                         </Button>
