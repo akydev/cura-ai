@@ -12,6 +12,7 @@ const BookAppointment = () => {
   const [doctorId, setDoctorId] = useState();
   const [slotId, setSlotId] = useState();
   const [patientId, setPatientId] = useState();
+  // const [selectedSpecialty, setSelectedSpecialty] = useState();
 
   const { loading: specialtyLoader, data: specialities } =
     useFetch<ISpecialtyList>("/speciality/count");

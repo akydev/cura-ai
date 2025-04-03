@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -73,11 +73,19 @@ const Navbar: React.FC = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const toast = useToast();
   const { mode } = useThemeContext();
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
-  const role =
-    typeof window !== "undefined" ? localStorage.getItem("role") : null;
 
+  // Ensure the localstore is accessed only on the client side after the component has mounted
+  const [token, setToken] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setToken(localStorage.getItem("token"));
+      setRole(localStorage.getItem("role"));
+    }
+  }, []);
+
+  // logout logic
   const logout = () => {
     localStorage.clear();
     toast.success("Logout successfully");

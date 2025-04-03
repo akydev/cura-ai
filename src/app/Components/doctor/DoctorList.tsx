@@ -11,8 +11,12 @@ import {
   Grid2,
   Rating,
   Typography,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { IDoctorList } from "../../type/IDoctor";
 import DoctorLIstSkeleton from "../../common/skeleton/DoctorLIstSkeleton";
 
@@ -22,6 +26,33 @@ interface IProps {
 }
 
 function DoctorList({ loading, data }: IProps) {
+  const [selectedSpecialty, setSelectedSpecialty] = useState<{
+    [key: string]: string | null;
+  }>({});
+  console.log(selectedSpecialty);
+
+  // Handle specialty selection for each doctor
+  const handleSpecialtyChange = (doctorId: string, specialtyId: string) => {
+    setSelectedSpecialty((prevState) => ({
+      ...prevState,
+      [doctorId]: specialtyId,
+    }));
+  };
+
+  // Handle booking appointment
+  const handleBookAppointment = (
+    doctorId: string,
+    selectedSpecialtyId: string | null
+  ) => {
+    if (selectedSpecialtyId) {
+      alert(
+        `Booking appointment for doctor ID: ${doctorId} with specialty ID: ${selectedSpecialtyId}`
+      );
+    } else {
+      alert(`Please select a specialty before booking.`);
+    }
+  };
+
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "primary" }}>
@@ -51,21 +82,7 @@ function DoctorList({ loading, data }: IProps) {
                   }}
                 >
                   <CardContent sx={{ padding: "2rem", textAlign: "center" }}>
-                    {/* Avatar for Doctor's Profile Picture */}
-                    {/* <Avatar
-                      // src={value.profilePicture || ""}
-                      src=""
-                      alt={"Profile Photo"}
-                      sx={{
-                        width: 100,
-                        height: 100,
-                        margin: "0 auto",
-                        marginBottom: "1rem",
-                        border: "3px solid #5360ea",
-                      }}
-                    /> */}
-
-                    {/* Avatar Image (doctor or service provider image) */}
+                    {/* Avatar Image */}
                     <Avatar
                       sx={{
                         width: 100,
@@ -85,14 +102,39 @@ function DoctorList({ loading, data }: IProps) {
                       {value.firstName} {value.lastName}
                     </Typography>
 
-                    {/* Doctor's Specialty */}
-                    <Grid container justifyContent="center" spacing={1}>
-                      {value.specializationId.map((specialization) => (
-                        <Grid item key={specialization._id}>
-                          <Chip label={specialization.title} color="primary" />
-                        </Grid>
-                      ))}
-                    </Grid>
+                    {/* Doctor's Specialization */}
+                    {value.specializationId.length > 1 ? (
+                      <FormControl fullWidth sx={{ marginBottom: "1rem" }}>
+                        <InputLabel>Select Specialty</InputLabel>
+                        <Select
+                          value={selectedSpecialty[value._id] || ""}
+                          label="Select Specialty"
+                          onChange={(e) =>
+                            handleSpecialtyChange(value._id, e.target.value)
+                          }
+                        >
+                          {value.specializationId.map((specialization) => (
+                            <MenuItem
+                              key={specialization._id}
+                              value={specialization._id}
+                            >
+                              {specialization.title}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    ) : (
+                      <Grid container justifyContent="center" spacing={1}>
+                        {value.specializationId.map((specialization) => (
+                          <Grid item key={specialization._id}>
+                            <Chip
+                              label={specialization.title}
+                              color="primary"
+                            />
+                          </Grid>
+                        ))}
+                      </Grid>
+                    )}
 
                     {/* Doctor's Rating */}
                     <Rating
@@ -131,7 +173,7 @@ function DoctorList({ loading, data }: IProps) {
                           color="primary"
                           startIcon={<Phone />}
                           sx={{ borderRadius: "20px" }}
-                          href={`tel:${value.phone}`} // Dynamically pass phone number
+                          href={`tel:${value.phone}`}
                         >
                           Call
                         </Button>
@@ -142,7 +184,7 @@ function DoctorList({ loading, data }: IProps) {
                           color="secondary"
                           startIcon={<Email />}
                           sx={{ borderRadius: "20px" }}
-                          href={`mailto:${value.email}`} // Dynamically pass email
+                          href={`mailto:${value.email}`}
                         >
                           Email
                         </Button>
@@ -172,6 +214,18 @@ function DoctorList({ loading, data }: IProps) {
                           variant="contained"
                           color="primary"
                           sx={{ borderRadius: "20px" }}
+                          disabled={
+                            !selectedSpecialty[value._id] &&
+                            value.specializationId.length > 1
+                          }
+                          onClick={() =>
+                            handleBookAppointment(
+                              value._id,
+                              value.specializationId.length === 1
+                                ? value.specializationId[0]._id // Automatically select the only specialty if there is just one
+                                : selectedSpecialty[value._id] // Otherwise, use the selected specialty
+                            )
+                          }
                         >
                           Book Appointment
                         </Button>
