@@ -77,7 +77,7 @@ function EditProfile({ user, setUser }: IProps) {
             maxWidth: 500,
             boxShadow: 3,
             borderRadius: 3,
-            backgroundColor: "#ffffff",
+            backgroundColor: "primary",
             transition: "transform 0.3s ease",
             "&:hover": {
               transform: "translateY(-10px)",

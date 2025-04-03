@@ -22,7 +22,6 @@ interface IProps {
 }
 
 function DoctorList({ loading, data }: IProps) {
-  
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "primary" }}>
@@ -43,7 +42,7 @@ function DoctorList({ loading, data }: IProps) {
                     margin: "1rem auto",
                     borderRadius: "16px",
                     boxShadow: "0 6px 15px rgba(0, 0, 0, 0.1)",
-                    backgroundColor: "#fff",
+                    backgroundColor: "primary",
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
                     "&:hover": {
                       transform: "translateY(-10px)",
