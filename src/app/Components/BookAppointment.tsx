@@ -5,13 +5,14 @@ import DoctorList from "./doctor/DoctorList";
 import { useFetch } from "../customhook/useFetch";
 import { IDoctorList, ISpecialtyList } from "../type/IDoctor";
 import { ISlotList } from "../type/ISlot";
+import SlotList from "./appointment/SlotList";
 
 const BookAppointment = () => {
   const [step, setStep] = React.useState(0);
   const [specialityId, setSpecialityId] = useState("");
-  const [doctorId, setDoctorId] = useState();
-  const [slotId, setSlotId] = useState();
-  const [patientId, setPatientId] = useState();
+  const [doctorId, setDoctorId] = useState("");
+  const [slotId, setSlotId] = useState("");
+  const [patientId, setPatientId] = useState("");
   // const [selectedSpecialty, setSelectedSpecialty] = useState();
 
   const { loading: specialtyLoader, data: specialities } =
@@ -48,7 +49,25 @@ const BookAppointment = () => {
           }}
         />
       )}
-      {step === 1 && <DoctorList loading={doctorLoader} data={doctors} />}
+      {step === 1 && (
+        <DoctorList
+          loading={doctorLoader}
+          data={doctors}
+          setDoctorId={(id: string) => setDoctorId(id)}
+          setStep={(step: number) => setStep(step)}
+        />
+      )}
+      {step === 2 && (
+        <SlotList
+          loading={slotLoader}
+          doctors={doctors}
+          doctorId={doctorId}
+          data={slots}
+          setSlotId={(id: string) => {
+            setSlotId(id);
+          }}
+        />
+      )}
     </Box>
   );
 };

@@ -23,9 +23,11 @@ import DoctorLIstSkeleton from "../../common/skeleton/DoctorLIstSkeleton";
 interface IProps {
   loading: boolean;
   data: IDoctorList | undefined;
+  setDoctorId: (id: string) => void;
+  setStep: (step: number) => void; // Accept a number as an argument
 }
 
-function DoctorList({ loading, data }: IProps) {
+function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
   const [selectedSpecialty, setSelectedSpecialty] = useState<{
     [key: string]: string | null;
   }>({});
@@ -45,11 +47,13 @@ function DoctorList({ loading, data }: IProps) {
     selectedSpecialtyId: string | null
   ) => {
     if (selectedSpecialtyId) {
-      alert(
-        `Booking appointment for doctor ID: ${doctorId} with specialty ID: ${selectedSpecialtyId}`
-      );
+      setDoctorId(doctorId);
+      setStep(2);
+      // alert(
+      //   `Booking appointment for doctor ID: ${doctorId} with specialty ID: ${selectedSpecialtyId}`
+      // );
     } else {
-      alert(`Please select a specialty before booking.`);
+      // alert(`Please select a specialty before booking.`);
     }
   };
 

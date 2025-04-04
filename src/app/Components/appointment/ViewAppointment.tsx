@@ -32,7 +32,7 @@ function ViewAppointment() {
   );
   return (
     <Container>
-      <Box style={{ padding: "2rem", backgroundColor: "#f4f7fc" }}>
+      <Box style={{ padding: "2rem", backgroundColor: "primary" }}>
         <Typography variant="h4" gutterBottom align="center">
           Your Appointment Details
         </Typography>
