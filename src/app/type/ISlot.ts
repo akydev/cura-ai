@@ -2,7 +2,7 @@ export interface ISlotList {
   slots: ISlots[];
 }
 
-interface ISlots {
+export interface ISlots {
   _id: string;
   date: string;
   time: string;

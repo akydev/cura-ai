@@ -27,7 +27,7 @@ export interface ISpecialtyList {
   specialities: ISpecialty[];
 }
 
-interface ISpecialty {
+export interface ISpecialty {
   _id: string;
   title: string;
   doctorCount: number;

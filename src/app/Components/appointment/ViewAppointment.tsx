@@ -1,6 +1,5 @@
 "use client";
 
-import { AccessTime, LocationOn } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -11,6 +10,7 @@ import {
   Grid2,
   Typography,
 } from "@mui/material";
+import { AccessTime, LocationOn } from "@mui/icons-material";
 import { useFetch } from "../../customhook/useFetch";
 import { IAppointmentList } from "../../type/IAppointmentList";
 import ViewAppointmentSkeleton from "../../common/skeleton/ViewAppointmentSkeleton";
