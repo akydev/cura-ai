@@ -28,7 +28,7 @@ const SlotList = ({ loading, doctors, doctorId, data, setSlotId }: IProps) => {
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "primary" }}>
         <Typography variant="h4" gutterBottom align="center">
-          Seach with Specialty
+          Available Slots
         </Typography>
       </Box>
       <Grid2 container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>

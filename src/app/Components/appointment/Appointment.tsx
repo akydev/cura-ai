@@ -29,7 +29,13 @@ function Appointment({ user, doctors, specialty, slots }: IProps) {
           Your Appointment Details
         </Typography>
       </Box>
-      <Grid2 container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid2
+        container
+        spacing={2}
+        justifyContent="center"
+        alignItems="center"
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
         <Grid2 size={4}>
           <Card
             sx={{
