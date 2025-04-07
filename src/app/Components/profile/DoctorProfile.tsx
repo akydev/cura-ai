@@ -155,12 +155,6 @@ const DoctorProfile = ({ data, handleClick }: IProps) => {
               <AccordionDetails sx={{ paddingTop: 0 }}>
                 <Typography
                   variant="body2"
-                  sx={{ color: "#757575", marginBottom: 1 }}
-                >
-                  <strong>Fees:</strong> {data.fees} INR
-                </Typography>
-                <Typography
-                  variant="body2"
                   sx={{
                     color: "#757575",
                     marginBottom: 1,
@@ -171,10 +165,16 @@ const DoctorProfile = ({ data, handleClick }: IProps) => {
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ color: "#757575", marginBottom: 3 }}
+                  sx={{ color: "#757575", marginBottom: 1 }}
                 >
                   <strong>Experience:</strong>
                   {` ${data.experience} Years`}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "#757575", marginBottom: 3 }}
+                >
+                  <strong>Fees:</strong> {data.fees} INR
                 </Typography>
               </AccordionDetails>
             </Accordion>

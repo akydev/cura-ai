@@ -15,6 +15,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
@@ -28,12 +29,14 @@ import { useGlobalFetch } from "../../customhook/useGloalFetch";
 interface IProps {
   user: IDoctor | null; // Allow null
   setUser: React.Dispatch<React.SetStateAction<IDoctor | null>>;
+  handleClick: (type: string) => void;
 }
 
-function EditDoctorProfile({ user, setUser }: IProps) {
+function EditDoctorProfile({ user, setUser, handleClick }: IProps) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const { data: speciality } = useGlobalFetch<ISpecialties>("/speciality");
+  const [selectedSpecialtyId, setSelectedSpecialtyId] = useState<string>("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -50,10 +53,11 @@ function EditDoctorProfile({ user, setUser }: IProps) {
     }
   };
 
-  const handleSpecialtyChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const selectedId = e.target.value;
+  const handleSpecialtyChange = (e: SelectChangeEvent) => {
+    const selectedId = e.target.value as string;
+    console.log("Selected Specialty ID:", selectedId); // Debugging log
+    setSelectedSpecialtyId(selectedId);
+
     if (
       selectedId &&
       !user?.specializationId.some((s) => s._id === selectedId)
@@ -61,13 +65,15 @@ function EditDoctorProfile({ user, setUser }: IProps) {
       const selectedSpecialty = speciality?.specialities.find(
         (s) => s._id === selectedId
       );
+      console.log("Selected Specialty:", selectedSpecialty); // Debugging log
       if (selectedSpecialty) {
         setUser((prevValue) => {
-          if (!prevValue) return null; // Ensure prevValue is not null
+          if (!prevValue) return null;
+
           return {
             ...prevValue,
             specializationId: [
-              ...prevValue?.specializationId,
+              ...prevValue.specializationId,
               selectedSpecialty,
             ],
           };
@@ -96,6 +102,7 @@ function EditDoctorProfile({ user, setUser }: IProps) {
       if (res.data) {
         setLoading(false);
         toast.success(res.data.msg);
+        setTimeout(() => handleClick("details"), 1000); // Redirect to the details view after 1 seconds
       }
     } catch (error: any) {
       setLoading(false);
@@ -128,53 +135,63 @@ function EditDoctorProfile({ user, setUser }: IProps) {
             },
           }}
         >
+          <Typography variant="h5" padding={4} textAlign="center">
+            Edit Profile Information
+          </Typography>
           <form onSubmit={handleSubmit}>
-            <CardContent sx={{ padding: 4, paddingBottom: 2 }}>
-              {/* Avatar and Profile Title */}
-              {/* <Grid container justifyContent="center" sx={{ marginBottom: 3 }}>
-            <Avatar
-              alt={data.firstName + " " + data.lastName}
-              src="https://randomuser.me/api/portraits/men/10.jpg"
-              sx={{
-                width: 100,
-                height: 100,
-                borderRadius: "50%",
-                border: "4px solid #5360ea",
-              }}
-            />
-          </Grid> */}
-              <Typography
-                variant="h5"
-                textAlign="center"
-                sx={{
-                  fontWeight: "bold",
-                  color: "#3f51b5",
-                  marginBottom: 2,
-                  textTransform: "capitalize",
-                }}
+            <CardContent sx={{ padding: 2, paddingBottom: 2 }}>
+              <Grid2
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
-                <TextField
-                  label="First Name"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="firstName"
-                  type="text"
-                  value={user.firstName}
-                  onChange={handleChange}
-                />
-                <TextField
-                  label="Last Name"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="lastName"
-                  type="text"
-                  value={user.lastName}
-                  onChange={handleChange}
-                />
-              </Typography>
-
+                <Grid2 size={6}>
+                  <Typography
+                    variant="h5"
+                    textAlign="center"
+                    sx={{
+                      fontWeight: "bold",
+                      color: "#3f51b5",
+                      marginBottom: 2,
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    <TextField
+                      label="First Name"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                      name="firstName"
+                      type="text"
+                      value={user.firstName}
+                      onChange={handleChange}
+                    />
+                  </Typography>
+                </Grid2>
+                <Grid2 size={6}>
+                  <Typography
+                    variant="h5"
+                    textAlign="center"
+                    sx={{
+                      fontWeight: "bold",
+                      color: "#3f51b5",
+                      marginBottom: 2,
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    <TextField
+                      label="Last Name"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                      name="lastName"
+                      type="text"
+                      value={user.lastName}
+                      onChange={handleChange}
+                    />
+                  </Typography>
+                </Grid2>
+              </Grid2>
               {/* Accordion for Personal Information */}
               <Accordion defaultExpanded sx={{ marginBottom: 2 }}>
                 <AccordionSummary
@@ -191,11 +208,34 @@ function EditDoctorProfile({ user, setUser }: IProps) {
                     sx={{ color: "#757575", marginBottom: 1 }}
                   >
                     <strong>Email:</strong> {user.email}
-                    <Email
-                      sx={{ verticalAlign: "middle", marginLeft: 1 }}
-                      fontSize="small"
-                    />
                   </Typography>
+
+                  <Grid2
+                    container
+                    rowSpacing={1}
+                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                  >
+                    <Grid2 size={6}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "#757575", marginBottom: 1 }}
+                      >
+                        <strong>Date of Birth:</strong> {user.dob.split("T")[0]}
+                      </Typography>
+                    </Grid2>
+                    <Grid2 size={6}>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "#757575",
+                          marginBottom: 1,
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        <strong>Gender:</strong> {user.gender}
+                      </Typography>
+                    </Grid2>
+                  </Grid2>
                   <Typography
                     variant="body2"
                     sx={{ color: "#757575", marginBottom: 1 }}
@@ -212,26 +252,6 @@ function EditDoctorProfile({ user, setUser }: IProps) {
                       onChange={handleChange}
                     />
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "#757575", marginBottom: 1 }}
-                  >
-                    <strong>Date of Birth:</strong> {user.dob.split("T")[0]}
-                    <CalendarToday
-                      sx={{ verticalAlign: "middle", marginLeft: 1 }}
-                      fontSize="small"
-                    />
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "#757575",
-                      marginBottom: 1,
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    <strong>Gender:</strong> {user.gender}
-                  </Typography>
                 </AccordionDetails>
               </Accordion>
               {/* Accordion for Professional Information */}
@@ -245,51 +265,62 @@ function EditDoctorProfile({ user, setUser }: IProps) {
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ paddingTop: 0 }}>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "#757575",
-                      marginBottom: 1,
-                      textTransform: "uppercase",
-                    }}
+                  <Grid2
+                    container
+                    rowSpacing={1}
+                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                   >
-                    <TextField
-                      label="License Number"
-                      variant="outlined"
-                      fullWidth
-                      margin="normal"
-                      name="licenseNumber"
-                      type="text"
-                      value={user.licenseNumber}
-                      onChange={handleChange}
-                    />
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "#757575", marginBottom: 3 }}
-                  >
-                    <TextField
-                      label="Experience"
-                      variant="outlined"
-                      fullWidth
-                      margin="normal"
-                      name="experience"
-                      type="text"
-                      value={` ${user.experience} Years`}
-                      onChange={handleChange}
-                    />
-                  </Typography>
+                    <Grid2 size={6}>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "#757575",
+                          marginBottom: 1,
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        <TextField
+                          label="License Number"
+                          variant="outlined"
+                          fullWidth
+                          margin="normal"
+                          name="licenseNumber"
+                          type="text"
+                          value={user.licenseNumber}
+                          onChange={handleChange}
+                        />
+                      </Typography>
+                    </Grid2>
+                    <Grid2 size={6}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "#757575", marginBottom: 3 }}
+                      >
+                        <TextField
+                          label="Experience"
+                          variant="outlined"
+                          fullWidth
+                          margin="normal"
+                          name="experience"
+                          type="text"
+                          value={` ${user.experience} Years`}
+                          onChange={handleChange}
+                        />
+                      </Typography>
+                    </Grid2>
+                  </Grid2>
 
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
+                    <InputLabel id="select-Specialty-label">
                       Speciality
                     </InputLabel>
                     <Select
                       name="specializationId"
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
+                      labelId="select-Specialty-label"
+                      id="select-Specialty"
+                      value={selectedSpecialtyId}
                       label="Speciality"
-                      onChange={(e: any) => handleSpecialtyChange(e)}
+                      onChange={handleSpecialtyChange}
                     >
                       {speciality?.specialities.map((speciality) => (
                         <MenuItem
@@ -312,12 +343,6 @@ function EditDoctorProfile({ user, setUser }: IProps) {
                   >
                     {user.specializationId.map((specialization) => (
                       <Grid item key={specialization._id}>
-                        {/* <Chip
-                          sx={{ textTransform: "capitalize" }}
-                          variant="outlined"
-                          label={specialization.title}
-                          color="primary"
-                        /> */}
                         <Chip
                           label={specialization.title}
                           variant="outlined"
@@ -469,6 +494,7 @@ function EditDoctorProfile({ user, setUser }: IProps) {
             {/* Edit Button Section */}
             <CardActions sx={{ justifyContent: "center", paddingBottom: 3 }}>
               <Button
+                type="submit"
                 size="large"
                 color="primary"
                 variant="contained"

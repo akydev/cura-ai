@@ -64,6 +64,9 @@ function page() {
     <React.Fragment>
       {showProfile === "details" && (
         <>
+          <Typography variant="h5" paddingTop={4} textAlign="center">
+            Profile Information
+          </Typography>
           {isPatient ? (
             <UserProfile data={user as IUser} handleClick={handleClick} />
           ) : isDoctor ? (
@@ -120,6 +123,7 @@ function page() {
               setUser={
                 setUser as React.Dispatch<React.SetStateAction<IUser | null>>
               }
+              handleClick={handleClick} // ✅ Correct
             />
           ) : isDoctor ? (
             <EditDoctorProfile
@@ -127,6 +131,7 @@ function page() {
               setUser={
                 setUser as React.Dispatch<React.SetStateAction<IDoctor | null>>
               } // ✅ Correct
+              handleClick={handleClick} // ✅ Correct
             />
           ) : null}
         </>

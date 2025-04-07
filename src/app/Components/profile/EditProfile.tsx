@@ -23,9 +23,10 @@ import { useToast } from "../../context/ToastProvider";
 interface IProps {
   user: IUser | null; // Allow null
   setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+  handleClick: (type: string) => void;
 }
 
-function EditProfile({ user, setUser }: IProps) {
+function EditProfile({ user, setUser, handleClick }: IProps) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
 
@@ -52,6 +53,7 @@ function EditProfile({ user, setUser }: IProps) {
       if (res.data) {
         setLoading(false);
         toast.success(res.data.msg);
+        setTimeout(() => handleClick("details"), 1000); // Redirect to the details view after 1 seconds
       }
     } catch (error: any) {
       if (error) {

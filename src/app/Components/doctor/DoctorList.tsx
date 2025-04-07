@@ -19,6 +19,7 @@ import {
 import React, { useState } from "react";
 import { IDoctorList } from "../../type/IDoctor";
 import DoctorLIstSkeleton from "../../common/skeleton/DoctorLIstSkeleton";
+import { useToast } from "@/app/context/ToastProvider";
 
 interface IProps {
   loading: boolean;
@@ -28,6 +29,7 @@ interface IProps {
 }
 
 function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
+  const toast = useToast();
   const [selectedSpecialty, setSelectedSpecialty] = useState<{
     [key: string]: string | null;
   }>({});
@@ -49,11 +51,8 @@ function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
     if (selectedSpecialtyId) {
       setDoctorId(doctorId);
       setStep(2);
-      // alert(
-      //   `Booking appointment for doctor ID: ${doctorId} with specialty ID: ${selectedSpecialtyId}`
-      // );
     } else {
-      // alert(`Please select a specialty before booking.`);
+      toast.error("Please select a specialty before booking.");
     }
   };
 
