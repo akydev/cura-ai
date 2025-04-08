@@ -24,6 +24,8 @@ import {
   lengthRegex,
   emailRegex,
 } from "@/app/regularExpressions/regex";
+import { SVGBrandImage } from "@/app/assets/SVGIcons";
+import Image from "next/image";
 const initialValues: ILogin = {
   email: "",
   password: "",
@@ -165,16 +167,9 @@ function Page() {
               textAlign: "center",
             }}
           >
-            <img
-              src="/logo/cura-ai.png"
-              alt="Logo"
-              style={{
-                width: "50%",
-                maxWidth: "200px",
-                height: "auto",
-                borderRadius: "10px",
-              }}
-            />
+            {/* Brand Logo */}
+            <SVGBrandImage />
+            {/* Welcome Message */}
             <Typography variant="h4" sx={{ mt: 3 }}>
               Welcome to Our Platform
             </Typography>
@@ -191,16 +186,6 @@ function Page() {
               <Typography variant="h5" align="center" sx={{ mb: 2 }}>
                 Login to Your Account
               </Typography>
-              {/* {error.email && (
-                <Typography color="error" variant="body2" align="center">
-                  {error.email}
-                </Typography>
-              )}
-              {error.password && (
-                <Typography color="error" variant="body2" align="center">
-                  {error.password}
-                </Typography>
-              )} */}
 
               <form onSubmit={handleSubmit}>
                 <TextField

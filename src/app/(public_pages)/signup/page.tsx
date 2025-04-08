@@ -21,6 +21,7 @@ import { IUserSignup } from "@/app/type/IUserSignup";
 import Link from "next/link";
 import validateField from "@/app/utility/validation/validation";
 import { useToast } from "@/app/context/ToastProvider";
+import { SVGBrandImage } from "@/app/assets/SVGIcons";
 const initialValues: IUserSignup = {
   firstName: "",
   lastName: "",
@@ -179,16 +180,9 @@ function page() {
               textAlign: "center",
             }}
           >
-            <img
-              src="/logo/cura-ai.png"
-              alt="Logo"
-              style={{
-                width: "50%",
-                maxWidth: "200px",
-                height: "auto",
-                borderRadius: "10px",
-              }}
-            />
+            {/* Brand Logo Here */}
+            <SVGBrandImage />
+
             <Typography variant="h4" sx={{ mt: 3 }}>
               Welcome to Our Platform
             </Typography>

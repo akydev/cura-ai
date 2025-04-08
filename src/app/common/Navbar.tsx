@@ -20,6 +20,7 @@ import Image from "next/image";
 import logo from "/public/logo/cura-ai.png"; // Ensure logo is in the public folder
 
 import { SxProps, Theme } from "@mui/material/styles";
+import { SVGLogoIcons } from "../assets/SVGIcons";
 
 // Common button styles
 const commonButtonStyles = (mode: "light" | "dark"): SxProps<Theme> => ({
@@ -151,15 +152,11 @@ const Navbar: React.FC = () => {
           >
             {/* Left Side: Logo and Title */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              {/* Brand Icon */}
               <Link href="/" passHref>
-                <Image
-                  src={logo}
-                  alt="Website Logo"
-                  width={40}
-                  height={40}
-                  priority
-                />
+                <SVGLogoIcons />
               </Link>
+              {/* Brand Name */}
               <Typography
                 variant="h6"
                 color="white"
