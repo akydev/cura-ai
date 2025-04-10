@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useReducer } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
 import SpecialtyList from "./specialty/SpecialtyList";
-import DoctorList from "./doctor/DoctorList";
 import { useFetch } from "../customhook/useFetch";
 import { IDoctorList, ISpecialtyList } from "../type/IDoctor";
 import { ISlotList } from "../type/ISlot";
@@ -11,48 +10,54 @@ import { useAuth } from "../context/AuthContext";
 import { IUser } from "../type/IUser";
 import adminFetch from "../axiosBase/interceptors";
 import { useToast } from "../context/ToastProvider";
+import {
+  bookAppointmentReducer,
+  initialState,
+} from "../reducer/bookAppointmentReducer";
+import DoctorList from "./doctor/DoctorList";
 
 const BookAppointment = () => {
+  const [state, dispatch] = useReducer(bookAppointmentReducer, initialState);
+  const { step, selectedSpeciality, selectedDoctor, slotId } = state;
   const toast = useToast();
-  const [step, setStep] = React.useState(0);
-  const [specialityId, setSpecialityId] = useState("");
-  const [doctorId, setDoctorId] = useState("");
-  const [slotId, setSlotId] = useState("");
-
   const { user } = useAuth() as { user: IUser | null };
 
   const { loading: specialtyLoader, data: specialities } =
     useFetch<ISpecialtyList>("/speciality/count");
+
   const { loading: doctorLoader, data: doctors } = useFetch<IDoctorList>(
-    specialityId ? `/doctors?specializationId=${specialityId}` : "/doctors"
+    selectedSpeciality.id && selectedSpeciality.isFilter === "filterDoctors"
+      ? `/doctors?specializationId=${selectedSpeciality.id}`
+      : selectedSpeciality.isFilter === "allDoctors"
+      ? `/doctors`
+      : null
   );
+
   const { loading: slotLoader, data: slots } = useFetch<ISlotList>(
-    doctorId ? `/slots?doctorId=${doctorId}` : null
+    selectedDoctor ? `/slots?doctorId=${selectedDoctor}` : null
   );
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setStep(newValue);
+    dispatch({ type: "SET_STEP", payload: newValue });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    // validate the form data and send it to the server
     if (!user?._id) return toast.error("Please login to book an appointment");
-    if (!doctorId) return toast.error("Please select a doctor");
-    if (!specialityId) return toast.error("Please select a specialty");
+    if (!selectedDoctor) return toast.error("Please select a doctor");
+    if (!selectedSpeciality.id) return toast.error("Please select a specialty");
     if (!slotId) return toast.error("Please select a slot");
+
     const appointmentData = {
       userId: user?._id,
-      doctorId: doctorId,
-      specialityId: specialityId,
+      doctorId: selectedDoctor,
+      specialityId: selectedSpeciality.id,
       slotId: slotId,
     };
-    // Send appointmentData to the server or perform any other actions
+
     try {
       const response = await adminFetch.post("/appointment", appointmentData);
       if (response.status === 200) {
-        // toast.success("Appointment booked successfully!");
         toast.success(response.data.msg);
       }
       console.log("Appointment Data:", appointmentData);
@@ -65,12 +70,7 @@ const BookAppointment = () => {
     <Box sx={{ width: "100%", bgcolor: "background.paper", paddingY: "2rem" }}>
       <Tabs value={step} onChange={handleChange} centered>
         <Tab label="Specialty" />
-        <Tab
-          label="Doctors"
-          onClick={() => {
-            setSpecialityId("");
-          }}
-        />
+        <Tab label="Doctors" />
         <Tab label="Appointment" disabled />
         <Tab label="Coming Soon..." disabled />
       </Tabs>
@@ -81,8 +81,7 @@ const BookAppointment = () => {
             loading={specialtyLoader}
             data={specialities}
             setSpecialityId={(id: string) => {
-              setSpecialityId(id);
-              setStep(1);
+              dispatch({ type: "SET_SPECIALITY_ID", payload: id });
             }}
           />
         )}
@@ -90,28 +89,35 @@ const BookAppointment = () => {
           <DoctorList
             loading={doctorLoader}
             data={doctors}
-            setDoctorId={(id: string) => setDoctorId(id)}
-            setStep={(step: number) => setStep(step)}
+            setDoctorId={(doctorId: string, specialityId: string) => {
+              dispatch({
+                type: "SET_DOCTOR_ID",
+                payload: { doctorId, specialityId },
+              });
+            }}
+            specialityId={selectedSpeciality} // Passing the specialityId to DoctorList
           />
         )}
+
         {step === 2 && (
           <SlotList
             loading={slotLoader}
             doctors={doctors}
-            doctorId={doctorId}
+            doctorId={selectedDoctor}
             data={slots}
             setSlotId={(id: string) => {
-              setSlotId(id);
-              setStep(3);
+              dispatch({ type: "SET_SLOT_ID", payload: id });
             }}
           />
         )}
         {step === 3 && user && (
           <Appointment
             user={user as IUser}
-            doctors={doctors?.doctors.find((doctor) => doctor._id === doctorId)}
+            doctors={doctors?.doctors.find(
+              (doctor) => doctor._id === selectedDoctor
+            )}
             specialty={specialities?.specialities.find(
-              (specialty) => specialty._id === specialityId
+              (specialty) => specialty._id === selectedSpeciality.id
             )}
             slots={slots?.slots.find((slot) => slot._id === slotId)}
           />

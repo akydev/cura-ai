@@ -8,15 +8,13 @@ import {
   Chip,
   Container,
   Grid,
-  Grid2,
   Rating,
-  Typography,
-  MenuItem,
   Select,
+  MenuItem,
   FormControl,
   InputLabel,
+  Typography,
 } from "@mui/material";
-import React, { useState } from "react";
 import { IDoctorList } from "../../type/IDoctor";
 import DoctorLIstSkeleton from "../../common/skeleton/DoctorLIstSkeleton";
 import { useToast } from "@/app/context/ToastProvider";
@@ -24,52 +22,32 @@ import { useToast } from "@/app/context/ToastProvider";
 interface IProps {
   loading: boolean;
   data: IDoctorList | undefined;
-  setDoctorId: (id: string) => void;
-  setStep: (step: number) => void; // Accept a number as an argument
+  setDoctorId: (doctorId: string, specialityId: string) => void;
+  specialityId: {
+    id: string | null;
+    isFilter: string;
+  }; // Passed from parent to maintain the selected specialty
 }
 
-function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
+function DoctorList({ loading, data, setDoctorId, specialityId }: IProps) {
   const toast = useToast();
-  const [selectedSpecialty, setSelectedSpecialty] = useState<{
-    [key: string]: string | null;
-  }>({});
-  console.log(selectedSpecialty);
 
-  // Handle specialty selection for each doctor
-  const handleSpecialtyChange = (doctorId: string, specialtyId: string) => {
-    setSelectedSpecialty((prevState) => ({
-      ...prevState,
-      [doctorId]: specialtyId,
-    }));
-  };
 
-  // Handle booking appointment
-  const handleBookAppointment = (
-    doctorId: string,
-    selectedSpecialtyId: string | null
-  ) => {
-    if (selectedSpecialtyId) {
-      setDoctorId(doctorId);
-      setStep(2);
-    } else {
-      toast.error("Please select a specialty before booking.");
-    }
-  };
-
+  
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "primary" }}>
         <Typography variant="h4" gutterBottom align="center">
-          Available Doctor
+          Available Doctors
         </Typography>
       </Box>
-      <Grid2 container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid container spacing={2}>
         {loading
           ? Array(3)
               .fill(null)
               .map((_, index) => <DoctorLIstSkeleton key={index} />)
-          : data?.doctors.map((value) => (
-              <Grid2 size={4} key={value._id}>
+          : data?.doctors.map((doctor) => (
+              <Grid item xs={12} sm={6} md={4} key={doctor._id}>
                 <Card
                   sx={{
                     maxWidth: 345,
@@ -102,21 +80,21 @@ function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
                       variant="h6"
                       sx={{ fontWeight: "bold", marginBottom: "0.5rem" }}
                     >
-                      {value.firstName} {value.lastName}
+                      {doctor.firstName} {doctor.lastName}
                     </Typography>
 
                     {/* Doctor's Specialization */}
-                    {value.specializationId.length > 1 ? (
+                    {doctor.specializationId.length > 1 ? (
                       <FormControl fullWidth sx={{ marginBottom: "1rem" }}>
                         <InputLabel>Select Specialty</InputLabel>
                         <Select
-                          value={selectedSpecialty[value._id] || ""}
+                          // value={selectedSpecialty[doctor._id] || ""}
                           label="Select Specialty"
-                          onChange={(e) =>
-                            handleSpecialtyChange(value._id, e.target.value)
-                          }
+                          // onChange={(e) =>
+                          //   handleSpecialtyChange(doctor._id, e.target.value)
+                          // }
                         >
-                          {value.specializationId.map((specialization) => (
+                          {doctor.specializationId.map((specialization) => (
                             <MenuItem
                               key={specialization._id}
                               value={specialization._id}
@@ -128,7 +106,7 @@ function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
                       </FormControl>
                     ) : (
                       <Grid container justifyContent="center" spacing={1}>
-                        {value.specializationId.map((specialization) => (
+                        {doctor.specializationId.map((specialization) => (
                           <Grid item key={specialization._id}>
                             <Chip
                               label={specialization.title}
@@ -151,7 +129,7 @@ function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
                     <Grid container justifyContent="center" spacing={1}>
                       <Grid item>
                         <Chip
-                          label={`${value.experience} years`}
+                          label={`${doctor.experience} years`}
                           color="primary"
                         />
                       </Grid>
@@ -176,7 +154,7 @@ function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
                           color="primary"
                           startIcon={<Phone />}
                           sx={{ borderRadius: "20px" }}
-                          href={`tel:${value.phone}`}
+                          href={`tel:${doctor.phone}`}
                         >
                           Call
                         </Button>
@@ -187,7 +165,7 @@ function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
                           color="secondary"
                           startIcon={<Email />}
                           sx={{ borderRadius: "20px" }}
-                          href={`mailto:${value.email}`}
+                          href={`mailto:${doctor.email}`}
                         >
                           Email
                         </Button>
@@ -203,7 +181,7 @@ function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
                       <LocationOn
                         sx={{ verticalAlign: "middle", marginRight: "8px" }}
                       />
-                      {value.fullAddress.city}
+                      {doctor.fullAddress.city}
                     </Typography>
 
                     {/* Book Appointment Button */}
@@ -217,18 +195,6 @@ function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
                           variant="contained"
                           color="primary"
                           sx={{ borderRadius: "20px" }}
-                          disabled={
-                            !selectedSpecialty[value._id] &&
-                            value.specializationId.length > 1
-                          }
-                          onClick={() =>
-                            handleBookAppointment(
-                              value._id,
-                              value.specializationId.length === 1
-                                ? value.specializationId[0]._id // Automatically select the only specialty if there is just one
-                                : selectedSpecialty[value._id] // Otherwise, use the selected specialty
-                            )
-                          }
                         >
                           Book Appointment
                         </Button>
@@ -236,9 +202,9 @@ function DoctorList({ loading, data, setDoctorId, setStep }: IProps) {
                     </Grid>
                   </CardContent>
                 </Card>
-              </Grid2>
+              </Grid>
             ))}
-      </Grid2>
+      </Grid>
     </Container>
   );
 }
