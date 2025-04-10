@@ -49,14 +49,13 @@ const BookAppointment = () => {
     if (!slotId) return toast.error("Please select a slot");
 
     const appointmentData = {
-      userId: user?._id,
+      specializationId: selectedSpeciality.id,
       doctorId: selectedDoctor,
-      specialityId: selectedSpeciality.id,
       slotId: slotId,
+      patientId: user?._id,
     };
-
     try {
-      const response = await adminFetch.post("/appointment", appointmentData);
+      const response = await adminFetch.post("/appointments", appointmentData);
       if (response.status === 200) {
         toast.success(response.data.msg);
       }
