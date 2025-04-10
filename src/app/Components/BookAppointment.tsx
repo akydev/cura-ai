@@ -21,7 +21,7 @@ const BookAppointment = () => {
   const { step, selectedSpeciality, selectedDoctor, slotId } = state;
   const toast = useToast();
   const { user } = useAuth() as { user: IUser | null };
-
+  console.log(state, "state");
   const { loading: specialtyLoader, data: specialities } =
     useFetch<ISpecialtyList>("/speciality/count");
 
@@ -69,8 +69,11 @@ const BookAppointment = () => {
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper", paddingY: "2rem" }}>
       <Tabs value={step} onChange={handleChange} centered>
-        <Tab label="Specialty" />
-        <Tab label="Doctors" />
+        <Tab label="Specialty" onClick={() => dispatch({ type: "RESET" })} />
+        <Tab
+          label="Doctors"
+          onClick={() => dispatch({ type: "OPEN_DOCTOR_TAB" })}
+        />
         <Tab label="Appointment" disabled />
         <Tab label="Coming Soon..." disabled />
       </Tabs>

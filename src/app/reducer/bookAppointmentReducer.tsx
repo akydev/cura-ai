@@ -51,7 +51,7 @@ export const bookAppointmentReducer = (
         ...state,
         step: 1,
         selectedDoctor: "",
-        selectedSpeciality: { id: "", isFilter: "allDoctors" },
+        selectedSpeciality: { id: "", isFilter: "allDoctors" }, // Reset specialty filter
       };
 
     case "SET_SLOT_ID":
