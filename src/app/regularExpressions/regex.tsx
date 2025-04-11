@@ -1,0 +1,11 @@
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const nameRegex = /^[A-Za-z]+$/;
+export const uppercaseRegex = /(?=.*[A-Z])/;
+export const lowercaseRegex = /(?=.*[a-z])/;
+export const specialCharRegex = /(?=.*[@#$%^&-+=()])/;
+export const numberRegex = /(?=.*[0-9])/;
+export const noWhitespaceRegex = /(?=\S+$)/;
+export const lengthRegex = /.{8,15}/;
+export const phoneRegex = /^[0-9]{10}$/;
+export const pincodeRegex = /^[0-9]{6}$/;
+// export const aadharRegex = /^[0-9]{12}$/;

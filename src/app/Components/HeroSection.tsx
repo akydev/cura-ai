@@ -5,7 +5,8 @@ const HeroSection = () => (
     sx={{
       position: "relative",
       height: "100vh",
-      backgroundImage: 'url("/images/hero-background.png")',
+      // backgroundImage: 'url("/images/hero-background.png")',
+      backgroundColor: "black",
       backgroundSize: "cover",
       backgroundPosition: "center",
       display: "flex",
@@ -51,7 +52,8 @@ const HeroSection = () => (
       >
         {/* Your Health, Our Priority. */}
         {/* Digital Experiences */}
-        Medical Hub
+        {/* Cura Ai */}
+        CURA AI
       </Typography>
 
       <Button variant="contained" color="primary" href="#gallery">

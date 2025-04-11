@@ -1,4 +1,6 @@
-export interface Iuser {
+import { IFullAddress } from "./IFullAddress";
+
+export interface IUser {
   _id: string;
   patientID: number;
   firstName: string;
@@ -7,15 +9,7 @@ export interface Iuser {
   dob: string;
   gender: string;
   phone: string;
-  fullAddress: FullAddress;
+  fullAddress: IFullAddress;
   createdAt: string;
   __v: number;
-}
-
-export interface FullAddress {
-  addressLine: string;
-  city: string;
-  state: string;
-  country: string;
-  pincode: string;
 }

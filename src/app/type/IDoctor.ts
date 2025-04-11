@@ -1,10 +1,10 @@
+import { SpecializationId } from "./IAppointmentList";
+import { IFullAddress } from "./IFullAddress";
+
 export interface IDoctorList {
   doctors: IDoctor[];
 }
 
-export interface ISpecialty {
-  specialities: SpecializationId[];
-}
 export interface IDoctor {
   _id: string;
   doctorID: number;
@@ -14,23 +14,25 @@ export interface IDoctor {
   dob: string;
   gender: string;
   licenseNumber: string;
-  specializationId: SpecializationId;
+  specializationId: SpecializationId[];
+  fees: number;
   experience: string;
   phone: string;
-  fullAddress: FullAddress;
+  fullAddress: IFullAddress;
   createdAt: string;
   __v: number;
 }
 
-export interface FullAddress {
-  addressLine: string;
-  city: string;
-  state: string;
-  country: string;
-  pincode: string;
+export interface ISpecialtyList {
+  specialities: ISpecialty[];
 }
 
-export interface SpecializationId {
+export interface ISpecialty {
   _id: string;
   title: string;
+  doctorCount: number;
+}
+
+export interface ISpecialties {
+  specialities: SpecializationId[];
 }
