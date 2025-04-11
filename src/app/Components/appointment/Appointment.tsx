@@ -19,9 +19,10 @@ interface IProps {
   doctors: IDoctor | undefined;
   specialty: ISpecialty | undefined;
   slots: ISlots | undefined;
+  onCancel: () => void;
 }
 
-function Appointment({ user, doctors, specialty, slots }: IProps) {
+function Appointment({ user, doctors, specialty, slots, onCancel }: IProps) {
   return (
     <Container>
       <Box style={{ padding: "2rem", backgroundColor: "primary" }}>
@@ -120,10 +121,7 @@ function Appointment({ user, doctors, specialty, slots }: IProps) {
                     color="error"
                     fullWidth
                     sx={{ borderRadius: "8px" }}
-                    // onClick={() => {
-                    //   // handleCancelAppointment();
-                    //   console.log("Cancel Appointment");
-                    // }}
+                    onClick={onCancel}
                   >
                     Cancel
                   </Button>

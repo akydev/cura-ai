@@ -108,7 +108,7 @@ function ViewAppointment() {
                   </Typography>
 
                   {/* Action Buttons */}
-                  <Grid2 container spacing={2} columns={12}>
+                  {/* <Grid2 container spacing={2} columns={12}>
                     <Grid2 size={6}>
                       <Button
                         variant="contained"
@@ -129,7 +129,7 @@ function ViewAppointment() {
                         Cancel
                       </Button>
                     </Grid2>
-                  </Grid2>
+                  </Grid2> */}
                 </CardContent>
               </Card>
             </Grid2>

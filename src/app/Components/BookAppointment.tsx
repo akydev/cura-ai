@@ -41,6 +41,11 @@ const BookAppointment = () => {
     dispatch({ type: "SET_STEP", payload: newValue });
   };
 
+  const onCancel = () => {
+    toast.error("Booking cancelled");
+    dispatch({ type: "RESET" });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user?._id) return toast.error("Please login to book an appointment");
@@ -56,10 +61,10 @@ const BookAppointment = () => {
     };
     try {
       const response = await adminFetch.post("/appointments", appointmentData);
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast.success(response.data.msg);
+        dispatch({ type: "RESET" });
       }
-      console.log("Appointment Data:", appointmentData);
     } catch (error: any) {
       toast.error(error.response.data.msg);
     }
@@ -110,6 +115,7 @@ const BookAppointment = () => {
             setSlotId={(id: string) => {
               dispatch({ type: "SET_SLOT_ID", payload: id });
             }}
+            onCancel={onCancel}
           />
         )}
         {step === 3 && user && (
@@ -122,6 +128,7 @@ const BookAppointment = () => {
               (specialty) => specialty._id === selectedSpeciality.id
             )}
             slots={slots?.slots.find((slot) => slot._id === slotId)}
+            onCancel={onCancel}
           />
         )}
       </form>

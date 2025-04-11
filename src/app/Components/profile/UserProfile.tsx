@@ -66,7 +66,12 @@ const UserProfile = ({ data, handleClick }: IProps) => {
             <Typography
               variant="h5"
               textAlign="center"
-              sx={{ fontWeight: "bold", color: "#3f51b5", marginBottom: 2 }}
+              sx={{
+                fontWeight: "bold",
+                color: "#3f51b5",
+                marginBottom: 2,
+                textTransform: "capitalize",
+              }}
             >
               {data.firstName} {data.lastName}
             </Typography>
@@ -91,7 +96,11 @@ const UserProfile = ({ data, handleClick }: IProps) => {
               <AccordionDetails sx={{ paddingTop: 0 }}>
                 <Typography
                   variant="body2"
-                  sx={{ color: "#757575", marginBottom: 1 }}
+                  sx={{
+                    color: "#757575",
+                    marginBottom: 1,
+                    textTransform: "capitalize",
+                  }}
                 >
                   <strong>Email:</strong> {data.email}
                   <Email
@@ -121,7 +130,11 @@ const UserProfile = ({ data, handleClick }: IProps) => {
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ color: "#757575", marginBottom: 1 }}
+                  sx={{
+                    color: "#757575",
+                    marginBottom: 1,
+                    textTransform: "capitalize",
+                  }}
                 >
                   <strong>Gender:</strong> {data.gender}
                 </Typography>
@@ -134,7 +147,11 @@ const UserProfile = ({ data, handleClick }: IProps) => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ color: "#757575", marginBottom: 1 }}
+              sx={{
+                color: "#757575",
+                marginBottom: 1,
+                textTransform: "capitalize",
+              }}
             >
               <strong>Address:</strong> {data.fullAddress.addressLine}
             </Typography>
@@ -142,7 +159,11 @@ const UserProfile = ({ data, handleClick }: IProps) => {
               <Grid item xs={6}>
                 <Typography
                   variant="body2"
-                  sx={{ color: "#757575", marginBottom: 1 }}
+                  sx={{
+                    color: "#757575",
+                    marginBottom: 1,
+                    textTransform: "capitalize",
+                  }}
                 >
                   <strong>City:</strong> {data.fullAddress.city}
                 </Typography>
@@ -150,7 +171,11 @@ const UserProfile = ({ data, handleClick }: IProps) => {
               <Grid item xs={6}>
                 <Typography
                   variant="body2"
-                  sx={{ color: "#757575", marginBottom: 1 }}
+                  sx={{
+                    color: "#757575",
+                    marginBottom: 1,
+                    textTransform: "capitalize",
+                  }}
                 >
                   <strong>State:</strong> {data.fullAddress.state}
                 </Typography>
@@ -158,7 +183,11 @@ const UserProfile = ({ data, handleClick }: IProps) => {
             </Grid>
             <Typography
               variant="body2"
-              sx={{ color: "#757575", marginBottom: 1 }}
+              sx={{
+                color: "#757575",
+                marginBottom: 1,
+                textTransform: "capitalize",
+              }}
             >
               <strong>Country:</strong> {data.fullAddress.country}
             </Typography>
@@ -177,6 +206,7 @@ const UserProfile = ({ data, handleClick }: IProps) => {
               color="primary"
               variant="contained"
               sx={{
+                textTransform: "capitalize",
                 borderRadius: 20,
                 padding: "10px 20px",
                 boxShadow: 3,

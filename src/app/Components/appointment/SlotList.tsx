@@ -20,9 +20,17 @@ interface IProps {
   doctorId: string;
   data: ISlotList | undefined;
   setSlotId: (id: string) => void;
+  onCancel: () => void;
 }
 
-const SlotList = ({ loading, doctors, doctorId, data, setSlotId }: IProps) => {
+const SlotList = ({
+  loading,
+  doctors,
+  doctorId,
+  data,
+  setSlotId,
+  onCancel,
+}: IProps) => {
   const doctor = doctors?.doctors.find((d) => d._id === doctorId);
   return (
     <Container>
@@ -107,6 +115,7 @@ const SlotList = ({ loading, doctors, doctorId, data, setSlotId }: IProps) => {
                             fullWidth
                             sx={{ borderRadius: "8px" }}
                             disabled={!isAvailable}
+                            onClick={onCancel}
                           >
                             Cancel
                           </Button>
