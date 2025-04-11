@@ -20,6 +20,7 @@ export const useFetch = <T>(url?: string | null) => {
   const { data, error, isValidating } = useSWR<T>(url || null, fetcher, {
     errorRetryCount: 0, // Disable retries on error
     revalidateOnFocus: false, // Optionally disable revalidation on window focus
+    keepPreviousData: true, // ✅ This preserves data between step transitions
   });
 
   return {
