@@ -167,18 +167,19 @@ const Navbar: React.FC = () => {
             </Box>
 
             {/* Right Side: Navigation Links and Theme Toggle */}
-            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-              {isMobile ? (
+            {isMobile ? (
+              <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
                 <IconButton onClick={handleDrawerToggle} color="inherit">
                   <MenuIcon />
                 </IconButton>
-              ) : (
-                <>
-                  {renderLinks()}
-                  <ThemeSwitcher />
-                </>
-              )}
-            </Box>
+              </Box>
+            ) : (
+              <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                {renderLinks()}
+              </Box>
+            )}
+            {/* Theme Switcher */}
+            {!isMobile && <ThemeSwitcher />}
           </Toolbar>
         </Container>
       </AppBar>
