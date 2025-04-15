@@ -9,6 +9,7 @@ import {
   CardContent,
   Container,
   Grid,
+  Grid2,
   Typography,
 } from "@mui/material";
 
@@ -29,7 +30,7 @@ const UserProfile = ({ data, handleClick }: IProps) => {
         display: "flex", // Flexbox layout
         alignItems: "center", // Vertically center the content
         justifyContent: "center", // Horizontally center the content
-        padding: 9, // Optional: Adds some padding around the content
+        padding: 5, // Optional: Adds some padding around the content
       }}
     >
       {data && (
@@ -49,42 +50,27 @@ const UserProfile = ({ data, handleClick }: IProps) => {
           }}
         >
           <CardContent sx={{ padding: 4, paddingBottom: 2 }}>
-            {/* Avatar and Profile Title */}
-            {/* <Grid container justifyContent="center" sx={{ marginBottom: 3 }}>
-              <Avatar
-                alt={data.firstName + " " + data.lastName}
-                src="https://randomuser.me/api/portraits/men/10.jpg"
-                sx={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: "50%",
-                  border: "4px solid #5360ea",
-                }}
-              />
-            </Grid> */}
-
-            <Typography
-              variant="h5"
-              textAlign="center"
-              sx={{
-                fontWeight: "bold",
-                color: "#3f51b5",
-                marginBottom: 2,
-                textTransform: "capitalize",
-              }}
+            <Grid2
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              justifyContent="center"
             >
-              {data.firstName} {data.lastName}
-            </Typography>
-            {/* <Typography
-            variant="subtitle1"
-            textAlign="center"
-            sx={{ color: "#757575", marginBottom: 3 }}
-          >
-            Cardiology Specialist
-          </Typography> */}
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: "bold",
+                  color: "#3f51b5",
+                  marginBottom: 2,
+                  textTransform: "capitalize",
+                }}
+              >
+                {data.firstName} {data.lastName}
+              </Typography>
+            </Grid2>
 
             {/* Accordion for Personal Information */}
-            <Accordion sx={{ marginBottom: 2 }}>
+            <Accordion defaultExpanded sx={{ marginBottom: 2 }}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 id="personal-info-header"
@@ -99,7 +85,6 @@ const UserProfile = ({ data, handleClick }: IProps) => {
                   sx={{
                     color: "#757575",
                     marginBottom: 1,
-                    textTransform: "capitalize",
                   }}
                 >
                   <strong>Email:</strong> {data.email}
@@ -141,22 +126,17 @@ const UserProfile = ({ data, handleClick }: IProps) => {
               </AccordionDetails>
             </Accordion>
 
-            {/* Address Information */}
-            <Typography variant="h6" sx={{ color: "#3f51b5", marginBottom: 2 }}>
-              Address Information
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "#757575",
-                marginBottom: 1,
-                textTransform: "capitalize",
-              }}
-            >
-              <strong>Address:</strong> {data.fullAddress.addressLine}
-            </Typography>
-            <Grid container spacing={2} sx={{ marginBottom: 2 }}>
-              <Grid item xs={6}>
+            <Accordion sx={{ marginBottom: 2 }}>
+              {/* Address Information */}
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                id="address-info-header"
+              >
+                <Typography sx={{ fontWeight: "bold", color: "#3f51b5" }}>
+                  Address Information
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ paddingTop: 0 }}>
                 <Typography
                   variant="body2"
                   sx={{
@@ -165,10 +145,34 @@ const UserProfile = ({ data, handleClick }: IProps) => {
                     textTransform: "capitalize",
                   }}
                 >
-                  <strong>City:</strong> {data.fullAddress.city}
+                  <strong>Address:</strong> {data.fullAddress.addressLine}
                 </Typography>
-              </Grid>
-              <Grid item xs={6}>
+                <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+                  <Grid item xs={6}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "#757575",
+                        marginBottom: 1,
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      <strong>City:</strong> {data.fullAddress.city}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "#757575",
+                        marginBottom: 1,
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      <strong>State:</strong> {data.fullAddress.state}
+                    </Typography>
+                  </Grid>
+                </Grid>
                 <Typography
                   variant="body2"
                   sx={{
@@ -177,26 +181,16 @@ const UserProfile = ({ data, handleClick }: IProps) => {
                     textTransform: "capitalize",
                   }}
                 >
-                  <strong>State:</strong> {data.fullAddress.state}
+                  <strong>Country:</strong> {data.fullAddress.country}
                 </Typography>
-              </Grid>
-            </Grid>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "#757575",
-                marginBottom: 1,
-                textTransform: "capitalize",
-              }}
-            >
-              <strong>Country:</strong> {data.fullAddress.country}
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ color: "#757575", marginBottom: 3 }}
-            >
-              <strong>Zip Code:</strong> {data.fullAddress.pincode}
-            </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "#757575", marginBottom: 3 }}
+                >
+                  <strong>Zip Code:</strong> {data.fullAddress.pincode}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
           </CardContent>
 
           {/* Edit Button Section */}

@@ -69,7 +69,7 @@ function EditProfile({ user, setUser, handleClick }: IProps) {
         display: "flex", // Flexbox layout
         alignItems: "center", // Vertically center the content
         justifyContent: "center", // Horizontally center the content
-        padding: 9, // Optional: Adds some padding around the content
+        padding: 6, // Optional: Adds some padding around the content
       }}
     >
       {user && (
@@ -85,54 +85,65 @@ function EditProfile({ user, setUser, handleClick }: IProps) {
               transform: "translateY(-10px)",
               boxShadow: 8,
             },
+            padding: 3,
           }}
         >
+          <Typography variant="h5" textAlign="center">
+            Edit Profile Information
+          </Typography>
           <form onSubmit={handleSubmit}>
-            <CardContent sx={{ padding: 4, paddingBottom: 2 }}>
-              {/* Avatar and Profile Title */}
-              {/* <Grid container justifyContent="center" sx={{ marginBottom: 3 }}>
-            <Avatar
-              alt={data.firstName + " " + data.lastName}
-              src="https://randomuser.me/api/portraits/men/10.jpg"
-              sx={{
-                width: 100,
-                height: 100,
-                borderRadius: "50%",
-                border: "4px solid #5360ea",
-              }}
-            />
-          </Grid> */}
-              <Typography
-                variant="h5"
-                textAlign="center"
-                sx={{
-                  fontWeight: "bold",
-                  color: "#3f51b5",
-                  marginBottom: 2,
-                  textTransform: "capitalize",
-                }}
+            <CardContent sx={{ paddingBottom: 2 }}>
+              <Grid2
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                paddingBottom={1}
               >
-                <TextField
-                  label="First Name"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="firstName"
-                  type="text"
-                  value={user.firstName}
-                  onChange={handleChange}
-                />
-                <TextField
-                  label="Last Name"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="lastName"
-                  type="text"
-                  value={user.lastName}
-                  onChange={handleChange}
-                />
-              </Typography>
+                <Grid2 size={6}>
+                  <Typography
+                    variant="h5"
+                    textAlign="center"
+                    sx={{
+                      fontWeight: "bold",
+                      color: "#3f51b5",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    <TextField
+                      label="First Name"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                      name="firstName"
+                      type="text"
+                      value={user.firstName}
+                      onChange={handleChange}
+                    />
+                  </Typography>
+                </Grid2>
+                <Grid2 size={6}>
+                  <Typography
+                    variant="h5"
+                    textAlign="center"
+                    sx={{
+                      fontWeight: "bold",
+                      color: "#3f51b5",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    <TextField
+                      label="Last Name"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                      name="lastName"
+                      type="text"
+                      value={user.lastName}
+                      onChange={handleChange}
+                    />
+                  </Typography>
+                </Grid2>
+              </Grid2>
 
               {/* Accordion for Personal Information */}
               <Accordion defaultExpanded sx={{ marginBottom: 2 }}>
@@ -150,11 +161,35 @@ function EditProfile({ user, setUser, handleClick }: IProps) {
                     sx={{ color: "#757575", marginBottom: 1 }}
                   >
                     <strong>Email:</strong> {user.email}
-                    <Email
-                      sx={{ verticalAlign: "middle", marginLeft: 1 }}
-                      fontSize="small"
-                    />
                   </Typography>
+
+                  <Grid2
+                    container
+                    rowSpacing={1}
+                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                  >
+                    <Grid2 size={6}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "#757575", marginBottom: 1 }}
+                      >
+                        <strong>Date of Birth:</strong> {user.dob.split("T")[0]}
+                      </Typography>
+                    </Grid2>
+                    <Grid2 size={6}>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "#757575",
+                          marginBottom: 1,
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        <strong>Gender:</strong> {user.gender}
+                      </Typography>
+                    </Grid2>
+                  </Grid2>
+
                   <Typography
                     variant="body2"
                     sx={{ color: "#757575", marginBottom: 1 }}
@@ -171,26 +206,6 @@ function EditProfile({ user, setUser, handleClick }: IProps) {
                       onChange={handleChange}
                     />
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "#757575", marginBottom: 1 }}
-                  >
-                    <strong>Date of Birth:</strong> {user.dob.split("T")[0]}
-                    <CalendarToday
-                      sx={{ verticalAlign: "middle", marginLeft: 1 }}
-                      fontSize="small"
-                    />
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "#757575",
-                      marginBottom: 1,
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    <strong>Gender:</strong> {user.gender}
-                  </Typography>
                 </AccordionDetails>
               </Accordion>
 
@@ -205,110 +220,72 @@ function EditProfile({ user, setUser, handleClick }: IProps) {
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ paddingTop: 0 }}>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "#757575",
-                      marginBottom: 2,
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    <TextField
-                      label="Address"
-                      variant="outlined"
-                      fullWidth
-                      margin="normal"
-                      name="addressLine"
-                      multiline
-                      type="text"
-                      value={user.fullAddress.addressLine}
-                      onChange={handleChange}
-                    />
-                  </Typography>
+                  <TextField
+                    label="Address"
+                    variant="outlined"
+                    fullWidth
+                    margin="normal"
+                    name="addressLine"
+                    multiline
+                    type="text"
+                    value={user.fullAddress.addressLine}
+                    onChange={handleChange}
+                  />
                   <Grid2
                     container
                     rowSpacing={1}
                     columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                   >
                     <Grid2 size={6}>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: "#757575",
-                          marginBottom: 1,
-                          textTransform: "capitalize",
-                        }}
-                      >
-                        <TextField
-                          label="City"
-                          variant="outlined"
-                          fullWidth
-                          margin="normal"
-                          name="city"
-                          type="text"
-                          value={user.fullAddress.city}
-                          onChange={handleChange}
-                        />
-                      </Typography>
+                      <TextField
+                        label="City"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        name="city"
+                        type="text"
+                        value={user.fullAddress.city}
+                        onChange={handleChange}
+                        sx={{ input: { textTransform: "capitalize" } }}
+                      />
                     </Grid2>
                     <Grid2 size={6}>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: "#757575",
-                          marginBottom: 1,
-                          textTransform: "capitalize",
-                        }}
-                      >
-                        <TextField
-                          label="State"
-                          variant="outlined"
-                          fullWidth
-                          margin="normal"
-                          name="state"
-                          type="text"
-                          value={user.fullAddress.state}
-                          onChange={handleChange}
-                        />
-                      </Typography>
+                      <TextField
+                        label="State"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        name="state"
+                        type="text"
+                        value={user.fullAddress.state}
+                        onChange={handleChange}
+                        sx={{ input: { textTransform: "capitalize" } }}
+                      />
                     </Grid2>
                     <Grid2 size={6}>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: "#757575",
-                          marginBottom: 1,
-                          textTransform: "capitalize",
-                        }}
-                      >
-                        <TextField
-                          label="Country"
-                          variant="outlined"
-                          fullWidth
-                          margin="normal"
-                          name="country"
-                          type="text"
-                          value={user.fullAddress.country}
-                          onChange={handleChange}
-                        />
-                      </Typography>
+                      <TextField
+                        label="Country"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        name="country"
+                        type="text"
+                        value={user.fullAddress.country}
+                        onChange={handleChange}
+                        sx={{ input: { textTransform: "capitalize" } }}
+                      />
                     </Grid2>
                     <Grid2 size={6}>
-                      <Typography
-                        variant="body2"
-                        sx={{ color: "#757575", marginBottom: 3 }}
-                      >
-                        <TextField
-                          label="Pincode"
-                          variant="outlined"
-                          fullWidth
-                          margin="normal"
-                          name="pincode"
-                          type="text"
-                          value={user.fullAddress.pincode}
-                          onChange={handleChange}
-                        />
-                      </Typography>
+                      <TextField
+                        label="Pincode"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        name="pincode"
+                        type="text"
+                        value={user.fullAddress.pincode}
+                        onChange={handleChange}
+                      />
                     </Grid2>
                   </Grid2>
                 </AccordionDetails>
@@ -316,7 +293,7 @@ function EditProfile({ user, setUser, handleClick }: IProps) {
             </CardContent>
 
             {/* Edit Button Section */}
-            <CardActions sx={{ justifyContent: "center", paddingBottom: 3 }}>
+            <CardActions sx={{ justifyContent: "center" }}>
               <Button
                 type="submit"
                 size="large"
